@@ -11,30 +11,25 @@ import { industries } from '@/data/industries';
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState(null);
-  const [isVisible, setIsVisible] = useState(true);
+  const [isScrolled, setIsScrolled] = useState(false);
   const pathname = usePathname();
 
   useEffect(() => {
-    let lastScrollY = window.scrollY;
-    
     const handleScroll = () => {
-      const currentScrollY = window.scrollY;
+      const scrollY = window.scrollY;
+      setIsScrolled(scrollY > 5);
       
-      if (currentScrollY <= 0) {
-        setIsVisible(true);
-      } else if (currentScrollY > lastScrollY && currentScrollY > 100) {
-        setIsVisible(false);
-      } else if (currentScrollY < lastScrollY) {
-        setIsVisible(true);
+      const progress = Math.min(1, scrollY / 150);
+      const headerEl = document.querySelector('.site-header');
+      if (headerEl) {
+        headerEl.style.setProperty('--header-progress', progress);
       }
-      lastScrollY = currentScrollY;
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll();
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
-
-  const isHeaderVisible = isVisible || mobileMenuOpen;
 
   const toggleMobileMenu = () => setMobileMenuOpen(!mobileMenuOpen);
 
@@ -90,7 +85,7 @@ export default function Header() {
   ];
 
   return (
-    <header className={`site-header ${!isHeaderVisible ? 'header-hidden' : ''}`}>
+    <header className={`site-header ${isScrolled ? 'is-scrolled' : ''}`}>
       <div className="header-container-fluid">
         <div className="logo-wrapper">
           <Link href="/" className="logo-area" onClick={closeAll}>

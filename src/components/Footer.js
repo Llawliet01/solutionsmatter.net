@@ -17,7 +17,26 @@ export default function Footer() {
   ];
 
   return (
-    <footer className="site-footer">
+    <>
+      {/* Teckko Style Infinite Marquee above Footer */}
+      <div className="marquee-container" style={{ borderTop: 'none', marginBottom: '0', marginTop: '40px' }}>
+        <div className="marquee-content">
+          <div className="marquee-item">Contact us</div>
+          <div className="marquee-item"><span>Get in touch</span></div>
+          <div className="marquee-item">Contact us</div>
+          <div className="marquee-item"><span>Get in touch</span></div>
+          <div className="marquee-item">Contact us</div>
+          <div className="marquee-item"><span>Get in touch</span></div>
+          {/* Double content for seamless looping */}
+          <div className="marquee-item">Contact us</div>
+          <div className="marquee-item"><span>Get in touch</span></div>
+          <div className="marquee-item">Contact us</div>
+          <div className="marquee-item"><span>Get in touch</span></div>
+          <div className="marquee-item">Contact us</div>
+          <div className="marquee-item"><span>Get in touch</span></div>
+        </div>
+      </div>
+      <footer className="site-footer">
       <div className="container footer-content-wrapper">
         <div className="footer-grid">
           {/* Branding Column */}
@@ -93,5 +112,6 @@ export default function Footer() {
         </div>
       </div>
     </footer>
+    </>
   );
 }

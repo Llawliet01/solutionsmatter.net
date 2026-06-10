@@ -997,24 +997,6 @@ export default function Home() {
         </section>
       )}
 
-      {/* Teckko Style Infinite Marquee above Footer */}
-      <div className="marquee-container" style={{ borderTop: 'none', marginBottom: '0', marginTop: '80px' }}>
-        <div className="marquee-content">
-          <div className="marquee-item">Contact us</div>
-          <div className="marquee-item"><span>Get in touch</span></div>
-          <div className="marquee-item">Contact us</div>
-          <div className="marquee-item"><span>Get in touch</span></div>
-          <div className="marquee-item">Contact us</div>
-          <div className="marquee-item"><span>Get in touch</span></div>
-          {/* Double content for seamless looping */}
-          <div className="marquee-item">Contact us</div>
-          <div className="marquee-item"><span>Get in touch</span></div>
-          <div className="marquee-item">Contact us</div>
-          <div className="marquee-item"><span>Get in touch</span></div>
-          <div className="marquee-item">Contact us</div>
-          <div className="marquee-item"><span>Get in touch</span></div>
-        </div>
-      </div>
     </div>
   );
 }
