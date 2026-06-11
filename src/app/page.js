@@ -199,6 +199,13 @@ export default function Home() {
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
+    if (typeof window !== 'undefined') {
+      if ('scrollRestoration' in window.history) {
+        window.history.scrollRestoration = 'manual';
+      }
+      window.scrollTo(0, 0);
+    }
+
     const handleScroll = () => {
       const scrollPercent = (window.scrollY / window.innerHeight) * 100;
       if (scrollPercent >= 10) {
@@ -333,9 +340,11 @@ export default function Home() {
               <span className="reveal-word-wrapper" style={{ marginRight: '0.22em' }}>
                 <span className="reveal reveal-word" style={{ transitionDelay: '0ms' }}>NextGen</span>
               </span>
-              <span className="reveal-word-wrapper" style={{ marginRight: '0.22em' }}>
+              <span className="reveal-word-wrapper">
                 <span className="reveal reveal-word" style={{ transitionDelay: '100ms' }}>Software</span>
               </span>
+            </span>
+            <span className="reveal-line-wrapper" style={{ display: 'block', marginTop: '8px' }}>
               <span className="reveal-word-wrapper">
                 <span className="reveal reveal-word" style={{ transitionDelay: '200ms' }}>Innovators</span>
               </span>

@@ -40,6 +40,47 @@ export const faqs = [
     question: 'Do you provide maintenance and support after the software launches?',
     answer: 'Yes, we provide comprehensive 24/7 support and maintenance packages. We configure active server telemetry monitoring, deploy regular security patches, fix bugs, and run database backups to protect your application investments.',
     relatedService: { slug: 'support-maintenance', title: 'Support & Maintenance' }
+  },
+  {
+    category: 'Process',
+    question: 'How long does a typical software project take from start to finish?',
+    answer: 'Project timelines vary based on scope and complexity. A simple web application or MVP typically takes 4–8 weeks. Mid-sized platforms with integrations generally require 3–5 months. Enterprise-grade systems with advanced workflows can take 6–12 months. We provide detailed project roadmaps during the discovery phase so you always know what to expect.'
+  },
+  {
+    category: 'Process',
+    question: 'How do you handle project communication and progress tracking?',
+    answer: 'We assign a dedicated project manager to every engagement. Weekly sprint reviews, a shared project dashboard, and async communication via Slack or Microsoft Teams keep you informed at all times. You have full visibility into task completion, blockers, and upcoming milestones in real time.'
+  },
+  {
+    category: 'Services',
+    question: 'Can you integrate AI and machine learning into our existing application?',
+    answer: 'Yes. We integrate AI capabilities including natural language processing, predictive analytics, image recognition, and recommendation engines into existing systems via REST APIs and model deployment pipelines. We work with OpenAI, Google Vertex AI, and AWS SageMaker.'
+  },
+  {
+    category: 'Services',
+    question: 'Do you develop e-commerce platforms and marketplace solutions?',
+    answer: 'Absolutely. We build fully custom e-commerce platforms with multi-vendor support, dynamic product catalogs, secure payment gateways (Stripe, Razorpay, PayPal), real-time inventory management, and analytics dashboards — all tailored to your specific business model.'
+  },
+  {
+    category: 'Development',
+    question: 'Who owns the source code and intellectual property after the project?',
+    answer: 'You do — completely. Upon project completion and final payment, all source code, design assets, and intellectual property are transferred fully to your ownership. We provide clean, well-documented handoff packages including deployment scripts and codebase walkthroughs.'
+  },
+  {
+    category: 'Development',
+    question: 'How do you ensure the security of the software you build?',
+    answer: 'Security is embedded throughout our development lifecycle. We implement OWASP Top 10 protections, data encryption at rest and in transit, role-based access control, secure token authentication (JWT/OAuth2), input sanitization, and conduct penetration testing before every major release.'
+  },
+  {
+    category: 'Support',
+    question: 'Can you take over and maintain software built by another team?',
+    answer: 'Yes. We regularly onboard projects built by other teams. Our process begins with a thorough codebase audit to assess technical debt and security gaps, followed by a refactoring roadmap. We gradually take over maintenance and feature development while ensuring zero disruption to your live users.'
+  },
+  {
+    category: 'Solutions',
+    question: 'What cloud platforms do you deploy and manage applications on?',
+    answer: 'We are proficient with AWS, Google Cloud Platform, Microsoft Azure, and Vercel for frontend deployments. We design cloud-native architectures using managed services such as RDS, Lambda, ECS, and S3, ensuring high availability, disaster recovery, and auto-scaling for production workloads.'
   }
 ];
 export const faqCategories = ['Services', 'Solutions', 'Process', 'Development', 'Support'];
+

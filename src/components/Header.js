@@ -3,7 +3,25 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { ChevronDown, Menu, X, Mail, Globe, ArrowRight } from 'lucide-react';
+import { 
+  ChevronDown, Menu, X, Mail, Globe, ArrowRight, 
+  ChevronRight, Code, Lightbulb, Briefcase, Building2 
+} from 'lucide-react';
+
+const getHeaderIcon = (menuName) => {
+  switch (menuName) {
+    case 'Services':
+      return <Code size={18} />;
+    case 'Solutions':
+      return <Lightbulb size={18} />;
+    case 'Industries':
+      return <Building2 size={18} />;
+    case 'Company':
+      return <Briefcase size={18} />;
+    default:
+      return <Globe size={18} />;
+  }
+};
 import { services } from '@/data/services';
 import { solutions } from '@/data/solutions';
 import { industries } from '@/data/industries';
@@ -63,14 +81,8 @@ export default function Header() {
       dropdown: industries.map(i => ({ name: i.title, path: `/industries/${i.slug}` }))
     },
     {
-      name: 'Insights',
-      path: '/insights/blog',
-      dropdown: [
-        { name: 'Blog Listing', path: '/insights/blog' },
-        { name: 'AI Insights', path: '/insights/ai-insights' },
-        { name: 'Technology Trends', path: '/insights/technology-trends' },
-        { name: 'Resources', path: '/insights/resources' }
-      ]
+      name: 'Blog',
+      path: '/insights/blog'
     },
     {
       name: 'Company',
@@ -114,6 +126,12 @@ export default function Header() {
 
                 {item.dropdown && activeDropdown === item.name && (
                   <div className="dropdown-menu">
+                    <div className="dropdown-header">
+                      <div className="dropdown-header-icon-box">
+                        {getHeaderIcon(item.name)}
+                      </div>
+                      <span className="dropdown-header-title">{item.name}</span>
+                    </div>
                     <div className="dropdown-grid">
                       {item.dropdown.map((subItem) => (
                         <Link
@@ -122,7 +140,10 @@ export default function Header() {
                           className={`dropdown-link ${pathname === subItem.path ? 'active-sub' : ''}`}
                           onClick={closeAll}
                         >
-                          {subItem.name}
+                          <span className="dropdown-link-text">{subItem.name}</span>
+                          <span className="dropdown-link-arrow">
+                            <ChevronRight size={14} strokeWidth={2.5} />
+                          </span>
                         </Link>
                       ))}
                     </div>
