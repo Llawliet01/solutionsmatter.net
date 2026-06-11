@@ -1,11 +1,12 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { 
   ArrowRight, Bookmark, CheckCircle2, Cpu, Database, RefreshCw, 
-  Sparkles, Terminal, ShieldAlert, Binary, Network, Settings, Building2, ChevronRight
+  Sparkles, Terminal, ShieldAlert, Binary, Network, Settings, Building2, ChevronRight,
+  Target
 } from 'lucide-react';
 import CTA from '@/components/CTA';
 import PageFlow from '@/components/PageFlow';
@@ -23,6 +24,77 @@ export default function AiSolutionsSolution({ solution }) {
     }, 4000);
     return () => clearInterval(interval);
   }, []);
+
+  // Scroll-activated timeline
+  const timelineRef = useRef(null);
+  useEffect(() => {
+    if (!timelineRef.current) return;
+    const nodes = timelineRef.current.querySelectorAll('.tl-zigzag-node');
+    const lineSegments = timelineRef.current.querySelectorAll('.tl-line-segment');
+    if (!nodes.length) return;
+    
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          const idx = parseInt(entry.target.dataset.idx, 10);
+          const card = timelineRef.current?.querySelector(`.tl-zigzag-card[data-idx="${idx}"]`);
+
+          if (entry.isIntersecting) {
+            entry.target.classList.add('active');
+            if (card) card.classList.add('active');
+            for (let i = 0; i <= idx && i < lineSegments.length; i++) {
+              lineSegments[i].classList.add('filled');
+            }
+          } else {
+            entry.target.classList.remove('active');
+            if (card) card.classList.remove('active');
+          }
+        });
+      },
+      { threshold: 0.35 }
+    );
+    nodes.forEach((node) => observer.observe(node));
+    return () => observer.disconnect();
+  }, []);
+
+  const roadmapSteps = [
+    {
+      step: '01',
+      name: 'Use Case Scoping',
+      icon: Target,
+      color: '#8b5cf6', // Violet
+      tag: 'Week 1',
+      desc: 'We identify business operations where machine learning and vector search deliver the highest ROI, establishing clear security boundaries and feasibility limits.',
+      bullets: ['Identify high-ROI ML opportunities', 'Define metrics & success criteria', 'Data feasibility & pipeline audit', 'Compliance & security design']
+    },
+    {
+      step: '02',
+      name: 'Dataset Curation',
+      icon: Database,
+      color: '#ec4899', // Pink
+      tag: 'Week 2',
+      desc: 'We aggregate, clean, and securely structure your enterprise datasets. Next, we generate high-dimensional vector embeddings, building a secure context vault.',
+      bullets: ['Secure data ingestion pipelines', 'Cleaning & deduplication', 'Partitioning & high-quality labeling', 'Vector embedding generation']
+    },
+    {
+      step: '03',
+      name: 'Model Training',
+      icon: Cpu,
+      color: '#38bdf8', // Sky Blue
+      tag: 'Week 3–4',
+      desc: 'We fine-tune open-weights models (like LLaMA-3) on your custom schemas. We run continuous validation loops to optimize response accuracy and rule out hallucination risks.',
+      bullets: ['Fine-tuning open-weights LLMs', 'Hyperparameter & check optimization', 'Rigorous accuracy validation', 'Bias & edge-case screening']
+    },
+    {
+      step: '04',
+      name: 'API Implementation',
+      icon: Terminal,
+      color: '#f97316', // Orange
+      tag: 'Week 5–6',
+      desc: 'We deploy the models to auto-scaling GPU environments inside your cloud firewall, integrated with low-latency caches and real-time model telemetry.',
+      bullets: ['Low-latency API deployment', 'Secure vector DB caching setup', 'Auto-scaling GPU orchestration', 'Real-time telemetry & alerts']
+    }
+  ];
 
   const handleMouseMove = (e) => {
 
@@ -232,21 +304,68 @@ export default function AiSolutionsSolution({ solution }) {
       {/* 4. Timeline Roadmap */}
       <section className="ai-roadmap-section">
         <div className="container">
-          <div className="ai-section-header reveal reveal-fade-up">
+          <div className="smvp-section-header reveal reveal-fade-up">
             <span className="badge-purple">Roadmap</span>
             <h2>Model Development Roadmap</h2>
+            <p className="smvp-roadmap-subtitle">From custom fine-tuning to scalable low-latency API deployment.</p>
           </div>
 
-          <div className="ai-timeline-row">
-            {solution.process.map((step, idx) => (
-              <div key={idx} className={`ai-timeline-card reveal reveal-fade-up delay-${(idx + 1) * 100}`}>
-                <div className="tl-card-header">
-                  <span className="tl-number">{step.step}</span>
-                  <h4>{step.name}</h4>
-                </div>
-                <p>{step.desc}</p>
+          <div className="smvp-zigzag-timeline" ref={timelineRef}>
+            {/* Vertical center line */}
+            <div className="tl-center-line">
+              <div className="tl-line-track">
+                {roadmapSteps.slice(0, -1).map((_, i) => (
+                  <div key={i} className="tl-line-segment" data-idx={i} />
+                ))}
               </div>
-            ))}
+            </div>
+
+            {roadmapSteps.map((step, idx) => {
+              const Icon = step.icon;
+              const isLeft = idx % 2 === 0;
+              return (
+                <div key={idx} className={`tl-zigzag-row ${isLeft ? 'row-left' : 'row-right'}`}>
+                  {/* Spacer on opposite side */}
+                  <div className="tl-zigzag-spacer" />
+
+                  {/* Center dot node */}
+                  <div
+                    className="tl-zigzag-node"
+                    data-idx={idx}
+                    style={{ '--node-color': step.color }}
+                  >
+                    <Icon size={18} />
+                  </div>
+
+                  {/* Card */}
+                  <div
+                    className={`tl-zigzag-card ${isLeft ? 'card-left' : 'card-right'}`}
+                    data-idx={idx}
+                    style={{ '--card-color': step.color }}
+                  >
+                    <div className="tl-card-glow" />
+                    <div className="tl-card-inner">
+                      <div className="tl-card-top">
+                        <span className="tl-card-tag" style={{ color: step.color, background: `${step.color}18` }}>
+                          {step.tag}
+                        </span>
+                        <span className="tl-step-num" style={{ color: step.color }}>{step.step}</span>
+                      </div>
+                      <h3 className="tl-card-title">{step.name}</h3>
+                      <p className="tl-card-desc">{step.desc}</p>
+                      <ul className="tl-card-bullets">
+                        {step.bullets.map((b, bi) => (
+                          <li key={bi}>
+                            <CheckCircle2 size={14} style={{ color: step.color }} />
+                            <span>{b}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
           </div>
         </div>
       </section>

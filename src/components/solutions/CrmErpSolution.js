@@ -1,17 +1,89 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { 
   ArrowRight, Bookmark, CheckCircle2, Layout, Database, 
-  TrendingUp, Layers, Code, UserCheck, ShieldCheck, Clipboard, Settings, Building2, ChevronRight
+  TrendingUp, Layers, Code, UserCheck, ShieldCheck, Clipboard, Settings, Building2, ChevronRight,
+  Target
 } from 'lucide-react';
 import CTA from '@/components/CTA';
 import PageFlow from '@/components/PageFlow';
 
 export default function CrmErpSolution({ solution }) {
   const [activeTab, setActiveTab] = useState('crm');
+
+  // Scroll-activated timeline
+  const timelineRef = useRef(null);
+  useEffect(() => {
+    if (!timelineRef.current) return;
+    const nodes = timelineRef.current.querySelectorAll('.tl-zigzag-node');
+    const lineSegments = timelineRef.current.querySelectorAll('.tl-line-segment');
+    if (!nodes.length) return;
+    
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          const idx = parseInt(entry.target.dataset.idx, 10);
+          const card = timelineRef.current?.querySelector(`.tl-zigzag-card[data-idx="${idx}"]`);
+
+          if (entry.isIntersecting) {
+            entry.target.classList.add('active');
+            if (card) card.classList.add('active');
+            for (let i = 0; i <= idx && i < lineSegments.length; i++) {
+              lineSegments[i].classList.add('filled');
+            }
+          } else {
+            entry.target.classList.remove('active');
+            if (card) card.classList.remove('active');
+          }
+        });
+      },
+      { threshold: 0.35 }
+    );
+    nodes.forEach((node) => observer.observe(node));
+    return () => observer.disconnect();
+  }, []);
+
+  const roadmapSteps = [
+    {
+      step: '01',
+      name: 'Operational Audit',
+      icon: Clipboard,
+      color: '#f59e0b', // Gold / Amber
+      tag: 'Week 1',
+      desc: 'We audit your sales team workflows, supply chain logs, and financial processes to identify manual bottlenecks and design data consolidation points.',
+      bullets: ['Operational workflow auditing', 'Data flow mapping', 'Access control hierarchy design', 'Tool consolidation audit']
+    },
+    {
+      step: '02',
+      name: 'System Blueprinting',
+      icon: Layout,
+      color: '#ec4899', // Pink
+      tag: 'Week 2',
+      desc: 'We map the database schemas and construct interactive UI wireframes for every staff role, ensuring smooth onboarding and clear access control limits.',
+      bullets: ['Unified database schema layout', 'Interactive UI role wireframes', 'Role-Based Access Control (RBAC)', 'Legacy system migration plan']
+    },
+    {
+      step: '03',
+      name: 'Relational Development',
+      icon: Code,
+      color: '#38bdf8', // Sky Blue
+      tag: 'Week 3–5',
+      desc: 'Our engineers construct the relational database and code the CRM/ERP core modules — linking inventory registries to double-entry ledgers and custom APIs.',
+      bullets: ['Modular database engineering', 'Inventory & ledger sync', 'Custom API development', 'Payment webhooks integration']
+    },
+    {
+      step: '04',
+      name: 'Phased Deployment',
+      icon: CheckCircle2,
+      color: '#f97316', // Orange
+      tag: 'Week 6',
+      desc: 'We migrate legacy records with zero database downtime, deploying modules in phases. We run onboarding training sessions to ensure high user adoption.',
+      bullets: ['Zero-downtime database migration', 'Phased module deployment', 'Staff training & onboarding', 'System telemetry & backups']
+    }
+  ];
 
   const crmFeatures = [
     { name: 'Lead Pipeline', desc: 'Track sales leads from landing capture to final contract signature.' },
@@ -178,21 +250,68 @@ export default function CrmErpSolution({ solution }) {
       {/* 4. Timeline Roadmap */}
       <section className="ce-roadmap-section">
         <div className="container">
-          <div className="ce-section-header text-center reveal reveal-fade-up">
-            <span className="badge-gold">Roadmap</span>
+          <div className="smvp-section-header reveal reveal-fade-up">
+            <span className="badge-purple">Roadmap</span>
             <h2>Implementation Process</h2>
+            <p className="smvp-roadmap-subtitle">A phased deployment strategy that ensures zero data loss and minimal disruption.</p>
           </div>
 
-          <div className="ce-timeline-row">
-            {solution.process.map((step, idx) => (
-              <div key={idx} className={`ce-timeline-card reveal reveal-fade-up delay-${(idx + 1) * 100}`}>
-                <div className="tl-card-header">
-                  <span className="tl-number">{step.step}</span>
-                  <h4>{step.name}</h4>
-                </div>
-                <p>{step.desc}</p>
+          <div className="smvp-zigzag-timeline" ref={timelineRef}>
+            {/* Vertical center line */}
+            <div className="tl-center-line">
+              <div className="tl-line-track">
+                {roadmapSteps.slice(0, -1).map((_, i) => (
+                  <div key={i} className="tl-line-segment" data-idx={i} />
+                ))}
               </div>
-            ))}
+            </div>
+
+            {roadmapSteps.map((step, idx) => {
+              const Icon = step.icon;
+              const isLeft = idx % 2 === 0;
+              return (
+                <div key={idx} className={`tl-zigzag-row ${isLeft ? 'row-left' : 'row-right'}`}>
+                  {/* Spacer on opposite side */}
+                  <div className="tl-zigzag-spacer" />
+
+                  {/* Center dot node */}
+                  <div
+                    className="tl-zigzag-node"
+                    data-idx={idx}
+                    style={{ '--node-color': step.color }}
+                  >
+                    <Icon size={18} />
+                  </div>
+
+                  {/* Card */}
+                  <div
+                    className={`tl-zigzag-card ${isLeft ? 'card-left' : 'card-right'}`}
+                    data-idx={idx}
+                    style={{ '--card-color': step.color }}
+                  >
+                    <div className="tl-card-glow" />
+                    <div className="tl-card-inner">
+                      <div className="tl-card-top">
+                        <span className="tl-card-tag" style={{ color: step.color, background: `${step.color}18` }}>
+                          {step.tag}
+                        </span>
+                        <span className="tl-step-num" style={{ color: step.color }}>{step.step}</span>
+                      </div>
+                      <h3 className="tl-card-title">{step.name}</h3>
+                      <p className="tl-card-desc">{step.desc}</p>
+                      <ul className="tl-card-bullets">
+                        {step.bullets.map((b, bi) => (
+                          <li key={bi}>
+                            <CheckCircle2 size={14} style={{ color: step.color }} />
+                            <span>{b}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
           </div>
         </div>
       </section>

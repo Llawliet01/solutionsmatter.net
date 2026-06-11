@@ -5,7 +5,8 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { 
   ArrowRight, Bookmark, CheckCircle2, Cloud, ShieldAlert, Cpu, 
-  Terminal, ShieldCheck, RefreshCw, BarChart2, Settings, Building2, ChevronRight
+  Terminal, ShieldCheck, RefreshCw, BarChart2, Settings, Building2, ChevronRight,
+  Database, Check, AlertTriangle, Activity
 } from 'lucide-react';
 import CTA from '@/components/CTA';
 import PageFlow from '@/components/PageFlow';
@@ -14,10 +15,34 @@ export default function DigitalTransformationSolution({ solution }) {
   const [activeStage, setActiveStage] = useState(0);
 
   const migrationStages = [
-    { name: 'Audit & Analysis', desc: 'Analyzing legacy database structures, database languages, and code vulnerabilities to plan the parallel cloud mapping.' },
-    { name: 'Database Translation', desc: 'Migrating legacy SQL schemas to highly scalable, indexed cloud database tables with zero record loss.' },
-    { name: 'Parallel Execution', desc: 'Running the old system alongside the modernized cloud cluster to validate operational parity.' },
-    { name: 'Zero-Downtime Rollout', desc: 'Phased DNS traffic rerouting, completely switching user traffic to the modern system with zero service delay.' }
+    { 
+      name: 'Audit & Analysis', 
+      desc: 'Analyzing legacy database structures, database languages, and code vulnerabilities to plan the parallel cloud mapping.',
+      badge: 'Diagnostic Phase',
+      color: '#38bdf8', // Sky Blue
+      bullets: ['Legacy SQL schema parsing', 'Performance bottleneck audits', 'Access lock and load tests', 'Dependency mapping logs']
+    },
+    { 
+      name: 'Database Translation', 
+      desc: 'Migrating legacy SQL schemas to highly scalable, indexed cloud database tables with zero record loss.',
+      badge: 'Schema Mapping',
+      color: '#ec4899', // Pink
+      bullets: ['Relational schema indexing', 'Type-safety constraint audits', 'Stored procedure replication', 'Data compression loops']
+    },
+    { 
+      name: 'Parallel Execution', 
+      desc: 'Running the old system alongside the modernized cloud cluster to validate operational parity.',
+      badge: 'Dual Verification',
+      color: '#f59e0b', // Amber
+      bullets: ['Double-write sync engine', 'Query output verification', 'Concurrency stress validation', 'Edge-case fallback tests']
+    },
+    { 
+      name: 'Zero-Downtime Rollout', 
+      desc: 'Phased DNS traffic rerouting, completely switching user traffic to the modern system with zero service delay.',
+      badge: 'DNS Switchover',
+      color: '#10b981', // Teal
+      bullets: ['Phased DNS routing', 'Session migration validation', 'Telemetry dashboard activation', 'Legacy system decommissioning']
+    }
   ];
 
   return (
@@ -113,7 +138,9 @@ export default function DigitalTransformationSolution({ solution }) {
                   key={idx}
                   onClick={() => setActiveStage(idx)}
                   className={`stage-selector-btn ${activeStage === idx ? 'active' : ''}`}
+                  style={{ '--stage-color': stage.color }}
                 >
+                  <div className="stage-btn-glow" />
                   <span className="stage-num">0{idx + 1}</span>
                   <span className="stage-name">{stage.name}</span>
                 </button>
@@ -121,9 +148,138 @@ export default function DigitalTransformationSolution({ solution }) {
             </div>
 
             <div className="dt-stages-content-card reveal reveal-fade-up delay-200">
-              <span className="content-stage-lbl">Phase 0{activeStage + 1} details</span>
-              <h3>{migrationStages[activeStage].name}</h3>
-              <p>{migrationStages[activeStage].desc}</p>
+              <div className="dt-card-details-side">
+                <span className="content-stage-lbl" style={{ color: migrationStages[activeStage].color }}>
+                  {migrationStages[activeStage].badge}
+                </span>
+                <h3>{migrationStages[activeStage].name}</h3>
+                <p>{migrationStages[activeStage].desc}</p>
+                <ul className="dt-stage-bullets">
+                  {migrationStages[activeStage].bullets.map((bullet, bi) => (
+                    <li key={bi}>
+                      <CheckCircle2 size={16} className="dt-bullet-check" style={{ color: migrationStages[activeStage].color }} />
+                      <span>{bullet}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              <div className="dt-card-visual-side">
+                {/* Stage 1 Visual - Scanner */}
+                {activeStage === 0 && (
+                  <div className="dt-stage-visual dt-visual-audit">
+                    <div className="visual-header">
+                      <span className="visual-title"><Terminal size={12} /> Legacy Scanner</span>
+                      <span className="visual-status red-glow">AUDITING</span>
+                    </div>
+                    <div className="visual-body font-mono">
+                      <div className="scanner-line scanning"><span className="symbol">&gt;</span> Parsing query schemas...</div>
+                      <div className="scanner-line"><span className="symbol">&gt;</span> users_table.sql: <span className="warning">Flagged legacy type (VARCHAR)</span></div>
+                      <div className="scanner-line"><span className="symbol">&gt;</span> payments.sql: <span className="warning">No relational indices found</span></div>
+                      <div className="scanner-line"><span className="symbol">&gt;</span> logs.db: <span className="ok">Clean schema structure</span></div>
+                      <div className="scanner-progress-bar">
+                        <div className="progress-bar-fill fill-audit" />
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                {/* Stage 2 Visual - Translation */}
+                {activeStage === 1 && (
+                  <div className="dt-stage-visual dt-visual-translation">
+                    <div className="visual-header">
+                      <span className="visual-title"><Database size={12} /> Translation Pipeline</span>
+                      <span className="visual-status purple-glow">TRANSLATING</span>
+                    </div>
+                    <div className="visual-body">
+                      <div className="translation-grid">
+                        <div className="translation-col legacy">
+                          <h5>Legacy SQL</h5>
+                          <pre className="font-mono">
+{`CREATE TABLE users (
+  id INT,
+  name VARCHAR(50),
+  created VARCHAR(30)
+);`}
+                          </pre>
+                        </div>
+                        <div className="translation-arrow">
+                          <ArrowRight size={16} className="translation-arrow-icon" />
+                        </div>
+                        <div className="translation-col cloud">
+                          <h5>Cloud Postgres</h5>
+                          <pre className="font-mono">
+{`CREATE TABLE users (
+  id UUID PRIMARY KEY,
+  name TEXT NOT NULL,
+  created TIMESTAMPTZ
+);`}
+                          </pre>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                {/* Stage 3 Visual - Parallel Sync */}
+                {activeStage === 2 && (
+                  <div className="dt-stage-visual dt-visual-parallel">
+                    <div className="visual-header">
+                      <span className="visual-title"><Cpu size={12} /> Dual Parity Sync</span>
+                      <span className="visual-status yellow-glow">COMPARING</span>
+                    </div>
+                    <div className="visual-body font-mono">
+                      <div className="parallel-channels">
+                        <div className="parallel-channel">
+                          <span className="channel-lbl">Legacy Write Pipeline</span>
+                          <div className="channel-bar-wrapper">
+                            <div className="channel-bar bar-legacy" />
+                            <span className="channel-metric">142ms latency</span>
+                          </div>
+                        </div>
+                        <div className="parallel-channel">
+                          <span className="channel-lbl">Cloud Sync Pipeline</span>
+                          <div className="channel-bar-wrapper">
+                            <div className="channel-bar bar-cloud" />
+                            <span className="channel-metric text-green">8ms latency</span>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="parity-badge">
+                        <CheckCircle2 size={12} className="text-green" /> Parity Check: 100% Match
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                {/* Stage 4 Visual - DNS Switchover */}
+                {activeStage === 3 && (
+                  <div className="dt-stage-visual dt-visual-rollout">
+                    <div className="visual-header">
+                      <span className="visual-title"><Cloud size={12} /> DNS Router</span>
+                      <span className="visual-status green-glow">ROLLOUT COMPLETE</span>
+                    </div>
+                    <div className="visual-body">
+                      <div className="router-diagram">
+                        <div className="router-node main-dns">
+                          <span className="node-icon"><RefreshCw size={14} className="badge-icon-spin" /></span>
+                          <span className="node-lbl">DNS Gateway</span>
+                        </div>
+                        <div className="router-paths">
+                          <div className="router-path path-to-legacy">
+                            <span className="path-text">Legacy Cluster (0%)</span>
+                            <div className="path-line red-line" />
+                          </div>
+                          <div className="router-path path-to-cloud">
+                            <span className="path-text">Cloud Cluster (100%)</span>
+                            <div className="path-line green-line" />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                )}
+              </div>
             </div>
           </div>
         </div>
