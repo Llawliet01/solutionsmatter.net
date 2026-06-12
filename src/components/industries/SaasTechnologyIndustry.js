@@ -107,7 +107,7 @@ export default function SaasTechnologyIndustry({ industry }) {
 
   return (
     <div className="st2-theme" style={{ position: 'relative', overflow: 'hidden', width: '100%' }}>
-      <BackgroundRings count={5} colors={['#8b5cf6', '#3b82f6', '#8b5cf6']} />
+      <BackgroundRings count={12} colors={['#8b5cf6', '#3b82f6', '#8b5cf6']} />
       {/* ═══ HERO ═══ */}
       <section className="st2-hero">
         <div className="st2-hero-grid-bg" />

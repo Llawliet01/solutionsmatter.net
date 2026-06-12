@@ -100,7 +100,7 @@ export default function CrmErpSolution({ solution }) {
 
   return (
     <div className="solution-crm-erp-theme" style={{ position: 'relative', overflow: 'hidden', width: '100%' }}>
-      <BackgroundRings count={4} colors={['#f59e0b', '#ec4899', '#38bdf8']} />
+      <BackgroundRings count={12} colors={['#f59e0b', '#ec4899', '#38bdf8']} />
       {/* 1. Enterprise Dashboard Hero */}
       <section className="ce-hero-section">
         <div className="container ce-hero-grid">

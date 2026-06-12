@@ -163,7 +163,7 @@ export default function RetailEcommerceIndustry({ industry }) {
 
   return (
     <div className="rt2-theme" style={{ position: 'relative', overflow: 'clip', width: '100%' }}>
-      <BackgroundRings count={5} colors={['#f43f5e', '#ec4899', '#f43f5e']} />
+      <BackgroundRings count={12} colors={['#f43f5e', '#ec4899', '#f43f5e']} />
       {/* ═══ HERO ═══ */}
       <section className="rt2-hero">
         <div className="rt2-hero-grid" />
@@ -607,4 +607,4 @@ export default function RetailEcommerceIndustry({ industry }) {
       </section>
     </div>
   );
-}
+}

@@ -112,7 +112,7 @@ export default function BusinessAutomationSolution({ solution }) {
 
   return (
     <div className="solution-business-automation-theme" style={{ position: 'relative', overflow: 'hidden', width: '100%' }}>
-      <BackgroundRings count={4} colors={['#ec4899', '#f59e0b', '#8b5cf6']} />
+      <BackgroundRings count={12} colors={['#ec4899', '#f59e0b', '#8b5cf6']} />
       {/* 1. Split-Screen Hero */}
       <section className="bpa-hero-section">
         <div className="container bpa-hero-grid">

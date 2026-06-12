@@ -120,7 +120,7 @@ export default function ManufacturingIndustry({ industry }) {
 
   return (
     <div className="mf2-theme" style={{ position: 'relative', overflow: 'clip', width: '100%' }}>
-      <BackgroundRings count={5} colors={['#f59e0b', '#ef4444', '#f59e0b']} />
+      <BackgroundRings count={12} colors={['#f59e0b', '#ef4444', '#f59e0b']} />
       {/* ═══ HERO ═══ */}
       <section className="mf2-hero">
         <div className="mf2-hero-grid" />

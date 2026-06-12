@@ -155,7 +155,7 @@ export default function AiSolutionsSolution({ solution }) {
 
   return (
     <div className="solution-ai-solutions-theme" style={{ position: 'relative', overflow: 'hidden', width: '100%' }}>
-      <BackgroundRings count={4} colors={['#8b5cf6', '#38bdf8', '#5e3bee']} />
+      <BackgroundRings count={12} colors={['#8b5cf6', '#38bdf8', '#5e3bee']} />
       {/* 1. Cinematic Orbits Hero */}
       <section className="ai-hero-section">
         <div className="ai-orbit-circle-1" />

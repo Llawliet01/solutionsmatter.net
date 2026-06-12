@@ -110,7 +110,7 @@ export default async function ServiceDetailPage({ params }) {
 
   return (
     <div style={{ position: 'relative', overflow: 'clip', width: '100%' }}>
-      <BackgroundRings count={5} />
+      <BackgroundRings count={12} />
       <ServiceHeroScroll />
       <script
         type="application/ld+json"

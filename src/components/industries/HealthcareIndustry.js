@@ -144,7 +144,7 @@ export default function HealthcareIndustry({ industry }) {
 
   return (
     <div className="hc2-theme" style={{ position: 'relative', overflow: 'hidden', width: '100%' }}>
-      <BackgroundRings count={5} colors={['#10b981', '#06b6d4', '#10b981']} />
+      <BackgroundRings count={12} colors={['#10b981', '#06b6d4', '#10b981']} />
       {/* ═══ SECTION 1: HERO ═══ */}
       <section className="hc2-hero">
         <div className="hc2-hero-grid-bg" />

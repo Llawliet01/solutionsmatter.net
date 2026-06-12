@@ -105,7 +105,7 @@ export default function FinanceBankingIndustry({ industry }) {
 
   return (
     <div className="fb2-theme" style={{ position: 'relative', overflow: 'hidden', width: '100%' }}>
-      <BackgroundRings count={5} colors={['#c9a227', '#38bdf8', '#c9a227']} />
+      <BackgroundRings count={12} colors={['#c9a227', '#38bdf8', '#c9a227']} />
       {/* ═══ HERO ═══ */}
       <section className="fb2-hero">
         <div className="fb2-hero-grid" />

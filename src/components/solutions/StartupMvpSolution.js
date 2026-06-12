@@ -171,7 +171,7 @@ export default function StartupMvpSolution({ solution }) {
 
   return (
     <div className="solution-startup-mvp-theme" style={{ position: 'relative', overflow: 'hidden', width: '100%' }}>
-      <BackgroundRings count={4} colors={['#8b5cf6', '#ec4899', '#38bdf8']} />
+      <BackgroundRings count={12} colors={['#8b5cf6', '#ec4899', '#38bdf8']} />
       {/* 1. Bespoke Tech Hero */}
       <section className="smvp-hero-section">
         <div className="smvp-grid-overlay" />
