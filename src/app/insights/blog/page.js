@@ -1,15 +1,24 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Search, ArrowRight, BookOpen, Layers } from 'lucide-react';
 import { blogPosts } from '@/data/blog';
 import CTA from '@/components/CTA';
+import BlogHero3D from '@/components/BlogHero3D';
 
 export default function BlogListingPage() {
   const [searchQuery, setSearchQuery] = useState('');
   const [activeTab, setActiveTab] = useState('all');
+
+  // Toggle theme-red-white class on body for red and white styling context
+  useEffect(() => {
+    document.body.classList.add('theme-red-white');
+    return () => {
+      document.body.classList.remove('theme-red-white');
+    };
+  }, []);
 
   const handleSearchChange = (e) => {
     setSearchQuery(e.target.value);
@@ -35,17 +44,7 @@ export default function BlogListingPage() {
   return (
     <>
       {/* Blog Hero Section */}
-      <section className="blog-hero">
-        <div className="container">
-          <div className="hero-content text-center">
-            <span className="badge">Insights & Knowledge</span>
-            <h1>Solutions Matter Blog</h1>
-            <p>
-              Professional resources, deep-dives into artificial intelligence architectures, enterprise automation, and modern tech infrastructure trends.
-            </p>
-          </div>
-        </div>
-      </section>
+      <BlogHero3D posts={blogPosts} />
 
       {/* Filter and Listing Section */}
       <section className="section-spacing blog-listing-section">

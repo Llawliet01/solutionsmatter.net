@@ -1,0 +1,15 @@
+import json
+
+log_path = r"C:\Users\Yug\.gemini\antigravity-ide\brain\762745ad-7c93-4760-9bfe-8c2c5a307a4d\.system_generated\logs\transcript.jsonl"
+
+with open(log_path, "r", encoding="utf-8") as f:
+    for i, line in enumerate(f):
+        try:
+            data = json.loads(line)
+            if data.get("source") == "USER_EXPLICIT" or data.get("type") == "USER_INPUT":
+                print(f"Step {i}: content: {data.get('content', '')[:200]}")
+                # Print any image/media references or arguments
+                if "tool_calls" in data:
+                    print(f"  Tool calls: {data['tool_calls']}")
+        except Exception as e:
+            pass

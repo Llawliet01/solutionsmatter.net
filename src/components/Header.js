@@ -97,6 +97,9 @@ export default function Header() {
   ];
 
   const getIndustryHeaderClass = () => {
+    if (pathname && pathname.startsWith('/insights/blog')) {
+      return 'blog-page-header';
+    }
     if (pathname && pathname.startsWith('/industries/')) {
       const slug = pathname.split('/').pop();
       if (['retail', 'saas', 'healthcare', 'manufacturing', 'finance'].includes(slug)) {
