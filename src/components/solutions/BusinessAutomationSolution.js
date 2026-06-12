@@ -10,6 +10,7 @@ import {
 } from 'lucide-react';
 import CTA from '@/components/CTA';
 import PageFlow from '@/components/PageFlow';
+import BackgroundRings from '@/components/BackgroundRings';
 
 export default function BusinessAutomationSolution({ solution }) {
   const [activeComparison, setActiveComparison] = useState(0);
@@ -110,7 +111,8 @@ export default function BusinessAutomationSolution({ solution }) {
   ];
 
   return (
-    <div className="solution-business-automation-theme">
+    <div className="solution-business-automation-theme" style={{ position: 'relative', overflow: 'hidden', width: '100%' }}>
+      <BackgroundRings count={4} colors={['#ec4899', '#f59e0b', '#8b5cf6']} />
       {/* 1. Split-Screen Hero */}
       <section className="bpa-hero-section">
         <div className="container bpa-hero-grid">

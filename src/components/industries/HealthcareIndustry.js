@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { Heart, Activity, Shield, CheckCircle, ArrowRight, ChevronDown, Zap, Lock, Users, TrendingUp, BarChart2, Crosshair, Rocket, Monitor } from 'lucide-react';
 import CTA from '@/components/CTA';
+import BackgroundRings from '@/components/BackgroundRings';
 
 const scenarios = [
   {
@@ -142,7 +143,8 @@ export default function HealthcareIndustry({ industry }) {
   ];
 
   return (
-    <div className="hc2-theme">
+    <div className="hc2-theme" style={{ position: 'relative', overflow: 'hidden', width: '100%' }}>
+      <BackgroundRings count={5} colors={['#10b981', '#06b6d4', '#10b981']} />
       {/* ═══ SECTION 1: HERO ═══ */}
       <section className="hc2-hero">
         <div className="hc2-hero-grid-bg" />

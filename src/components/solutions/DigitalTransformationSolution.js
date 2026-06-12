@@ -10,6 +10,7 @@ import {
 } from 'lucide-react';
 import CTA from '@/components/CTA';
 import PageFlow from '@/components/PageFlow';
+import BackgroundRings from '@/components/BackgroundRings';
 
 export default function DigitalTransformationSolution({ solution }) {
   const [activeStage, setActiveStage] = useState(0);
@@ -46,7 +47,8 @@ export default function DigitalTransformationSolution({ solution }) {
   ];
 
   return (
-    <div className="solution-digital-transformation-theme">
+    <div className="solution-digital-transformation-theme" style={{ position: 'relative', overflow: 'hidden', width: '100%' }}>
+      <BackgroundRings count={4} colors={['#5e3bee', '#38bdf8', '#10b981']} />
       {/* 1. Secure Migration Hero */}
       <section className="dt-hero-section">
         <div className="container dt-hero-grid">

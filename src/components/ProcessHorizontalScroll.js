@@ -1,5 +1,5 @@
 'use client';
-import { useRef, useEffect } from 'react';
+import { useRef, useEffect, useState } from 'react';
 import {
   Search, Layers, Code2, ShieldCheck, Rocket,
   Settings, Database, Globe, Zap, ClipboardList
@@ -16,8 +16,31 @@ export default function ProcessHorizontalScroll({ steps }) {
   const trackRef = useRef(null);
   const n = steps.length;
 
-  // Translate needed so end state shows: 2nd-to-last at 70%, last card fully visible
-  const maxTranslate = (n - 2) * (CARD_W + CARD_GAP) + 0.3 * CARD_W;
+  // Calculate the correct maxTranslate purely from geometry
+  // This matches the CSS: padding-left: max(24px, calc((100vw - 1200px) / 2 + 24px))
+  const calcMaxTranslate = () => {
+    const vw = window.innerWidth;
+    const paddingLeft = Math.max(24, (vw - 1200) / 2 + 24);
+    // Total width of all cards + gaps laid out in the track
+    const totalCardsWidth = n * CARD_W + (n - 1) * CARD_GAP;
+    // The track's content right edge in viewport coordinates (no transform)
+    const trackRightEdge = paddingLeft + totalCardsWidth;
+    // How much we need to translate left to bring last card's right edge to viewport right edge
+    return Math.max(0, trackRightEdge - vw);
+  };
+
+  // Start at 0 so SSR and client initial render produce identical HTML (no hydration mismatch)
+  const [maxTranslate, setMaxTranslate] = useState(0);
+
+  useEffect(() => {
+    // Apply the real value after mount — runs only on client, after hydration
+    setMaxTranslate(calcMaxTranslate());
+
+    const handleResize = () => setMaxTranslate(calcMaxTranslate());
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [n]);
 
   useEffect(() => {
     const outer = outerRef.current;

@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { ShoppingBag, Smartphone, TrendingUp, Package, CheckCircle, ArrowRight, ChevronDown, Globe, RefreshCw, Star, BarChart2 } from 'lucide-react';
 import CTA from '@/components/CTA';
+import BackgroundRings from '@/components/BackgroundRings';
 
 export default function RetailEcommerceIndustry({ industry }) {
   const [activeFaq, setActiveFaq] = useState(null);
@@ -161,7 +162,8 @@ export default function RetailEcommerceIndustry({ industry }) {
   }, []);
 
   return (
-    <div className="rt2-theme">
+    <div className="rt2-theme" style={{ position: 'relative', overflow: 'clip', width: '100%' }}>
+      <BackgroundRings count={5} colors={['#f43f5e', '#ec4899', '#f43f5e']} />
       {/* ═══ HERO ═══ */}
       <section className="rt2-hero">
         <div className="rt2-hero-grid" />

@@ -11,6 +11,7 @@ import ServiceFaqs from '@/components/ServiceFaqs';
 import ServiceHeroScroll from '@/components/ServiceHeroScroll';
 import CTA from '@/components/CTA';
 import ProcessHorizontalScroll from '@/components/ProcessHorizontalScroll';
+import BackgroundRings from '@/components/BackgroundRings';
 
 export async function generateStaticParams() {
   return services.map((s) => ({
@@ -108,7 +109,8 @@ export default async function ServiceDetailPage({ params }) {
   };
 
   return (
-    <>
+    <div style={{ position: 'relative', overflow: 'clip', width: '100%' }}>
+      <BackgroundRings count={5} />
       <ServiceHeroScroll />
       <script
         type="application/ld+json"
@@ -220,12 +222,12 @@ export default async function ServiceDetailPage({ params }) {
         {/* Easy Working Process — Full-viewport horizontal scroll (outside container) */}
         <ProcessHorizontalScroll steps={service.process} />
 
-        <div className="container">
-          <div className="full-width-content-sections" style={{ marginTop: '50px' }}>
+        <div className="container after-hscroll-container">
+          <div className="full-width-content-sections">
 
             {/* FAQ Accordion Section */}
             <div className="reveal reveal-fade-right" style={{ marginBottom: '50px' }}>
-              <h3 className="faq-section-title">Frequently Asked Questions</h3>
+              <h3 className="faq-section-title" style={{ marginTop: '0px' }}>Frequently Asked Questions</h3>
               <p className="faq-section-intro-text">
                 {service.faqIntro}
               </p>
@@ -342,6 +344,6 @@ export default async function ServiceDetailPage({ params }) {
 
       {/* Bottom CTA */}
       <CTA variant="bottom" />
-    </>
+    </div>
   );
 }

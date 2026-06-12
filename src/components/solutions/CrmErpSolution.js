@@ -10,6 +10,7 @@ import {
 } from 'lucide-react';
 import CTA from '@/components/CTA';
 import PageFlow from '@/components/PageFlow';
+import BackgroundRings from '@/components/BackgroundRings';
 
 export default function CrmErpSolution({ solution }) {
   const [activeTab, setActiveTab] = useState('crm');
@@ -98,7 +99,8 @@ export default function CrmErpSolution({ solution }) {
   ];
 
   return (
-    <div className="solution-crm-erp-theme">
+    <div className="solution-crm-erp-theme" style={{ position: 'relative', overflow: 'hidden', width: '100%' }}>
+      <BackgroundRings count={4} colors={['#f59e0b', '#ec4899', '#38bdf8']} />
       {/* 1. Enterprise Dashboard Hero */}
       <section className="ce-hero-section">
         <div className="container ce-hero-grid">

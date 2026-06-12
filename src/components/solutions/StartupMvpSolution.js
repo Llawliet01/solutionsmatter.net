@@ -10,6 +10,7 @@ import {
 } from 'lucide-react';
 import CTA from '@/components/CTA';
 import PageFlow from '@/components/PageFlow';
+import BackgroundRings from '@/components/BackgroundRings';
 
 export default function StartupMvpSolution({ solution }) {
   const [activeTab, setActiveTab] = useState('analytics');
@@ -169,7 +170,8 @@ export default function StartupMvpSolution({ solution }) {
   };
 
   return (
-    <div className="solution-startup-mvp-theme">
+    <div className="solution-startup-mvp-theme" style={{ position: 'relative', overflow: 'hidden', width: '100%' }}>
+      <BackgroundRings count={4} colors={['#8b5cf6', '#ec4899', '#38bdf8']} />
       {/* 1. Bespoke Tech Hero */}
       <section className="smvp-hero-section">
         <div className="smvp-grid-overlay" />

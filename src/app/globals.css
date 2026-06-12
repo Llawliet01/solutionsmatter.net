@@ -5978,9 +5978,9 @@ a {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: 36px;
+  gap: 24px;
   overflow: hidden; /* clips cards at screen edges */
-  padding: 60px 0 40px;
+  padding: 40px 0 10px;
 }
 
 .process-hscroll-header {
@@ -6177,6 +6177,14 @@ a {
   }
   .process-hscroll-progress-hint {
     display: none;
+  }
+}
+
+/* Reverted -25vh negative margin workaround as calculation is now dynamically correct */
+@media (min-width: 769px) {
+  .after-hscroll-container {
+    position: relative;
+    z-index: 10;
   }
 }
 

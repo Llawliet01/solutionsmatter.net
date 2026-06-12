@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { Terminal, Zap, Database, Globe, CheckCircle, ArrowRight, ChevronDown, Code2, Settings, Cpu, ShieldCheck, Gauge, Lock, Network } from 'lucide-react';
 import CTA from '@/components/CTA';
+import BackgroundRings from '@/components/BackgroundRings';
 
 const TYPEWRITER_LINES = [
   { text: '$ npx create-saas-app --tenant-isolation rls --billing core', delay: 0 },
@@ -105,7 +106,8 @@ export default function SaasTechnologyIndustry({ industry }) {
   }, []);
 
   return (
-    <div className="st2-theme">
+    <div className="st2-theme" style={{ position: 'relative', overflow: 'hidden', width: '100%' }}>
+      <BackgroundRings count={5} colors={['#8b5cf6', '#3b82f6', '#8b5cf6']} />
       {/* ═══ HERO ═══ */}
       <section className="st2-hero">
         <div className="st2-hero-grid-bg" />
