@@ -19,7 +19,7 @@ export default function Footer() {
   return (
     <>
       {/* Teckko Style Infinite Marquee above Footer */}
-      <div className="marquee-container" style={{ borderTop: 'none', marginBottom: '0', marginTop: '40px' }}>
+      <div className="marquee-container" style={{ borderTop: 'none', marginBottom: '0', marginTop: '0', paddingTop: '40px' }}>
         <div className="marquee-content">
           <div className="marquee-item">Contact us</div>
           <div className="marquee-item"><span>Get in touch</span></div>

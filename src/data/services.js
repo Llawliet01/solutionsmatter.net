@@ -36,7 +36,7 @@ export const services = [
     ],
     relatedIndustries: [
       { slug: 'manufacturing', title: 'Manufacturing' },
-      { slug: 'finance', title: 'Finance' },
+      { slug: 'finance', title: 'Finance & Banking' },
       { slug: 'healthcare', title: 'Healthcare' }
     ]
   },
@@ -76,9 +76,8 @@ export const services = [
       { slug: 'digital-transformation', title: 'Digital Transformation' }
     ],
     relatedIndustries: [
-      { slug: 'saas', title: 'SaaS' },
-      { slug: 'retail', title: 'Retail' },
-      { slug: 'education', title: 'Education' }
+      { slug: 'saas', title: 'SaaS & Technology' },
+      { slug: 'retail', title: 'Retail & E-Commerce' }
     ]
   },
   {
@@ -116,7 +115,7 @@ export const services = [
       { slug: 'startup-mvp', title: 'Startup MVP Development' }
     ],
     relatedIndustries: [
-      { slug: 'retail', title: 'Retail' },
+      { slug: 'retail', title: 'Retail & E-Commerce' },
       { slug: 'healthcare', title: 'Healthcare' }
     ]
   },
@@ -156,8 +155,8 @@ export const services = [
       { slug: 'digital-transformation', title: 'Digital Transformation' }
     ],
     relatedIndustries: [
-      { slug: 'saas', title: 'SaaS' },
-      { slug: 'retail', title: 'Retail' }
+      { slug: 'saas', title: 'SaaS & Technology' },
+      { slug: 'retail', title: 'Retail & E-Commerce' }
     ]
   },
   {
@@ -197,7 +196,7 @@ export const services = [
     ],
     relatedIndustries: [
       { slug: 'healthcare', title: 'Healthcare' },
-      { slug: 'finance', title: 'Finance' },
+      { slug: 'finance', title: 'Finance & Banking' },
       { slug: 'manufacturing', title: 'Manufacturing' }
     ]
   },
@@ -236,8 +235,8 @@ export const services = [
       { slug: 'digital-transformation', title: 'Digital Transformation' }
     ],
     relatedIndustries: [
-      { slug: 'finance', title: 'Finance' },
-      { slug: 'saas', title: 'SaaS' }
+      { slug: 'finance', title: 'Finance & Banking' },
+      { slug: 'saas', title: 'SaaS & Technology' }
     ]
   },
   {
@@ -276,8 +275,8 @@ export const services = [
       { slug: 'ai-solutions', title: 'AI Solutions' }
     ],
     relatedIndustries: [
-      { slug: 'saas', title: 'SaaS' },
-      { slug: 'finance', title: 'Finance' }
+      { slug: 'saas', title: 'SaaS & Technology' },
+      { slug: 'finance', title: 'Finance & Banking' }
     ]
   },
   {
@@ -316,8 +315,8 @@ export const services = [
       { slug: 'business-automation', title: 'Business Process Automation' }
     ],
     relatedIndustries: [
-      { slug: 'retail', title: 'Retail' },
-      { slug: 'finance', title: 'Finance' }
+      { slug: 'retail', title: 'Retail & E-Commerce' },
+      { slug: 'finance', title: 'Finance & Banking' }
     ]
   },
   {
@@ -357,8 +356,8 @@ export const services = [
     ],
     relatedIndustries: [
       { slug: 'manufacturing', title: 'Manufacturing' },
-      { slug: 'finance', title: 'Finance' },
-      { slug: 'retail', title: 'Retail' }
+      { slug: 'finance', title: 'Finance & Banking' },
+      { slug: 'retail', title: 'Retail & E-Commerce' }
     ]
   },
   {
@@ -396,9 +395,8 @@ export const services = [
       { slug: 'business-automation', title: 'Business Process Automation' }
     ],
     relatedIndustries: [
-      { slug: 'education', title: 'Education' },
       { slug: 'healthcare', title: 'Healthcare' },
-      { slug: 'finance', title: 'Finance' }
+      { slug: 'finance', title: 'Finance & Banking' }
     ]
   }
 ];

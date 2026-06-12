@@ -1,12 +1,11 @@
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { 
-  CheckCircle2, ArrowRight, Bookmark, AlertCircle, 
-  HelpCircle, ExternalLink, Activity
-} from 'lucide-react';
 import { industries } from '@/data/industries';
-import CTA from '@/components/CTA';
-import PageFlow from '@/components/PageFlow';
+import HealthcareIndustry from '@/components/industries/HealthcareIndustry';
+import FinanceBankingIndustry from '@/components/industries/FinanceBankingIndustry';
+import SaasTechnologyIndustry from '@/components/industries/SaasTechnologyIndustry';
+import ManufacturingIndustry from '@/components/industries/ManufacturingIndustry';
+import RetailEcommerceIndustry from '@/components/industries/RetailEcommerceIndustry';
 
 export async function generateStaticParams() {
   return industries.map((i) => ({
@@ -55,141 +54,30 @@ export default async function IndustryDetailPage({ params }) {
     }
   };
 
+  const renderIndustryContent = () => {
+    switch (slug) {
+      case 'healthcare':
+        return <HealthcareIndustry industry={industry} />;
+      case 'finance':
+        return <FinanceBankingIndustry industry={industry} />;
+      case 'saas':
+        return <SaasTechnologyIndustry industry={industry} />;
+      case 'manufacturing':
+        return <ManufacturingIndustry industry={industry} />;
+      case 'retail':
+        return <RetailEcommerceIndustry industry={industry} />;
+      default:
+        notFound();
+    }
+  };
+
   return (
     <>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaJson) }}
       />
-
-      {/* Hero Section */}
-      <section className="industry-detail-hero">
-        <div className="container">
-          <span className="detail-badge">{industry.title} Sector</span>
-          <h1>Custom Technology for {industry.title} Operations</h1>
-          <p>{industry.overview}</p>
-        </div>
-      </section>
-
-      {/* Main Content Body */}
-      <section className="section-spacing industry-detail-body">
-        <div className="container">
-          <div className="detail-layout-grid">
-            
-            {/* Left Content Column */}
-            <div className="left-content-area">
-              
-              {/* Common Challenges */}
-              <div className="content-block challenges-block-card">
-                <div className="block-title-row">
-                  <AlertCircle size={24} className="challenge-alert-icon" />
-                  <h2>Common Sector Challenges</h2>
-                </div>
-                <p className="block-intro-text">
-                  Economic enterprises in the {industry.title} industry frequently face these operational bottlenecks:
-                </p>
-                <ul className="challenges-checklist">
-                  {industry.challenges.map((chal, i) => (
-                    <li key={i}>
-                      <span className="challenge-bullet-number">0{i + 1}</span>
-                      <p>{chal}</p>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              {/* Recommended Solutions */}
-              <div className="content-block">
-                <h2>Recommended Custom Solutions</h2>
-                <p className="block-intro-text">
-                  Operational architectures engineered specifically to resolve data fragmentation and streamline workflow execution:
-                </p>
-                <div className="recommended-solutions-list">
-                  {industry.recommendedSolutions.map((sol) => (
-                    <div key={sol.slug} className="rec-sol-card">
-                      <div className="rec-sol-text">
-                        <h4>{sol.title}</h4>
-                      </div>
-                      <Link href={`/solutions/${sol.slug}`} className="btn btn-secondary btn-sm-padding">
-                        <span>View Solution</span>
-                        <ArrowRight size={14} />
-                      </Link>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-            </div>
-
-            {/* Right Sidebar Column */}
-            <div className="right-sidebar-area">
-              
-              {/* Recommended Services */}
-              <div className="sidebar-card relation-sidebar-card">
-                <h3>Recommended Services</h3>
-                <div className="relation-links-stack">
-                  {industry.recommendedServices.map((service) => (
-                    <div key={service.slug} className="relation-link-card mini-margin">
-                      <Bookmark size={16} className="relation-icon" />
-                      <div>
-                        <h4>{service.title}</h4>
-                        <Link href={`/services/${service.slug}`} className="relation-action-link">
-                          <span>View Service Details</span>
-                          <ArrowRight size={12} />
-                        </Link>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              {/* Technologies Used */}
-              <div className="sidebar-card tech-sidebar-card">
-                <h3>Sector Technologies</h3>
-                <div className="tech-badge-container">
-                  {industry.technologies.map((tech) => (
-                    <span key={tech} className="tech-pill-large">{tech}</span>
-                  ))}
-                </div>
-              </div>
-
-              {/* Industry Case Studies */}
-              <div className="sidebar-card relation-sidebar-card">
-                <h3>Industry Case Studies</h3>
-                <div className="relation-links-stack">
-                  {industry.caseStudies.map((cs) => (
-                    <div key={cs.slug} className="relation-link-card mini-margin">
-                      <Bookmark size={16} className="relation-icon" />
-                      <div>
-                        <h4>{cs.title}</h4>
-                        <Link href={`/company/case-studies/${cs.slug}`} className="relation-action-link">
-                          <span>Read Case Details</span>
-                          <ArrowRight size={12} />
-                        </Link>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-            </div>
-
-          </div>
-
-          {/* Middle CTA */}
-          <CTA variant="middle" />
-
-          {/* Industry Flow redirection trail: Industry -> Case Study */}
-          <PageFlow 
-            nextType="Featured Case Study"
-            nextTitle={industry.caseStudies[0].title}
-            nextPath={`/company/case-studies/${industry.caseStudies[0].slug}`}
-          />
-        </div>
-      </section>
-
-      {/* Bottom CTA */}
-      <CTA variant="bottom" />
+      {renderIndustryContent()}
     </>
   );
 }

@@ -392,7 +392,7 @@ export default function BusinessAutomationSolution({ solution }) {
                       </div>
                       <div className="telemetry-lines">
                         <div className="telemetry-line"><span className="tag green">OK</span> [14:02:11] Webhook signature verified successfully.</div>
-                        <div className="telemetry-line"><span className="tag green">OK</span> [14:02:11] Parsed customer "cust_842" from payload.</div>
+                        <div className="telemetry-line"><span className="tag green">OK</span> [14:02:11] Parsed customer &quot;cust_842&quot; from payload.</div>
                         <div className="telemetry-line"><span className="tag blue">SYNC</span> [14:02:12] Propagated model ledger to Postgres cluster.</div>
                         <div className="telemetry-line"><span className="tag green">OK</span> [14:02:12] Audit log written with hash: 9a8f7c5e2d</div>
                       </div>

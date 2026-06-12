@@ -24,7 +24,7 @@ export const industries = [
   },
   {
     slug: 'finance',
-    title: 'Finance',
+    title: 'Finance & Banking',
     overview: 'Financial systems require high-availability hosting infrastructure, encrypted databases, and robust APIs. We construct digital finance systems ranging from automated ledger platforms to cloud banking migrations.',
     challenges: [
       'Constant cybersecurity threats and data breach vulnerabilities',
@@ -47,7 +47,7 @@ export const industries = [
   },
   {
     slug: 'retail',
-    title: 'Retail',
+    title: 'Retail & E-Commerce',
     overview: 'Modern retail relies on multi-channel customer pipelines and unified logistics tracking. We develop custom mobile retail apps, kanban CRM structures, and automated inventory syncing platforms.',
     challenges: [
       'Disconnected inventory logs across separate retail locations',
@@ -68,29 +68,7 @@ export const industries = [
       { slug: 'e-commerce-mobile-transformation', title: 'E-commerce Mobile Transformation' }
     ]
   },
-  {
-    slug: 'education',
-    title: 'Education',
-    overview: 'We engineer intuitive online education portals, virtual classrooms, and automated tracking dashboards that connect students and educators.',
-    challenges: [
-      'Fragmented virtual classroom tools creating student friction',
-      'Manual management of course uploads and grading rosters',
-      'Inconsistent access tracking and server scaling drops',
-      'Outdated student databases that slow down administrative audits'
-    ],
-    recommendedServices: [
-      { slug: 'web-development', title: 'Web Development' },
-      { slug: 'support-maintenance', title: 'Support & Maintenance' }
-    ],
-    recommendedSolutions: [
-      { slug: 'business-automation', title: 'Business Process Automation' },
-      { slug: 'startup-mvp', title: 'Startup MVP Development' }
-    ],
-    technologies: ['Next.js', 'React.js', 'Node.js', 'MongoDB', 'AWS S3', 'Sentry'],
-    caseStudies: [
-      { slug: 'education-lms-automation', title: 'Education LMS Automation' }
-    ]
-  },
+
   {
     slug: 'manufacturing',
     title: 'Manufacturing',
@@ -116,7 +94,7 @@ export const industries = [
   },
   {
     slug: 'saas',
-    title: 'SaaS',
+    title: 'SaaS & Technology',
     overview: 'We design and develop multi-tenant software-as-a-service applications featuring stripe subscription integrations and modular admin panels.',
     challenges: [
       'Configuring logical tenant isolation at the database level',

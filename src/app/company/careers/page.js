@@ -59,7 +59,7 @@ export default function CareersPage() {
     '100% Fully Remote Work & Flexible Schedules',
     'Competitive Salaries with Periodic Performance Updates',
     'Hardware Budget for the Latest Mac/Linux Setup',
-    'Annual Educational Allowance for Technical Certifications',
+    'Annual Educational Allowance for Professional Development',
     'Comprehensive Health & Wellness Support Programs'
   ];
 

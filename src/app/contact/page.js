@@ -119,7 +119,7 @@ export default function ContactPage() {
               <div className="card info-notes-card">
                 <h3>Proposal Submission Notes</h3>
                 <p>
-                  All software blueprints are drafted under mutual non-disclosure agreements (NDAs) to protect your company's intellectual property assets.
+                  All software blueprints are drafted under mutual non-disclosure agreements (NDAs) to protect your company&apos;s intellectual property assets.
                 </p>
               </div>
             </div>

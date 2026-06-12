@@ -29,7 +29,7 @@ export const caseStudies = [
   {
     slug: 'secure-cloud-finance-migration',
     title: 'Secure Cloud Finance Migration',
-    industry: 'Finance',
+    industry: 'Finance & Banking',
     challenge: 'A banking solution client ran their ledger transactions on outdated on-premise hardware. High server overhead, frequent security patches, and limited developer deployment pipelines blocked the launch of their mobile API platforms.',
     solution: 'We refactored their core code architecture into Docker containers and designed a Kubernetes infrastructure setup on AWS. Using Terraform, we provisioned secure, auto-scaling staging and production environments, leading to instant deployment.',
     technologies: ['AWS', 'Kubernetes', 'Docker', 'Terraform', 'Go', 'Linux'],
@@ -56,7 +56,7 @@ export const caseStudies = [
   {
     slug: 'saas-analytics-platform',
     title: 'SaaS Analytics Platform',
-    industry: 'SaaS',
+    industry: 'SaaS & Technology',
     challenge: 'A subscription metrics provider experienced high customer onboarding dropout rates. Their platform suffered from slow load times and lacked secure database isolation for corporate user records.',
     solution: 'We rebuilt their web application using Next.js App Router and optimized database schemas in PostgreSQL with isolated row-level security. We designed a Stripe billing logic to automate tier upgrades.',
     technologies: ['Next.js', 'React.js', 'PostgreSQL', 'Stripe API', 'Redis', 'Vercel'],
@@ -110,7 +110,7 @@ export const caseStudies = [
   {
     slug: 'e-commerce-mobile-transformation',
     title: 'E-commerce Mobile Transformation',
-    industry: 'Retail',
+    industry: 'Retail & E-Commerce',
     challenge: 'A retail brand wanted to launch a mobile shopping app to capture mobile traffic, but struggled with syncing stock logs with their physical retail databases.',
     solution: 'We programmed a cross-platform mobile application in React Native. The app interfaces with a custom CRM system that automatically syncs inventories between digital purchases and store registries.',
     technologies: ['React Native', 'Expo', 'Node.js', 'PostgreSQL', 'Stripe API', 'Redis'],
@@ -131,33 +131,6 @@ export const caseStudies = [
     ],
     relatedSolutions: [
       { slug: 'crm-erp', title: 'CRM & ERP Solutions' },
-      { slug: 'startup-mvp', title: 'Startup MVP Development' }
-    ]
-  },
-  {
-    slug: 'education-lms-automation',
-    title: 'Education LMS Automation',
-    industry: 'Education',
-    challenge: 'A virtual school program managed student enrollments and course distributions manually, resulting in email bottlenecks, enrollment dropouts, and scaling issues.',
-    solution: 'We built a custom automated Learning Management System (LMS) with secure user roles. The system automatically registers billing entries, triggers student onboarding paths, and logs course files.',
-    technologies: ['Next.js', 'React.js', 'Node.js', 'MongoDB', 'AWS S3', 'Sentry'],
-    implementation: [
-      'Coded a custom LMS portal using React and Next.js for high-speed page loads.',
-      'Configured secure file uploading routes to AWS S3 for lecture videos and homework files.',
-      'Connected automated trigger mailings to notify students of grading entries.',
-      'Set up Sentry error monitoring to catch UI bugs instantly.'
-    ],
-    outcome: [
-      'Manual administrative tasks reduced by 75% through automated enrollment triggers.',
-      'Scale capability increased to support over 10,000 active concurrent students.',
-      'Improved enrollment pathways leading to a 35% signup increase.'
-    ],
-    relatedServices: [
-      { slug: 'web-development', title: 'Web Development' },
-      { slug: 'support-maintenance', title: 'Support & Maintenance' }
-    ],
-    relatedSolutions: [
-      { slug: 'business-automation', title: 'Business Process Automation' },
       { slug: 'startup-mvp', title: 'Startup MVP Development' }
     ]
   }

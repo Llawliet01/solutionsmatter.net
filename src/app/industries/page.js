@@ -5,7 +5,7 @@ import CTA from '@/components/CTA';
 
 export const metadata = {
   title: 'Target Industries',
-  description: 'Solutions Matter engineers specialized software architectures, high-compliance cloud infrastructure, and data platforms for Healthcare, Finance, Retail, Education, Manufacturing, and SaaS.'
+  description: 'Solutions Matter engineers specialized software architectures, high-compliance cloud infrastructure, and data platforms for Healthcare, Finance & Banking, Retail & E-Commerce, Manufacturing, and SaaS & Technology.'
 };
 
 export default function IndustriesPage() {

@@ -79,7 +79,7 @@ const AnimatedCounter = ({ target, suffix = '', duration = 1500 }) => {
     const end = parseInt(target, 10);
     if (isNaN(end)) return;
     if (start === end) {
-      setCount(end);
+      setTimeout(() => setCount(end), 0);
       return;
     }
 
@@ -197,6 +197,10 @@ const BackgroundRings = () => {
 
 export default function Home() {
   const [scrolled, setScrolled] = useState(false);
+  const [activeFaq, setActiveFaq] = useState(null);
+  const [activeGrowthIndex, setActiveGrowthIndex] = useState(0);
+  const [activeCaseIndex, setActiveCaseIndex] = useState(0);
+  const [activeTestimonialIndex, setActiveTestimonialIndex] = useState(0);
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -225,11 +229,6 @@ export default function Home() {
     }, 4000);
     return () => clearInterval(timer);
   }, []);
-
-  const [activeFaq, setActiveFaq] = useState(null);
-  const [activeGrowthIndex, setActiveGrowthIndex] = useState(0);
-  const [activeCaseIndex, setActiveCaseIndex] = useState(0);
-  const [activeTestimonialIndex, setActiveTestimonialIndex] = useState(0);
   
   // Contact state inside bottom page proposal
   const [formData, setFormData] = useState({
@@ -675,7 +674,7 @@ export default function Home() {
         <div className="container blue-cta-inner">
           <h3>Discuss & Start <span>IT Consultations</span></h3>
           <Link href="/contact" className="btn blue-cta-btn">
-            <span>Let's Talk</span>
+            <span>Let&apos;s Talk</span>
             <ArrowRight size={16} />
           </Link>
         </div>
@@ -824,7 +823,7 @@ export default function Home() {
             </div>
             <div className="proposal-left-card-content">
               <span className="proposal-badge-white">Work Inquiry</span>
-              <h2>Let's Work For your <br /> Next Projects ?</h2>
+              <h2>Let&apos;s Work For your <br /> Next Projects ?</h2>
               <div style={{ marginTop: 'auto' }}>
                 <Link href="/contact" className="proposal-btn-white">
                   <span>Contact Us</span>
@@ -851,7 +850,7 @@ export default function Home() {
                     Need Help For Project!
                   </h3>
                   <p style={{ fontSize: '1.5rem', color: 'var(--text-secondary)', margin: 0 }}>
-                    We are ready to help your next projects, let's work together
+                    We are ready to help your next projects, let&apos;s work together
                   </p>
                 </div>
                 

@@ -25,8 +25,8 @@ export const solutions = [
       { slug: 'ui-ux-design', title: 'UI/UX Design' }
     ],
     relatedIndustries: [
-      { slug: 'saas', title: 'SaaS' },
-      { slug: 'retail', title: 'Retail' }
+      { slug: 'saas', title: 'SaaS & Technology' },
+      { slug: 'retail', title: 'Retail & E-Commerce' }
     ],
     relatedCaseStudies: [
       { slug: 'saas-analytics-platform', title: 'SaaS Analytics Platform' },
@@ -58,11 +58,9 @@ export const solutions = [
       { slug: 'support-maintenance', title: 'Support & Maintenance' }
     ],
     relatedIndustries: [
-      { slug: 'education', title: 'Education' },
       { slug: 'manufacturing', title: 'Manufacturing' }
     ],
     relatedCaseStudies: [
-      { slug: 'education-lms-automation', title: 'Education LMS Automation' },
       { slug: 'manufacturing-erp-modernization', title: 'Manufacturing ERP Modernization' }
     ]
   },
@@ -92,7 +90,7 @@ export const solutions = [
     ],
     relatedIndustries: [
       { slug: 'healthcare', title: 'Healthcare' },
-      { slug: 'finance', title: 'Finance' }
+      { slug: 'finance', title: 'Finance & Banking' }
     ],
     relatedCaseStudies: [
       { slug: 'ai-driven-patient-diagnostics', title: 'AI-driven Patient Diagnostics' },
@@ -124,7 +122,7 @@ export const solutions = [
       { slug: 'erp-development', title: 'ERP Development' }
     ],
     relatedIndustries: [
-      { slug: 'retail', title: 'Retail' },
+      { slug: 'retail', title: 'Retail & E-Commerce' },
       { slug: 'manufacturing', title: 'Manufacturing' }
     ],
     relatedCaseStudies: [
@@ -157,7 +155,7 @@ export const solutions = [
       { slug: 'cloud-devops', title: 'Cloud & DevOps' }
     ],
     relatedIndustries: [
-      { slug: 'finance', title: 'Finance' },
+      { slug: 'finance', title: 'Finance & Banking' },
       { slug: 'manufacturing', title: 'Manufacturing' }
     ],
     relatedCaseStudies: [

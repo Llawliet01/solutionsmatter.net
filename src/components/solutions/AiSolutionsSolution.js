@@ -199,7 +199,7 @@ export default function AiSolutionsSolution({ solution }) {
               <div className="ai-db-console">
                 <div className="console-line"><span className="ok">MODEL</span> Initializing LLaMA-3-8B fine-tuned weights...</div>
                 <div className="console-line"><span className="ok">VECTOR</span> Loaded 482k secure schema vectors from cache.</div>
-                <div className="console-line"><span className="info">INFER</span> User Query: "Calculate inventory forecasts for Q3."</div>
+                <div className="console-line"><span className="info">INFER</span> User Query: &quot;Calculate inventory forecasts for Q3.&quot;</div>
                 <div className="console-line"><span className="ok">RESULT</span> Forecast computed in 84ms with 99.45% accuracy.</div>
               </div>
             </div>

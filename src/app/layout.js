@@ -2,6 +2,8 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import ScrollRevealInit from '@/components/ScrollRevealInit';
 import './globals.css';
+import './industry-pages.css';
+
 
 export const metadata = {
   title: {

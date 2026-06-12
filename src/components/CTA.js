@@ -17,7 +17,7 @@ export default function CTA({ variant = 'bottom' }) {
       <div className="cta-middle-box">
         <div className="cta-middle-content">
           <h3>Ready to scale your business operations?</h3>
-          <p>Let's co-engineer software designed to automate workflows and drive conversions.</p>
+          <p>Let&apos;s co-engineer software designed to automate workflows and drive conversions.</p>
         </div>
         <Link href="/contact" className="cta-link cta-middle-btn">
           <HelpCircle size={18} />
