@@ -27,6 +27,7 @@ export default function ManufacturingIndustry({ industry }) {
     card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
   };
 
+  const workflowOuterRef = useRef(null);
   const workflowTrackRef = useRef(null);
 
   const [telemetry, setTelemetry] = useState({
@@ -92,6 +93,29 @@ export default function ManufacturingIndustry({ industry }) {
     { id: 3, title: 'IoT Telemetry Integration', desc: 'Connect machine sensor APIs to WebSocket pipelines, pushing real-time temperature, PSI, and speed readings to the ERP monitor.' },
     { id: 4, title: 'Auto-Procurement Rules', desc: 'Configure SQL triggers and background job workers to auto-generate vendor POs the moment inventory drops below safety thresholds.' },
   ];
+
+  const CARD_W = 420;
+  const CARD_GAP = 28;
+  const maxTranslate = (workflowSteps.length - 2) * (CARD_W + CARD_GAP) + 0.3 * CARD_W;
+
+  useEffect(() => {
+    const outer = workflowOuterRef.current;
+    const track = workflowTrackRef.current;
+    if (!outer || !track) return;
+
+    const onScroll = () => {
+      const rect = outer.getBoundingClientRect();
+      const scrolled = -rect.top;
+      const scrollRange = outer.offsetHeight - window.innerHeight;
+      if (scrollRange <= 0) return;
+      const progress = Math.max(0, Math.min(1, scrolled / scrollRange));
+      track.style.transform = `translateX(${-progress * maxTranslate}px)`;
+    };
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+    return () => window.removeEventListener('scroll', onScroll);
+  }, [maxTranslate]);
 
   return (
     <div className="mf2-theme">
@@ -381,7 +405,10 @@ export default function ManufacturingIndustry({ industry }) {
 
               {/* Back of Card */}
               <div className="case-card-back">
-                <div className="mf2-case-card" style={{ margin: 0 }}>
+                <div className="mf2-case-card" style={{ margin: 0, position: 'relative' }}>
+                  <button className="case-flip-btn" style={{ position: 'absolute', right: '56px', top: '56px', padding: '6px 16px', fontSize: '12px', borderColor: 'rgba(245, 158, 11, 0.4)', zIndex: 10 }} onClick={() => setCaseFlipped(false)}>
+                    Close Details
+                  </button>
                   <div className="mf2-case-eyebrow">Case Study — Detailed Report</div>
                   <div className="mf2-case-inner">
                     <div className="mf2-case-content">
@@ -397,9 +424,6 @@ export default function ManufacturingIndustry({ industry }) {
                         <Link href="/company/case-studies/manufacturing-erp-modernization" className="mf2-case-link">
                           Read Full ERP Case <ArrowRight size={14} />
                         </Link>
-                        <button className="case-flip-btn" style={{ padding: '6px 16px', fontSize: '12px', borderColor: 'rgba(245, 158, 11, 0.4)' }} onClick={() => setCaseFlipped(false)}>
-                          Close Details
-                        </button>
                       </div>
                     </div>
                     <div className="mf2-case-visual">

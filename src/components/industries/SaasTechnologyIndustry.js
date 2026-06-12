@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
-import { Terminal, Zap, Database, Globe, CheckCircle, ArrowRight, ChevronDown, Code2, Settings, Cpu } from 'lucide-react';
+import { Terminal, Zap, Database, Globe, CheckCircle, ArrowRight, ChevronDown, Code2, Settings, Cpu, ShieldCheck, Gauge, Lock, Network } from 'lucide-react';
 import CTA from '@/components/CTA';
 
 const TYPEWRITER_LINES = [
@@ -197,53 +197,135 @@ export default function SaasTechnologyIndustry({ industry }) {
 
       {/* ═══ ARCHITECTURE DIAGRAM ═══ */}
       <section className="st2-arch-section">
-        <div className="container">
-          <div className="st2-section-label">Platform Architecture</div>
-          <h2 className="st2-section-title">How a Production SaaS<br /><span className="st2-purple-text">System Is Structured</span></h2>
-          <div className="st2-arch-diagram">
-            <div className="st2-arch-row">
-              <div className="st2-arch-block front premium-node tilt-card-wrapper reveal-on-scroll" onMouseMove={handleMouseMove} onMouseLeave={handleMouseLeave}>
-                <Code2 size={18} />
-                <span>Web Frontend</span>
-                <p>SSR + Edge caching</p>
-              </div>
-              <div className="st2-arch-block front premium-node tilt-card-wrapper reveal-on-scroll delay-100" onMouseMove={handleMouseMove} onMouseLeave={handleMouseLeave}>
-                <Globe size={18} />
-                <span>Identity SSO</span>
-                <p>Multi-tenant JWT</p>
-              </div>
+        <div className="container st2-arch-container-split">
+          
+          {/* Left Column: Intro & Features */}
+          <div className="st2-arch-sidebar">
+            <div className="st2-arch-eyebrow">
+              <span className="st2-arch-eyebrow-dot" />
+              <span className="st2-arch-eyebrow-line" />
+              <span>ARCHITECTURE OVERVIEW</span>
             </div>
-            <div className="st2-arch-arrows">
-              <div className="st2-arch-arrow-line" />
-            </div>
-            <div className="st2-arch-row">
-              <div className="st2-arch-block mid premium-node tilt-card-wrapper reveal-on-scroll delay-200" onMouseMove={handleMouseMove} onMouseLeave={handleMouseLeave}>
-                <Settings size={18} />
-                <span>API Server Node</span>
-                <p>Rate limited & versioned</p>
+            <h2 className="st2-arch-title">
+              How a Production<br />SaaS System Is<br /><span className="st2-purple-text">Structured</span>
+            </h2>
+            <p className="st2-arch-subtitle">
+              Built for scale, performance, and reliability. Every layer is purpose-built and connects seamlessly to deliver a secure, fast, and resilient SaaS experience.
+            </p>
+            
+            {/* Sidebar features card */}
+            <div className="st2-arch-features-card">
+              <div className="st2-arch-feature-item">
+                <div className="st2-feature-icon-wrap">
+                  <ShieldCheck size={18} />
+                </div>
+                <div>
+                  <h4>Secure by Design</h4>
+                  <p>Security is built into every layer from the ground up.</p>
+                </div>
               </div>
-              <div className="st2-arch-block mid premium-node tilt-card-wrapper reveal-on-scroll delay-300" onMouseMove={handleMouseMove} onMouseLeave={handleMouseLeave}>
-                <Zap size={18} />
-                <span>Billing Webhooks</span>
-                <p>Event queue workers</p>
+              <div className="st2-arch-feature-item">
+                <div className="st2-feature-icon-wrap">
+                  <Gauge size={18} />
+                </div>
+                <div>
+                  <h4>Scalable & Reliable</h4>
+                  <p>Designed to handle growth without compromising performance.</p>
+                </div>
               </div>
-            </div>
-            <div className="st2-arch-arrows">
-              <div className="st2-arch-arrow-line" />
-            </div>
-            <div className="st2-arch-row">
-              <div className="st2-arch-block back accent premium-node tilt-card-wrapper reveal-on-scroll delay-400" onMouseMove={handleMouseMove} onMouseLeave={handleMouseLeave}>
-                <Database size={18} />
-                <span>Database Engine (RLS)</span>
-                <p>Isolated tenant rows</p>
-              </div>
-              <div className="st2-arch-block back premium-node tilt-card-wrapper reveal-on-scroll delay-500" onMouseMove={handleMouseMove} onMouseLeave={handleMouseLeave}>
-                <Cpu size={18} />
-                <span>In-Memory Cache</span>
-                <p>Instant query hits</p>
+              <div className="st2-arch-feature-item">
+                <div className="st2-feature-icon-wrap">
+                  <Code2 size={18} />
+                </div>
+                <div>
+                  <h4>Developer Friendly</h4>
+                  <p>Well-structured, versioned, and easy to extend.</p>
+                </div>
               </div>
             </div>
           </div>
+          
+          {/* Right Column: Grid and Connectors */}
+          <div className="st2-arch-content">
+            <div className="st2-arch-grid-wrapper">
+              
+              {/* Vertical connector lines in the background */}
+              <div className="st2-grid-connector-vertical left-line" />
+              <div className="st2-grid-connector-vertical right-line" />
+              
+              {/* Horizontal connector lines in the background */}
+              <div className="st2-grid-connector-horizontal row1-line" />
+              <div className="st2-grid-connector-horizontal row2-line" />
+              <div className="st2-grid-connector-horizontal row3-line" />
+
+              <div className="st2-arch-grid">
+                
+                {/* Row 1, Card 1: Web Frontend */}
+                <div className="st2-arch-grid-card reveal-on-scroll">
+                  <div className="st2-card-icon-glowing">
+                    <Code2 size={20} />
+                  </div>
+                  <h3>Web Frontend</h3>
+                  <p>Fast, responsive UI with server-side rendering and edge caching.</p>
+                </div>
+
+                {/* Row 1, Card 2: Identity & Access */}
+                <div className="st2-arch-grid-card reveal-on-scroll delay-100">
+                  <div className="st2-card-icon-glowing">
+                    <Lock size={20} />
+                  </div>
+                  <h3>Identity & Access</h3>
+                  <p>Secure authentication with multi-tenant session management.</p>
+                </div>
+
+                {/* Row 2, Card 1: API Server Node */}
+                <div className="st2-arch-grid-card reveal-on-scroll delay-200">
+                  <div className="st2-card-icon-glowing">
+                    <Settings size={20} />
+                  </div>
+                  <h3>API Server Node</h3>
+                  <p>Rate limited, versioned APIs designed for performance and reliability.</p>
+                </div>
+
+                {/* Row 2, Card 2: Billing Webhooks */}
+                <div className="st2-arch-grid-card reveal-on-scroll delay-300">
+                  <div className="st2-card-icon-glowing">
+                    <Zap size={20} />
+                  </div>
+                  <h3>Billing Webhooks</h3>
+                  <p>Asynchronous event processing with reliable delivery and retries.</p>
+                </div>
+
+                {/* Row 3, Card 1: Database Engine */}
+                <div className="st2-arch-grid-card reveal-on-scroll delay-400">
+                  <div className="st2-card-icon-glowing">
+                    <Database size={20} />
+                  </div>
+                  <h3>Database Engine</h3>
+                  <p>Strong consistency with isolated tenant data and optimized queries.</p>
+                </div>
+
+                {/* Row 3, Card 2: In-Memory Cache */}
+                <div className="st2-arch-grid-card reveal-on-scroll delay-500">
+                  <div className="st2-card-icon-glowing">
+                    <Cpu size={20} />
+                  </div>
+                  <h3>In-Memory Cache</h3>
+                  <p>High-speed caching layer for instant reads and reduced latency.</p>
+                </div>
+
+              </div>
+            </div>
+
+            {/* Bottom Banner */}
+            <div className="st2-arch-banner reveal-on-scroll delay-600">
+              <div className="st2-banner-icon-wrap">
+                <Network size={20} />
+              </div>
+              <p>All components work together in harmony to deliver a robust, secure, and high-performing SaaS platform.</p>
+            </div>
+          </div>
+
         </div>
       </section>
 
@@ -332,7 +414,10 @@ export default function SaasTechnologyIndustry({ industry }) {
 
               {/* Back of Card */}
               <div className="case-card-back">
-                <div className="st2-case-card" style={{ margin: 0 }}>
+                <div className="st2-case-card" style={{ margin: 0, position: 'relative' }}>
+                  <button className="case-flip-btn" style={{ position: 'absolute', right: '56px', top: '56px', padding: '6px 16px', fontSize: '12px', borderColor: 'rgba(139, 92, 246, 0.4)', zIndex: 10 }} onClick={() => setCaseFlipped(false)}>
+                    Close Details
+                  </button>
                   <div className="st2-case-eyebrow">Case Study — Detailed Report</div>
                   <div className="st2-case-inner">
                     <div className="st2-case-content">
@@ -348,9 +433,6 @@ export default function SaasTechnologyIndustry({ industry }) {
                         <Link href="/company/case-studies/saas-analytics-platform" className="st2-case-link">
                           Read Full Case <ArrowRight size={14} />
                         </Link>
-                        <button className="case-flip-btn" style={{ padding: '6px 16px', fontSize: '12px', borderColor: 'rgba(139, 92, 246, 0.4)' }} onClick={() => setCaseFlipped(false)}>
-                          Close Details
-                        </button>
                       </div>
                     </div>
                     <div className="st2-case-code">

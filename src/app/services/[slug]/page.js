@@ -8,7 +8,6 @@ import {
 import { services } from '@/data/services';
 import { faqs } from '@/data/faqs';
 import ServiceFaqs from '@/components/ServiceFaqs';
-import ServiceConsultationForm from '@/components/ServiceConsultationForm';
 import ServiceHeroScroll from '@/components/ServiceHeroScroll';
 import CTA from '@/components/CTA';
 import ProcessHorizontalScroll from '@/components/ProcessHorizontalScroll';

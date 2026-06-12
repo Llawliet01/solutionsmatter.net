@@ -28,6 +28,28 @@ export default function RetailEcommerceIndustry({ industry }) {
 
   const [cartAlert, setCartAlert] = useState(null);
   const [activeTab, setActiveTab] = useState('traffic');
+  const [checkoutStage, setCheckoutStage] = useState('cart'); // 'cart' | 'processing' | 'confirmed'
+  const [cartItems, setCartItems] = useState([
+    { id: 1, name: 'Premium Leather Boots', price: 180, qty: 1, img: '🥾' },
+    { id: 2, name: 'Minimalist Backpack', price: 120, qty: 1, img: '🎒' },
+  ]);
+
+  const cartTotal = cartItems.reduce((sum, item) => sum + item.price * item.qty, 0);
+
+  const handleCheckout = () => {
+    setCheckoutStage('processing');
+    setTimeout(() => {
+      setCheckoutStage('confirmed');
+    }, 2000);
+  };
+
+  const stockChannels = [
+    { channel: 'Web Storefront', stock: 842, sold: 1250, status: 'ok' },
+    { channel: 'Mobile App Node', stock: 12, sold: 480, status: 'critical' },
+    { channel: 'Marketplace Sync', stock: 95, sold: 340, status: 'low' },
+    { channel: 'POS Systems', stock: 120, sold: 180, status: 'ok' },
+  ];
+
 
   const [liveMetrics, setLiveMetrics] = useState({
     conversions: 3.42,
@@ -37,10 +59,10 @@ export default function RetailEcommerceIndustry({ industry }) {
   });
 
   const channels = [
-    { icon: Globe, name: 'Web Storefront', desc: 'Next.js storefront scoring 98+ on Google Lighthouse speed benchmarks.' },
-    { icon: Smartphone, name: 'Mobile App Node', desc: 'React Native architecture supporting push updates, offline cart, and instant biometric checkout.' },
-    { icon: RefreshCw, name: 'Marketplace Sync', desc: 'Real-time sync adapters linking Shopify, Amazon, and eBay feeds to the central DB.' },
-    { icon: Package, name: 'POS Systems', desc: 'In-store point-of-sale integration that syncs physical transactions to the central ledger.' },
+    { icon: Globe, name: 'Web Storefront', desc: 'Next.js storefront scoring 98+ on Google Lighthouse speed benchmarks.', img: '/images/rt2_web_storefront.png' },
+    { icon: Smartphone, name: 'Mobile App Node', desc: 'React Native architecture supporting push updates, offline cart, and instant biometric checkout.', img: '/images/rt2_mobile_app_node.png' },
+    { icon: RefreshCw, name: 'Marketplace Sync', desc: 'Real-time sync adapters linking Shopify, Amazon, and eBay feeds to the central DB.', img: '/images/rt2_marketplace_sync.png' },
+    { icon: Package, name: 'POS Systems', desc: 'In-store point-of-sale integration that syncs physical transactions to the central ledger.', img: '/images/rt2_pos_systems.png' },
   ];
 
   const funnelSteps = [
@@ -52,6 +74,68 @@ export default function RetailEcommerceIndustry({ industry }) {
   ];
 
   const statsRef = useRef(null);
+
+  const techCards = [
+    {
+      id: 0,
+      title: 'Mobile Commerce App',
+      desc: 'Cross-platform apps for iOS and Android featuring product catalogs, personalized recommendations, wish lists, one-tap secure checkout, and push notification campaigns.',
+      badges: ['iOS', 'Android', 'Mobile SDK'],
+      img: '/images/rt2_tech_mobile_app.png',
+      icon: Smartphone
+    },
+    {
+      id: 1,
+      title: 'E-Commerce Storefront',
+      desc: 'Modern web storefronts with server-side rendering, headless commerce integration, collection pages, and merchant shopping feed generation.',
+      badges: ['Next.js', 'React', 'Tailwind'],
+      img: '/images/rt2_tech_storefront.png',
+      icon: Globe
+    },
+    {
+      id: 2,
+      title: 'Inventory Sync Engine',
+      desc: 'Central SQL stock ledger syncing all channels in real-time via webhook receivers, preventing overselling across web, app, and in-store.',
+      badges: ['SQL', 'Webhooks', 'Real-time'],
+      img: '/images/rt2_tech_sync_engine.png',
+      icon: Package
+    },
+    {
+      id: 3,
+      title: 'CRM & Loyalty Platform',
+      desc: 'Customer purchase history, segmentation tags, loyalty point engines, and automated email/SMS re-engagement campaigns.',
+      badges: ['CRM', 'Automation', 'Analytics'],
+      img: '/images/rt2_tech_crm_loyalty.png',
+      icon: BarChart2
+    }
+  ];
+
+  const techOuterRef = useRef(null);
+  const techTrackRef = useRef(null);
+
+  const techN = techCards.length;
+  const CARD_W = 420;
+  const CARD_GAP = 28;
+  const maxTranslate = (techN - 2) * (CARD_W + CARD_GAP) + 0.3 * CARD_W;
+
+  useEffect(() => {
+    const outer = techOuterRef.current;
+    const track = techTrackRef.current;
+    if (!outer || !track) return;
+
+    const onScroll = () => {
+      const rect = outer.getBoundingClientRect();
+      const scrolled = -rect.top;
+      const scrollRange = outer.offsetHeight - window.innerHeight;
+      if (scrollRange <= 0) return;
+      const progress = Math.max(0, Math.min(1, scrolled / scrollRange));
+      track.style.transform = `translateX(${-progress * maxTranslate}px)`;
+    };
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+    return () => window.removeEventListener('scroll', onScroll);
+  }, [maxTranslate]);
 
   // Scroll reveal Intersection Observer
   useEffect(() => {
@@ -195,10 +279,22 @@ export default function RetailEcommerceIndustry({ industry }) {
           <h2 className="rt2-section-title">One Platform,<br /><span className="rt2-coral-text">Every Touchpoint</span></h2>
           <div className="rt2-channels-grid">
             {channels.map((ch, i) => (
-              <div key={i} className={`rt2-channel-card reveal-on-scroll delay-${(i % 4) * 100}`}>
-                <div className="rt2-ch-icon"><ch.icon size={22} /></div>
-                <h3>{ch.name}</h3>
-                <p>{ch.desc}</p>
+              <div
+                key={i}
+                className={`rt2-channel-card tilt-card-wrapper reveal-on-scroll delay-${(i % 4) * 100}`}
+                onMouseMove={handleMouseMove}
+                onMouseLeave={handleMouseLeave}
+              >
+                <div className="rt2-channel-img-wrapper">
+                  <img src={ch.img} alt={ch.name} className="rt2-channel-img" />
+                  <div className="rt2-ch-icon-badge">
+                    <ch.icon size={18} />
+                  </div>
+                </div>
+                <div className="rt2-channel-card-content">
+                  <h3>{ch.name}</h3>
+                  <p>{ch.desc}</p>
+                </div>
               </div>
             ))}
           </div>
@@ -214,17 +310,26 @@ export default function RetailEcommerceIndustry({ industry }) {
             <h2 className="rt2-section-title">Real-Time Stock<br /><span className="rt2-coral-text">Across All Channels</span></h2>
             <p>Our inventory sync engine writes every sale — web, app, in-store, or marketplace — to a central relational ledger in under 200ms, eliminating overselling across all channels.</p>
             <div className="retail-metric-microgrid">
-              <div className="retail-metric-microcard">
+              <div className="retail-metric-microcard reveal-on-scroll">
+                <div className="retail-metric-microcard-icon-wrap">
+                  <RefreshCw size={20} />
+                </div>
                 <span className="retail-micro-num">&lt;200ms</span>
                 <span className="retail-micro-lbl">Sync latency</span>
               </div>
-              <div className="retail-metric-microcard">
-                <span className="retail-micro-num">4 channels</span>
-                <span className="retail-micro-lbl">Unified</span>
+              <div className="retail-metric-microcard reveal-on-scroll delay-100">
+                <div className="retail-metric-microcard-icon-wrap">
+                  <Globe size={20} />
+                </div>
+                <span className="retail-micro-num">4</span>
+                <span className="retail-micro-lbl">Unified channels</span>
               </div>
-              <div className="retail-metric-microcard">
-                <span className="retail-micro-num">0 oversells</span>
-                <span className="retail-micro-lbl">Guaranteed</span>
+              <div className="retail-metric-microcard reveal-on-scroll delay-200">
+                <div className="retail-metric-microcard-icon-wrap">
+                  <CheckCircle size={20} />
+                </div>
+                <span className="retail-micro-num">0</span>
+                <span className="retail-micro-lbl">Oversells guaranteed</span>
               </div>
             </div>
           </div>
@@ -264,19 +369,22 @@ export default function RetailEcommerceIndustry({ industry }) {
         <div className="container">
           <div className="rt2-section-label">Conversion Optimization</div>
           <h2 className="rt2-section-title">The Customer Journey<br /><span className="rt2-coral-text">We Engineer</span></h2>
-          <div className="rt2-funnel-track-premium">
-            {funnelSteps.map((step, i) => (
-              <div key={i} className="rt2-funnel-step-premium reveal-on-scroll" style={{ width: `${100 - i * 8}%`, maxWidth: '800px' }}>
-                <div className="rt2-funnel-left">
-                  <span className="rt2-funnel-badge">{i + 1}</span>
-                  <div>
-                    <div className="rt2-funnel-stage">{step.stage}</div>
-                    <div className="rt2-funnel-desc">{step.desc}</div>
+          <div className="rt2-funnel-track-premium" style={{ maxWidth: '1050px', margin: '48px auto 0' }}>
+            {[...funnelSteps].reverse().map((step, i) => {
+              const logicalStep = funnelSteps.length - i;
+              return (
+                <div key={i} className="rt2-funnel-step-premium reveal-on-scroll" style={{ width: `${55 + i * 11.25}%` }}>
+                  <div className="rt2-funnel-left">
+                    <span className="rt2-funnel-badge">{logicalStep}</span>
+                    <div>
+                      <div className="rt2-funnel-stage">{step.stage}</div>
+                      <div className="rt2-funnel-desc">{step.desc}</div>
+                    </div>
                   </div>
+                  <div className="rt2-funnel-rate">{step.rate}</div>
                 </div>
-                <div className="rt2-funnel-rate">{step.rate}</div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </section>
@@ -331,38 +439,53 @@ export default function RetailEcommerceIndustry({ industry }) {
         </div>
       </section>
 
-      {/* ═══ SOLUTIONS ═══ */}
-      <section className="rt2-solutions-section">
-        <div className="container">
-          <div className="rt2-section-label">Commerce Technology</div>
-          <h2 className="rt2-section-title">What We Build for<br /><span className="rt2-coral-text">Modern Retail Brands</span></h2>
-          <div className="rt2-solutions-grid">
-            <div className="rt2-sol-card large tilt-card-wrapper reveal-on-scroll" onMouseMove={handleMouseMove} onMouseLeave={handleMouseLeave}>
-              <div className="rt2-sol-icon"><Smartphone size={26} /></div>
-              <h3>Mobile Commerce App</h3>
-              <p>Cross-platform apps for iOS and Android featuring product catalogs, personalized recommendations, wish lists, one-tap secure checkout, and push notification campaigns.</p>
-              <div className="rt2-sol-badges">
-                <span>iOS</span><span>Android</span><span>Mobile SDK</span>
-              </div>
-            </div>
-            <div className="rt2-sol-card tilt-card-wrapper reveal-on-scroll" onMouseMove={handleMouseMove} onMouseLeave={handleMouseLeave}>
-              <div className="rt2-sol-icon"><Globe size={22} /></div>
-              <h3>E-Commerce Storefront</h3>
-              <p>Modern web storefronts with server-side rendering, headless commerce integration, collection pages, and merchant shopping feed generation.</p>
-            </div>
-            <div className="rt2-sol-card tilt-card-wrapper reveal-on-scroll delay-100" onMouseMove={handleMouseMove} onMouseLeave={handleMouseLeave}>
-              <div className="rt2-sol-icon"><Package size={22} /></div>
-              <h3>Inventory Sync Engine</h3>
-              <p>Central SQL stock ledger syncing all channels in real-time via webhook receivers, preventing overselling across web, app, and in-store.</p>
-            </div>
-            <div className="rt2-sol-card tilt-card-wrapper reveal-on-scroll delay-200" onMouseMove={handleMouseMove} onMouseLeave={handleMouseLeave}>
-              <div className="rt2-sol-icon"><BarChart2 size={22} /></div>
-              <h3>CRM & Loyalty Platform</h3>
-              <p>Customer purchase history, segmentation tags, loyalty point engines, and automated email/SMS re-engagement campaigns.</p>
+      {/* ═══ SOLUTIONS / COMMERCE TECHNOLOGY ═══ */}
+      <div
+        ref={techOuterRef}
+        className="rt2-tech-hscroll-outer"
+        style={{ height: `calc(100vh + ${maxTranslate}px)` }}
+      >
+        <div className="rt2-tech-hscroll-sticky">
+          <div className="container">
+            <h2 className="rt2-section-title" style={{ margin: 0 }}>What We Build for<br /><span className="rt2-coral-text">Modern Retail Brands</span></h2>
+          </div>
+
+          <div className="rt2-tech-hscroll-viewport">
+            <div ref={techTrackRef} className="rt2-tech-hscroll-track">
+              {techCards.map((card, idx) => {
+                const stepNum = String(idx + 1).padStart(2, '0');
+                const Icon = card.icon;
+                return (
+                  <div key={idx} className="rt2-tech-card">
+                    <div className="rt2-tech-card-img-wrap">
+                      <img src={card.img} alt={card.title} className="rt2-tech-card-img" />
+                      <div className="rt2-tech-card-watermark">{stepNum}</div>
+                    </div>
+                    <div className="rt2-tech-card-body">
+                      <div className="rt2-tech-card-header">
+                        <div className="rt2-tech-card-icon">
+                          <Icon size={20} />
+                        </div>
+                        <span className="rt2-tech-card-phase">PHASE {stepNum}</span>
+                      </div>
+                      <h4 className="rt2-tech-card-title">{card.title}</h4>
+                      <p className="rt2-tech-card-desc">{card.desc}</p>
+                      {card.badges && (
+                        <div className="rt2-tech-card-badges">
+                          {card.badges.map((badge, bIdx) => (
+                            <span key={bIdx}>{badge}</span>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                    <div className="rt2-tech-card-accent" />
+                  </div>
+                );
+              })}
             </div>
           </div>
         </div>
-      </section>
+      </div>
 
       {/* ═══ CASE STUDY ═══ */}
       <section className="rt2-case-section">
@@ -397,7 +520,10 @@ export default function RetailEcommerceIndustry({ industry }) {
 
               {/* Back of Card */}
               <div className="case-card-back">
-                <div className="rt2-case-card" style={{ margin: 0 }}>
+                <div className="rt2-case-card" style={{ margin: 0, position: 'relative' }}>
+                  <button className="case-flip-btn" style={{ position: 'absolute', right: '56px', top: '56px', padding: '6px 16px', fontSize: '12px', borderColor: 'rgba(244, 63, 94, 0.4)', zIndex: 10 }} onClick={() => setCaseFlipped(false)}>
+                    Close Details
+                  </button>
                   <div className="rt2-case-eyebrow">Case Study — Detailed Report</div>
                   <div className="rt2-case-inner">
                     <div className="rt2-case-content">
@@ -413,9 +539,6 @@ export default function RetailEcommerceIndustry({ industry }) {
                         <Link href="/company/case-studies/e-commerce-mobile-transformation" className="rt2-case-link">
                           Read Full Commerce Case <ArrowRight size={14} />
                         </Link>
-                        <button className="case-flip-btn" style={{ padding: '6px 16px', fontSize: '12px', borderColor: 'rgba(244, 63, 94, 0.4)' }} onClick={() => setCaseFlipped(false)}>
-                          Close Details
-                        </button>
                       </div>
                     </div>
                     <div className="rt2-case-visual">
@@ -482,5 +605,4 @@ export default function RetailEcommerceIndustry({ industry }) {
       </section>
     </div>
   );
-}
-className="rt2-sol-card tilt-card-wrapper reveal-on-scroll delay-300"
+}

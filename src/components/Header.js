@@ -96,8 +96,18 @@ export default function Header() {
     { name: 'About Us', path: '/company/about' }
   ];
 
+  const getIndustryHeaderClass = () => {
+    if (pathname && pathname.startsWith('/industries/')) {
+      const slug = pathname.split('/').pop();
+      if (['retail', 'saas', 'healthcare', 'manufacturing', 'finance'].includes(slug)) {
+        return `industry-header-${slug}`;
+      }
+    }
+    return '';
+  };
+
   return (
-    <header className={`site-header ${isScrolled ? 'is-scrolled' : ''}`}>
+    <header className={`site-header ${isScrolled ? 'is-scrolled' : ''} ${getIndustryHeaderClass()}`}>
       <div className="header-container-fluid">
         <div className="logo-wrapper">
           <Link href="/" className="logo-area" onClick={closeAll}>

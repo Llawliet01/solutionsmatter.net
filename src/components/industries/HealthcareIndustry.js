@@ -636,7 +636,10 @@ export default function HealthcareIndustry({ industry }) {
 
               {/* Back of Card */}
               <div className="case-card-back">
-                <div className="hc2-case-card" style={{ margin: 0 }}>
+                <div className="hc2-case-card" style={{ margin: 0, position: 'relative' }}>
+                  <button className="case-flip-btn" style={{ position: 'absolute', right: '56px', top: '56px', padding: '6px 16px', fontSize: '12px', borderColor: 'rgba(16, 185, 129, 0.4)', zIndex: 10 }} onClick={() => setCaseFlipped(false)}>
+                    Close Details
+                  </button>
                   <div className="hc2-case-eyebrow">Case Study — Detailed Report</div>
                   <div className="hc2-case-inner">
                     <div className="hc2-case-content">
@@ -657,9 +660,6 @@ export default function HealthcareIndustry({ industry }) {
                         <Link href="/company/case-studies/ai-driven-patient-diagnostics" className="hc2-case-link">
                           Read Full Case Study <ArrowRight size={14} />
                         </Link>
-                        <button className="case-flip-btn" style={{ padding: '6px 16px', fontSize: '12px' }} onClick={() => setCaseFlipped(false)}>
-                          Close Details
-                        </button>
                       </div>
                     </div>
                     <div className="hc2-case-visual-panel">

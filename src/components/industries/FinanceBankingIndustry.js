@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
-import { Shield, TrendingUp, Lock, Server, CheckCircle, ArrowRight, ChevronDown, AlertTriangle, Database, Zap } from 'lucide-react';
+import { Shield, TrendingUp, Lock, Server, CheckCircle, ArrowRight, ChevronDown, AlertTriangle, Database, Zap, BarChart2, Crosshair, Rocket } from 'lucide-react';
 import CTA from '@/components/CTA';
 
 export default function FinanceBankingIndustry({ industry }) {
@@ -359,70 +359,151 @@ export default function FinanceBankingIndustry({ industry }) {
         </div>
       </section>
 
-      {/* ═══ LATENCY COMPARATOR ═══ */}
+      {/* ═══ LATENCY COMPARATOR (REDESIGNED PERFORMANCE BENCHMARK) ═══ */}
       <section className="fb2-comparator-section">
         <div className="container fb2-comparator-inner">
           <div className="fb2-comp-left reveal-on-scroll">
             <div className="fb2-section-label">Performance Benchmark</div>
             <h2 className="fb2-section-title">Legacy vs<br /><span className="fb2-gold-text">Cloud Infrastructure</span></h2>
-            <p>Side-by-side latency and cost comparison between on-premise legacy systems and our cloud-native container deployment.</p>
-          </div>
-          <div className="fb2-comp-right reveal-on-scroll delay-100">
-            <div className="dashboard-comparison-widget" style={{
-              '--after-color': '#c9a227',
-              '--after-gradient-start': '#c9a227',
-              '--after-gradient-end': '#a8811b',
-              '--after-glow-shadow': 'rgba(201, 162, 39, 0.3)'
-            }}>
-              <div className="comp-widget-metric">
-                <div className="comp-widget-label-row">
-                  <span className="comp-widget-title">API Response Time</span>
-                  <span className="comp-delta-badge">-94.3% Latency</span>
+            <p className="fb2-section-sub" style={{ color: '#94a3b8', fontSize: '14px', lineHeight: '1.7', marginTop: '12px' }}>
+              Side-by-side latency and cost comparison between on-premise legacy systems and our cloud-native container deployment.
+            </p>
+            
+            <div className="hc2-outcomes-indicators-list">
+              <div className="hc2-outcome-indicator-item">
+                <div className="hc2-indicator-icon-wrap gold">
+                  <BarChart2 size={20} />
                 </div>
-                <div className="comp-widget-bars">
-                  <div className="comp-widget-bar-row">
-                    <span className="comp-widget-tag">Legacy</span>
-                    <div className="comp-widget-bar-bg">
-                      <div className="comp-widget-bar-fill before-fill" style={{ width: '100%' }}>
-                        <span>140ms</span>
+                <span className="hc2-indicator-label">Latency Optimized</span>
+              </div>
+              <div className="hc2-outcome-indicator-item">
+                <div className="hc2-indicator-icon-wrap purple">
+                  <TrendingUp size={20} />
+                </div>
+                <span className="hc2-indicator-label">Cost Reduced</span>
+              </div>
+              <div className="hc2-outcome-indicator-item">
+                <div className="hc2-indicator-icon-wrap blue">
+                  <Shield size={20} />
+                </div>
+                <span className="hc2-indicator-label">High Availability</span>
+              </div>
+            </div>
+          </div>
+          
+          <div className="fb2-comp-right reveal-on-scroll delay-100">
+            <div className="hc2-kpi-dashboard">
+              
+              {/* Card 1: API Response Time */}
+              <div className="hc2-kpi-card gold-theme">
+                <div className="hc2-kpi-card-left">
+                  <div className="hc2-kpi-icon-wrap">
+                    <Zap size={24} className="hc2-kpi-icon" />
+                    <div className="hc2-kpi-icon-glow" />
+                  </div>
+                </div>
+                
+                <div className="hc2-kpi-card-center">
+                  <div className="hc2-kpi-header-row">
+                    <h3 className="hc2-kpi-title">API Response Time</h3>
+                    <span className="hc2-kpi-badge">
+                      <TrendingUp size={12} className="inline mr-1" />
+                      -94.3% Latency
+                    </span>
+                  </div>
+                  
+                  <div className="hc2-kpi-bars">
+                    {/* Before Bar */}
+                    <div className="hc2-kpi-bar-row">
+                      <div className="hc2-kpi-bar-meta">
+                        <span className="hc2-kpi-bar-label">BEFORE</span>
+                        <span className="hc2-kpi-bar-value red-text">140ms</span>
+                      </div>
+                      <div className="hc2-kpi-bar-track">
+                        <div className="hc2-kpi-bar-fill red" style={{ width: '100%' }} />
+                      </div>
+                    </div>
+                    
+                    {/* After Bar */}
+                    <div className="hc2-kpi-bar-row">
+                      <div className="hc2-kpi-bar-meta">
+                        <span className="hc2-kpi-bar-label">AFTER</span>
+                        <span className="hc2-kpi-bar-value gold-text">8ms</span>
+                      </div>
+                      <div className="hc2-kpi-bar-track">
+                        <div className="hc2-kpi-bar-fill gold" style={{ width: '6%' }} />
                       </div>
                     </div>
                   </div>
-                  <div className="comp-widget-bar-row">
-                    <span className="comp-widget-tag after-tag">Cloud</span>
-                    <div className="comp-widget-bar-bg">
-                      <div className="comp-widget-bar-fill after-fill" style={{ width: '6%' }}>
-                        <span>8ms</span>
-                      </div>
-                    </div>
+                </div>
+                
+                <div className="hc2-kpi-card-right">
+                  <div className="hc2-kpi-dial-container">
+                    <svg className="hc2-kpi-dial-svg" width="80" height="80" viewBox="0 0 80 80">
+                      <circle className="hc2-kpi-dial-bg" cx="40" cy="40" r="32" strokeWidth="5" fill="none" stroke="rgba(255,255,255,0.06)" />
+                      <circle className="hc2-kpi-dial-fill gold" cx="40" cy="40" r="32" strokeWidth="5" fill="none" stroke="#c9a227" strokeDasharray="201.06" strokeDashoffset="11.46" strokeLinecap="round" transform="rotate(-90 40 40)" />
+                      <text x="40" y="37" textAnchor="middle" fill="#f0faf4" fontSize="13" fontWeight="800">94.3%</text>
+                      <text x="40" y="51" textAnchor="middle" fill="#c9a227" fontSize="9" fontWeight="700" letterSpacing="0.05em">FASTER</text>
+                    </svg>
                   </div>
                 </div>
               </div>
 
-              <div className="comp-widget-metric">
-                <div className="comp-widget-label-row">
-                  <span className="comp-widget-title">Monthly Infrastructure Cost</span>
-                  <span className="comp-delta-badge">-45% Savings</span>
+              {/* Card 2: Monthly Infrastructure Cost */}
+              <div className="hc2-kpi-card blue-theme">
+                <div className="hc2-kpi-card-left">
+                  <div className="hc2-kpi-icon-wrap">
+                    <Server size={24} className="hc2-kpi-icon" />
+                    <div className="hc2-kpi-icon-glow" />
+                  </div>
                 </div>
-                <div className="comp-widget-bars">
-                  <div className="comp-widget-bar-row">
-                    <span className="comp-widget-tag">Legacy</span>
-                    <div className="comp-widget-bar-bg">
-                      <div className="comp-widget-bar-fill before-fill" style={{ width: '100%' }}>
-                        <span>$48k/mo</span>
+                
+                <div className="hc2-kpi-card-center">
+                  <div className="hc2-kpi-header-row">
+                    <h3 className="hc2-kpi-title">Monthly Infrastructure Cost</h3>
+                    <span className="hc2-kpi-badge">
+                      <TrendingUp size={12} className="inline mr-1" />
+                      -45.0% Savings
+                    </span>
+                  </div>
+                  
+                  <div className="hc2-kpi-bars">
+                    {/* Before Bar */}
+                    <div className="hc2-kpi-bar-row">
+                      <div className="hc2-kpi-bar-meta">
+                        <span className="hc2-kpi-bar-label">BEFORE</span>
+                        <span className="hc2-kpi-bar-value red-text">$48,000 / mo</span>
+                      </div>
+                      <div className="hc2-kpi-bar-track">
+                        <div className="hc2-kpi-bar-fill red" style={{ width: '100%' }} />
+                      </div>
+                    </div>
+                    
+                    {/* After Bar */}
+                    <div className="hc2-kpi-bar-row">
+                      <div className="hc2-kpi-bar-meta">
+                        <span className="hc2-kpi-bar-label">AFTER</span>
+                        <span className="hc2-kpi-bar-value blue-text">$26,400 / mo</span>
+                      </div>
+                      <div className="hc2-kpi-bar-track">
+                        <div className="hc2-kpi-bar-fill blue" style={{ width: '55%' }} />
                       </div>
                     </div>
                   </div>
-                  <div className="comp-widget-bar-row">
-                    <span className="comp-widget-tag after-tag">Cloud</span>
-                    <div className="comp-widget-bar-bg">
-                      <div className="comp-widget-bar-fill after-fill" style={{ width: '55%' }}>
-                        <span>$26.4k/mo</span>
-                      </div>
-                    </div>
+                </div>
+                
+                <div className="hc2-kpi-card-right">
+                  <div className="hc2-kpi-dial-container">
+                    <svg className="hc2-kpi-dial-svg" width="80" height="80" viewBox="0 0 80 80">
+                      <circle className="hc2-kpi-dial-bg" cx="40" cy="40" r="32" strokeWidth="5" fill="none" stroke="rgba(255,255,255,0.06)" />
+                      <circle className="hc2-kpi-dial-fill blue" cx="40" cy="40" r="32" strokeWidth="5" fill="none" stroke="#06b6d4" strokeDasharray="201.06" strokeDashoffset="110.58" strokeLinecap="round" transform="rotate(-90 40 40)" />
+                      <text x="40" y="37" textAnchor="middle" fill="#f0faf4" fontSize="13" fontWeight="800">45.0%</text>
+                      <text x="40" y="51" textAnchor="middle" fill="#06b6d4" fontSize="9" fontWeight="700" letterSpacing="0.05em">SAVED</text>
+                    </svg>
                   </div>
                 </div>
               </div>
+
             </div>
           </div>
         </div>
@@ -461,7 +542,10 @@ export default function FinanceBankingIndustry({ industry }) {
 
               {/* Back of Card */}
               <div className="case-card-back">
-                <div className="fb2-case-card" style={{ margin: 0 }}>
+                <div className="fb2-case-card" style={{ margin: 0, position: 'relative' }}>
+                  <button className="case-flip-btn" style={{ position: 'absolute', right: '56px', top: '56px', padding: '6px 16px', fontSize: '12px', borderColor: 'rgba(201, 162, 39, 0.4)', zIndex: 10 }} onClick={() => setCaseFlipped(false)}>
+                    Close Details
+                  </button>
                   <div className="fb2-case-eyebrow">Case Study — Detailed Report</div>
                   <div className="fb2-case-inner">
                     <div className="fb2-case-content">
@@ -477,9 +561,6 @@ export default function FinanceBankingIndustry({ industry }) {
                         <Link href="/company/case-studies/secure-cloud-finance-migration" className="fb2-case-link">
                           Read Full Migration Case <ArrowRight size={14} />
                         </Link>
-                        <button className="case-flip-btn" style={{ padding: '6px 16px', fontSize: '12px', borderColor: 'rgba(201, 162, 39, 0.4)' }} onClick={() => setCaseFlipped(false)}>
-                          Close Details
-                        </button>
                       </div>
                     </div>
                     <div className="fb2-case-visual">
