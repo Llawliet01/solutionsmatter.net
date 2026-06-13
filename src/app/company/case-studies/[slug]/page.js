@@ -1,8 +1,9 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import { notFound } from 'next/navigation';
 import { 
-  CheckCircle2, ArrowRight, Bookmark, ShieldAlert, Award, 
-  HelpCircle, ExternalLink, Settings, ShieldCheck
+  ArrowRight, Bookmark, ShieldAlert, Award, 
+  ShieldCheck, Calendar, Activity
 } from 'lucide-react';
 import { caseStudies } from '@/data/caseStudies';
 import CTA from '@/components/CTA';
@@ -26,7 +27,7 @@ export async function generateMetadata({ params }) {
   }
 
   return {
-    title: `${cs.title} | Case Study`,
+    title: `${cs.title} | Case Study | Solutions Matter`,
     description: cs.challenge.substring(0, 155),
     alternates: {
       canonical: `/company/case-studies/${slug}`
@@ -37,68 +38,103 @@ export async function generateMetadata({ params }) {
 export default async function CaseStudyDetailPage({ params }) {
   const resolvedParams = await params;
   const slug = resolvedParams.slug;
-  const cs = caseStudies.find(c => c.slug === slug);
+  
+  const csIdx = caseStudies.findIndex(c => c.slug === slug);
+  const cs = caseStudies[csIdx];
 
   if (!cs) {
     notFound();
   }
 
-  // Inject Project Case Study Schema JSON-LD
   const schemaJson = {
     '@context': 'https://schema.org',
     '@type': 'TechArticle',
     'headline': cs.title,
     'description': cs.challenge,
+    'image': cs.banner,
     'publisher': {
       '@type': 'Organization',
-      'name': 'Solutions Matter'
+      'name': 'Solutions Matter',
+      'logo': 'https://www.solutionsmatter.com/images/logo.png'
     }
   };
 
   return (
-    <>
+    <div className={`case-study-detail-wrapper cs-accent-theme-${csIdx + 1}`}>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaJson) }}
       />
 
-      {/* Hero Section */}
+      {/* Case Detail Hero Section */}
       <section className="case-detail-hero">
         <div className="container">
-          <span className="detail-badge">{cs.industry} Case Study</span>
-          <h1>{cs.title}</h1>
-          <p className="cs-hero-subtitle">Detailed challenge audit, technology selections, and operational outcomes.</p>
+          
+          <div className="hero-top-meta">
+            <span className="detail-badge">{cs.industry} Case Study</span>
+          </div>
+
+          <h1 className="detail-page-title">{cs.title}</h1>
+          <p className="detail-page-subtitle">Detailed engineering breakdown, architectural blueprints, and production outcome metrics validation.</p>
+
+          {/* Huge Floating Hero Image Panel */}
+          {cs.banner && (
+            <div className="detail-hero-visual-panel">
+              <div className="detail-hero-image-wrapper">
+                <Image
+                  src={cs.banner}
+                  alt={cs.title}
+                  fill
+                  className="detail-hero-real-image"
+                  priority
+                  sizes="100vw"
+                />
+              </div>
+            </div>
+          )}
+
         </div>
       </section>
 
       {/* Main Content Body */}
-      <section className="section-spacing case-detail-body">
+      <section className="case-detail-body-section">
         <div className="container">
           <div className="detail-layout-grid">
             
-            {/* Left Content Area */}
+            {/* Left Content Column (Very Long) */}
             <div className="left-content-area">
               
-              {/* Challenge Section */}
+              {/* Challenge Summary */}
               <div className="content-block challenge-block-border">
                 <div className="block-title-row">
-                  <ShieldAlert size={24} className="challenge-icon-decor" />
+                  <ShieldAlert size={22} className="block-decor-icon" />
                   <h2>The Challenge</h2>
                 </div>
                 <p className="large-overview-paragraph">{cs.challenge}</p>
               </div>
 
-              {/* Solution Section */}
-              <div className="content-block">
-                <h2>Our Engineered Solution</h2>
+              {/* Solution Summary */}
+              <div className="content-block solution-block-border">
+                <div className="block-title-row">
+                  <Activity size={22} className="block-decor-icon" />
+                  <h2>The Solution</h2>
+                </div>
                 <p className="large-overview-paragraph">{cs.solution}</p>
               </div>
 
-              {/* Implementation Roadmap */}
+              {/* Detailed Technical Report */}
+              {cs.detailedContent && (
+                <div 
+                  className="content-block detailed-report-content"
+                  dangerouslySetInnerHTML={{ __html: cs.detailedContent }}
+                />
+              )}
+
+              {/* Implementation Bullets */}
               <div className="content-block process-block">
-                <h2>Project Implementation & Execution</h2>
+                <h2>Project Execution Roadmap</h2>
                 <p className="block-intro-text">
-                  The step-by-step roadmap our engineering team followed to design, code, and deploy this project:
+                  A checklist of the operational steps completed by our core engineering team:
                 </p>
                 <div className="implementation-bullets-stack">
                   {cs.implementation.map((stepText, idx) => (
@@ -112,10 +148,10 @@ export default async function CaseStudyDetailPage({ params }) {
 
             </div>
 
-            {/* Right Sidebar Area */}
+            {/* Right Sidebar Column */}
             <div className="right-sidebar-area">
               
-              {/* Outcomes Section */}
+              {/* Outcomes Card */}
               <div className="sidebar-card outcomes-sidebar-card">
                 <div className="outcomes-header-row">
                   <Award size={20} className="outcome-icon-decor" />
@@ -133,7 +169,7 @@ export default async function CaseStudyDetailPage({ params }) {
 
               {/* Technologies Used */}
               <div className="sidebar-card tech-sidebar-card">
-                <h3>Technologies</h3>
+                <h3>Engineered Stack</h3>
                 <div className="tech-badge-container">
                   {cs.technologies.map((tech) => (
                     <span key={tech} className="tech-pill-large">{tech}</span>
@@ -146,7 +182,7 @@ export default async function CaseStudyDetailPage({ params }) {
                 <h3>Related Services</h3>
                 <div className="relation-links-stack">
                   {cs.relatedServices.map((service) => (
-                    <div key={service.slug} className="relation-link-card mini-margin">
+                    <div key={service.slug} className="relation-link-card">
                       <Bookmark size={16} className="relation-icon" />
                       <div>
                         <h4>{service.title}</h4>
@@ -165,7 +201,7 @@ export default async function CaseStudyDetailPage({ params }) {
                 <h3>Related Solutions</h3>
                 <div className="relation-links-stack">
                   {cs.relatedSolutions.map((sol) => (
-                    <div key={sol.slug} className="relation-link-card mini-margin">
+                    <div key={sol.slug} className="relation-link-card">
                       <Bookmark size={16} className="relation-icon" />
                       <div>
                         <h4>{sol.title}</h4>
@@ -186,7 +222,7 @@ export default async function CaseStudyDetailPage({ params }) {
           {/* Middle CTA */}
           <CTA variant="middle" />
 
-          {/* Case Study Flow redirection trail: Case Study -> Related Service */}
+          {/* Redirection Trail */}
           <PageFlow 
             nextType="Related Engineering Service"
             nextTitle={cs.relatedServices[0].title}
@@ -197,6 +233,6 @@ export default async function CaseStudyDetailPage({ params }) {
 
       {/* Bottom CTA */}
       <CTA variant="bottom" />
-    </>
+    </div>
   );
 }

@@ -1,12 +1,19 @@
+'use client';
+
+import { useEffect, useRef, useState } from 'react';
+import * as THREE from 'three';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ShieldCheck, Cpu, Layout, Compass, Users } from 'lucide-react';
 import CTA from '@/components/CTA';
 
-export const metadata = {
-  title: 'About Solutions Matter',
-  description: 'Learn about Solutions Matter, our company mission, core values, and development process. We specialize in engineering high-compliance custom software architectures.'
-};
-
 export default function AboutPage() {
+  const trackRef = useRef(null);
+  const canvasRef = useRef(null);
+  
+  // Track scroll progress for reactive HTML text overlays [0 to 1]
+  const [scrollProgress, setScrollProgress] = useState(0);
+
   const values = [
     {
       icon: <ShieldCheck size={28} />,
@@ -30,22 +37,390 @@ export default function AboutPage() {
     }
   ];
 
-  return (
-    <>
-      {/* Hero Section */}
-      <section className="about-hero">
-        <div className="container">
-          <div className="hero-content text-center">
-            <span className="badge">Who We Are</span>
-            <h1>Engineering Premium Technology Partners</h1>
-            <p>
-              Solutions Matter is a professional IT consulting and software engineering firm focused on custom enterprise software, cloud structures, and workflow automation.
-            </p>
-          </div>
-        </div>
-      </section>
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    
+    // Register GSAP ScrollTrigger
+    gsap.registerPlugin(ScrollTrigger);
 
-      {/* Corporate Profile Section */}
+    const canvasEl = canvasRef.current;
+    const trackEl = trackRef.current;
+    if (!canvasEl || !trackEl) return;
+
+    // ─── 1. THREE.JS SCENE SETUP ───
+    const scene = new THREE.Scene();
+    
+    // Camera
+    const camera = new THREE.PerspectiveCamera(
+      50,
+      canvasEl.clientWidth / canvasEl.clientHeight,
+      0.1,
+      100
+    );
+    camera.position.z = 16;
+
+    // Renderer (transparent background)
+    const renderer = new THREE.WebGLRenderer({
+      canvas: canvasEl,
+      alpha: true,
+      antialias: true
+    });
+    renderer.setSize(canvasEl.clientWidth, canvasEl.clientHeight);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+    // ─── 2. TEXT POINT SAMPLING ───
+    // Draw "SOLUTIONS" and "MATTER" onto offscreen canvas and sample pixel positions
+    const getTargetCoordinates = () => {
+      const w = 800;
+      const h = 300;
+      const canvas = document.createElement('canvas');
+      canvas.width = w;
+      canvas.height = h;
+      const ctx = canvas.getContext('2d');
+      if (!ctx) return [];
+
+      ctx.fillStyle = '#000000';
+      ctx.fillRect(0, 0, w, h);
+
+      // Stylized premium bold sans-serif text shape (much bolder for clarity)
+      ctx.fillStyle = '#ffffff';
+      ctx.font = '900 80px system-ui, -apple-system, sans-serif';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText('SOLUTIONS', w / 2, 105);
+      ctx.fillText('MATTER', w / 2, 185);
+
+      const imgData = ctx.getImageData(0, 0, w, h);
+      const pixels = imgData.data;
+      const points = [];
+      const step = 4; // Sample every 4th pixel for high resolution
+
+      for (let y = 0; y < h; y += step) {
+        for (let x = 0; x < w; x += step) {
+          const idx = (y * w + x) * 4;
+          const redVal = pixels[idx];
+          if (redVal > 200) { // White pixel representing text font
+            points.push({
+              x: (x - w / 2) * 0.028,
+              y: -(y - h / 2) * 0.028,
+              z: (Math.random() - 0.5) * 0.3 // Soft 3D depth jitter
+            });
+          }
+        }
+      }
+      return points;
+    };
+
+    const targetPoints = getTargetCoordinates();
+    const N = targetPoints.length || 1000;
+
+    // ─── 3. PARTICLE POINTS GEOMETRY ───
+    const randomPositions = [];
+    const pointsGeometry = new THREE.BufferGeometry();
+    const pointsPosArray = new Float32Array(N * 3);
+
+    for (let i = 0; i < N; i++) {
+      // Generate scattered random coordinates in a 3D sphere/box
+      const rx = (Math.random() - 0.5) * 42;
+      const ry = (Math.random() - 0.5) * 42;
+      const rz = (Math.random() - 0.5) * 42;
+      randomPositions.push({ x: rx, y: ry, z: rz });
+
+      pointsPosArray[i * 3] = rx;
+      pointsPosArray[i * 3 + 1] = ry;
+      pointsPosArray[i * 3 + 2] = rz;
+    }
+
+    pointsGeometry.setAttribute('position', new THREE.BufferAttribute(pointsPosArray, 3));
+
+    // Smooth round particle texture drawing
+    const createParticleTexture = () => {
+      const c = document.createElement('canvas');
+      c.width = 32;
+      c.height = 32;
+      const cx = c.getContext('2d');
+      const grad = cx.createRadialGradient(16, 16, 0, 16, 16, 16);
+      grad.addColorStop(0, 'rgba(255, 255, 255, 1)');
+      grad.addColorStop(0.3, 'rgba(255, 255, 255, 0.8)');
+      grad.addColorStop(1, 'rgba(255, 255, 255, 0)');
+      cx.fillStyle = grad;
+      cx.fillRect(0, 0, 32, 32);
+      return new THREE.CanvasTexture(c);
+    };
+
+    const pointsMaterial = new THREE.PointsMaterial({
+      color: new THREE.Color('#8B5CF6'), // Brighter brand lavender for legibility
+      size: 0.26, // Sleeker dots size
+      transparent: true,
+      opacity: 0.9,
+      blending: THREE.AdditiveBlending,
+      map: createParticleTexture(),
+      depthWrite: false
+    });
+
+    const points = new THREE.Points(pointsGeometry, pointsMaterial);
+    scene.add(points);
+
+    // ─── 4. CONNECTING NETWORK LINES ───
+    const links = [];
+    const maxLinks = 1600;
+    // Lower threshold (0.20 units = ~7px) connects neighbors *within* letters
+    // but prevents links from bridging across the empty gap between different letters
+    const threshold = 0.20; 
+
+    for (let i = 0; i < N; i++) {
+      for (let j = i + 1; j < N; j++) {
+        const p1 = targetPoints[i];
+        const p2 = targetPoints[j];
+        if (p1 && p2) {
+          const dist = Math.sqrt((p1.x - p2.x) ** 2 + (p1.y - p2.y) ** 2 + (p1.z - p2.z) ** 2);
+          if (dist < threshold) {
+            links.push({ i, j });
+            if (links.length >= maxLinks) break;
+          }
+        }
+      }
+      if (links.length >= maxLinks) break;
+    }
+
+    const linesGeometry = new THREE.BufferGeometry();
+    const linesPosArray = new Float32Array(links.length * 6);
+    linesGeometry.setAttribute('position', new THREE.BufferAttribute(linesPosArray, 3));
+
+    const linesMaterial = new THREE.LineBasicMaterial({
+      color: new THREE.Color('#A78BFA'), // Brighter glowing lines
+      transparent: true,
+      opacity: 0, // initially hidden
+      blending: THREE.AdditiveBlending,
+      depthWrite: false
+    });
+
+    const lineSegments = new THREE.LineSegments(linesGeometry, linesMaterial);
+    scene.add(lineSegments);
+
+    // ─── 5. GSAP SCROLL SCUBBING BINDING ───
+    let scrollObj = { progress: 0 };
+
+    const scrollTimeline = gsap.to(scrollObj, {
+      progress: 1,
+      scrollTrigger: {
+        trigger: trackEl,
+        start: 'top top',
+        end: 'bottom bottom',
+        scrub: 0.15,
+        onUpdate: (self) => {
+          setScrollProgress(self.progress);
+        }
+      }
+    });
+
+    // ─── 6. INTERACTIVE MOUSE DISPLACEMENT ───
+    const mouse = new THREE.Vector2(-9999, -9999);
+    
+    const handleMouseMove = (e) => {
+      const rect = canvasEl.getBoundingClientRect();
+      mouse.x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
+      mouse.y = -((e.clientY - rect.top) / rect.height) * 2 + 1;
+    };
+
+    const handleMouseLeave = () => {
+      mouse.set(-9999, -9999);
+    };
+
+    window.addEventListener('mousemove', handleMouseMove);
+    canvasEl.addEventListener('mouseleave', handleMouseLeave);
+
+    // ─── 7. ANIMATION RENDER LOOP ───
+    const clock = new THREE.Clock();
+    let animationFrameId;
+
+    const animate = () => {
+      animationFrameId = requestAnimationFrame(animate);
+      const time = clock.getElapsedTime();
+      const p = scrollObj.progress; // scrubbed scroll progress [0 to 1]
+
+      const pointsPos = pointsGeometry.attributes.position.array;
+      const currentPos = [];
+
+      // Project mouse screen coords to 3D Z=0 plane for cursor displacement
+      let cursor3D = new THREE.Vector3(-9999, -9999, -9999);
+      if (mouse.x > -1.5) {
+        const tempV = new THREE.Vector3(mouse.x, mouse.y, 0.5).unproject(camera);
+        const dir = tempV.sub(camera.position).normalize();
+        const distToZ0 = -camera.position.z / dir.z;
+        cursor3D.copy(camera.position).add(dir.multiplyScalar(distToZ0));
+      }
+
+      // Morph particle positions
+      for (let i = 0; i < N; i++) {
+        const r = randomPositions[i];
+        const t = targetPoints[i] || r; // Fallback to random if target isn't defined
+
+        // Organic assembly stagger delay based on index (completes earlier by 0.65 progress)
+        const startProgress = 0.05 + (i % 100) * 0.002; // ranges from 0.05 to 0.25
+        const duration = 0.40;
+        let localT = (p - startProgress) / duration;
+        localT = Math.max(0, Math.min(1, localT));
+
+        // Smooth cubic ease-in-out curve
+        const easedT = localT < 0.5
+          ? 4 * localT * localT * localT
+          : 1 - Math.pow(-2 * localT + 2, 3) / 2;
+
+        // Ambient float space drift (drifts at 0% scroll, locks into position at 100%)
+        const driftX = Math.sin(time * 0.6 + i * 0.1) * 0.8 * (1 - easedT);
+        const driftY = Math.cos(time * 0.6 + i * 0.15) * 0.8 * (1 - easedT);
+        const driftZ = Math.sin(time * 0.4 + i * 0.2) * 0.6 * (1 - easedT);
+
+        let px = r.x + (t.x - r.x) * easedT + driftX;
+        let py = r.y + (t.y - r.y) * easedT + driftY;
+        let pz = r.z + (t.z - r.z) * easedT + driftZ;
+
+        // Interactive cursor push-away displacement
+        if (cursor3D.x > -999) {
+          const dx = px - cursor3D.x;
+          const dy = py - cursor3D.y;
+          const dz = pz - cursor3D.z;
+          const dist = Math.sqrt(dx * dx + dy * dy + dz * dz);
+          const dispRadius = 2.4;
+          if (dist < dispRadius && dist > 0.1) {
+            const force = (1.0 - dist / dispRadius) * 0.9 * (0.15 + 0.85 * easedT);
+            px += (dx / dist) * force;
+            py += (dy / dist) * force;
+            pz += (dz / dist) * force;
+          }
+        }
+
+        pointsPos[i * 3] = px;
+        pointsPos[i * 3 + 1] = py;
+        pointsPos[i * 3 + 2] = pz;
+
+        currentPos.push({ x: px, y: py, z: pz });
+      }
+      pointsGeometry.attributes.position.needsUpdate = true;
+
+      // Update lines segments coordinates to match current points
+      let lineIdx = 0;
+      const linesPos = linesGeometry.attributes.position.array;
+      for (let k = 0; k < links.length; k++) {
+        const link = links[k];
+        const p1 = currentPos[link.i];
+        const p2 = currentPos[link.j];
+        if (p1 && p2) {
+          linesPos[lineIdx++] = p1.x;
+          linesPos[lineIdx++] = p1.y;
+          linesPos[lineIdx++] = p1.z;
+          linesPos[lineIdx++] = p2.x;
+          linesPos[lineIdx++] = p2.y;
+          linesPos[lineIdx++] = p2.z;
+        }
+      }
+      linesGeometry.attributes.position.needsUpdate = true;
+
+      // Scale line connectivity opacity based on scroll
+      if (p < 0.3) {
+        linesMaterial.opacity = 0;
+      } else {
+        const lineFade = (p - 0.3) / 0.35; // completes by 65% scroll
+        linesMaterial.opacity = Math.max(0, Math.min(0.35, lineFade * 0.35));
+      }
+
+      // Camera drift offset
+      camera.position.x = Math.sin(time * 0.2) * 0.4;
+      camera.position.y = Math.cos(time * 0.15) * 0.3;
+      camera.lookAt(0, 0, 0);
+
+      renderer.render(scene, camera);
+    };
+
+    animate();
+
+    // ─── 8. RESIZE EVENT HANDLER ───
+    const handleResize = () => {
+      const width = canvasEl.clientWidth;
+      const height = canvasEl.clientHeight;
+      const aspect = width / height;
+
+      // Adjust camera distance dynamically for mobile viewports
+      if (aspect < 1.0) {
+        camera.position.z = 24; // Push back on portrait mobile screen
+      } else {
+        camera.position.z = 16; // Normal desktop view
+      }
+
+      camera.aspect = aspect;
+      camera.updateProjectionMatrix();
+      renderer.setSize(width, height);
+    };
+    window.addEventListener('resize', handleResize);
+    handleResize(); // Trigger initial layout setup
+
+    // ─── 9. CLEANUP / DISPOSE ───
+    return () => {
+      cancelAnimationFrame(animationFrameId);
+      window.removeEventListener('resize', handleResize);
+      window.removeEventListener('mousemove', handleMouseMove);
+      canvasEl.removeEventListener('mouseleave', handleMouseLeave);
+      
+      scrollTimeline.kill();
+      renderer.dispose();
+      pointsGeometry.dispose();
+      pointsMaterial.dispose();
+      linesGeometry.dispose();
+      linesMaterial.dispose();
+    };
+  }, []);
+
+  // Compute text opacities dynamically for smooth fading
+  const initOpacity = Math.max(0, 1 - scrollProgress * 3.5);
+  const finalOpacity = Math.max(0, (scrollProgress - 0.60) * 4); // starts fading in at 60%, fully opaque by 85%
+
+  return (
+    <div className="about-page-wrapper">
+      
+      {/* 3D SCROLL PARTICLE HERO TRACK */}
+      <div className="about-hero-scroll-track" ref={trackRef}>
+        <div className="about-hero-sticky">
+          
+          {/* WebGL Canvas */}
+          <canvas 
+            className="about-hero-canvas" 
+            ref={canvasRef}
+          ></canvas>
+
+          {/* Initial Overlay (0% - 25% Scroll) */}
+          <div 
+            className="about-hero-overlay-init" 
+            style={{ 
+              opacity: initOpacity,
+              pointerEvents: initOpacity > 0.05 ? 'auto' : 'none'
+            }}
+          >
+            <span className="badge">Who We Are</span>
+            <h1>Chaos to Clarity</h1>
+            <p>Scroll down to watch fragmented particles organize into clean, integrated structures.</p>
+            <div className="scroll-down-mouse">
+              <span className="mouse-wheel"></span>
+            </div>
+          </div>
+
+          {/* Final Overlay (75% - 100% Scroll) */}
+          <div 
+            className="about-hero-overlay-final"
+            style={{ 
+              opacity: finalOpacity,
+              pointerEvents: finalOpacity > 0.05 ? 'auto' : 'none'
+            }}
+          >
+            <span className="badge is-accent">Solutions Matter</span>
+            <h1>Premium IT Partners</h1>
+            <p>We transform chaotic business bottlenecks into high-compliance, custom digital solutions.</p>
+          </div>
+
+        </div>
+      </div>
+
+      {/* CORPORATE PROFILE SECTION */}
       <section className="section-spacing profile-section">
         <div className="container">
           <div className="about-split-grid">
@@ -76,7 +451,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Core Values Section */}
+      {/* CORE VALUES SECTION */}
       <section className="section-spacing values-section">
         <div className="container">
           <div className="heading-group">
@@ -101,8 +476,8 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Bottom CTA */}
+      {/* BOTTOM CTA */}
       <CTA variant="bottom" />
-    </>
+    </div>
   );
 }

@@ -5,6 +5,7 @@ import { ArrowLeft, ArrowRight, Bookmark, BookOpen } from 'lucide-react';
 import { blogPosts } from '@/data/blog';
 import CTA from '@/components/CTA';
 import PageFlow from '@/components/PageFlow';
+import ThemeBodyToggle from '@/components/ThemeBodyToggle';
 
 export async function generateStaticParams() {
   return blogPosts.map((post) => ({
@@ -65,6 +66,7 @@ export default async function BlogDetailPage({ params }) {
 
   return (
     <>
+      <ThemeBodyToggle />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaJson) }}
@@ -88,6 +90,25 @@ export default async function BlogDetailPage({ params }) {
             <article className="blog-article-content card">
               <span className="category-badge">{post.category.replace('-', ' ')}</span>
               <h1>{post.title}</h1>
+
+              <div className="article-meta-bar">
+                <div className="meta-item">
+                  <span className="meta-label">Author</span>
+                  <span className="meta-value">Solutions Matter Tech Team</span>
+                </div>
+                <div className="meta-divider" />
+                <div className="meta-item">
+                  <span className="meta-label">Published</span>
+                  <span className="meta-value">June 2026</span>
+                </div>
+                <div className="meta-divider" />
+                <div className="meta-item">
+                  <span className="meta-label">Read Time</span>
+                  <span className="meta-value">
+                    {Math.ceil((post.content ? post.content.split(/\s+/).length : 150) / 180)} min read
+                  </span>
+                </div>
+              </div>
               
               <div className="article-banner-image">
                 <Image
@@ -156,7 +177,7 @@ export default async function BlogDetailPage({ params }) {
                 <h3>Related Articles</h3>
                 <div className="related-articles-stack">
                   {relatedArticles.map((rel) => (
-                    <div key={rel.slug} className="rel-article-sidebar-row">
+                    <Link key={rel.slug} href={`/insights/blog/${rel.slug}`} className="related-article-link-card">
                       <div className="rel-article-img-box">
                         <Image
                           src={rel.banner}
@@ -167,11 +188,9 @@ export default async function BlogDetailPage({ params }) {
                         />
                       </div>
                       <div className="rel-article-text-box">
-                        <h4>
-                          <Link href={`/insights/blog/${rel.slug}`}>{rel.title}</Link>
-                        </h4>
+                        <h4>{rel.title}</h4>
                       </div>
-                    </div>
+                    </Link>
                   ))}
                 </div>
               </div>

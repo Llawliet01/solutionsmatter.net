@@ -1,8 +1,21 @@
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import ScrollRevealInit from '@/components/ScrollRevealInit';
+import { Inter, Fraunces } from 'next/font/google';
 import './globals.css';
 import './industry-pages.css';
+
+const inter = Inter({
+  subsets: ['latin'],
+  weight: ['300', '400', '500', '600'],
+  variable: '--font-inter',
+});
+
+const fraunces = Fraunces({
+  subsets: ['latin'],
+  weight: ['300', '600', '700'],
+  variable: '--font-fraunces',
+});
 
 
 export const metadata = {
@@ -44,7 +57,7 @@ export default function RootLayout({ children }) {
           dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaOrg) }}
         />
       </head>
-      <body>
+      <body className={`${inter.variable} ${fraunces.variable}`}>
         <ScrollRevealInit />
         <Header />
         <main className="main-content-layout">{children}</main>

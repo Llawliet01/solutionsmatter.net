@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { ArrowRight, BookOpen } from 'lucide-react';
 
 export default function BlogHero3D({ posts }) {
@@ -12,18 +13,13 @@ export default function BlogHero3D({ posts }) {
   const dragRef = useRef({ startX: 0, startRotation: 0 });
   const animRef = useRef(null);
   const [mouseX, setMouseX] = useState(0); // Normalized X coordinate from -1 to 1
-  const [activeSeqIndex, setActiveSeqIndex] = useState(0); // Active index in style sequence [0, 1, 2]
+  const [activeSeqIndex, setActiveSeqIndex] = useState(0); // Active index in style sequence [0, 1]
 
-  // Cycle preview: Style 1 (5s) -> Style 3 (5s) -> Style 4 (2.5s)
+  // Cycle preview: Style 1 (5s) -> Style 3 (5s)
   useEffect(() => {
-    let delay = 5000; // Style 1 (seq 0) and Style 3 (seq 1) display for 5 seconds
-    if (activeSeqIndex === 2) {
-      delay = 2500; // Style 4 (seq 2) displays for 2.5 seconds
-    }
-
     const timer = setTimeout(() => {
-      setActiveSeqIndex((prev) => (prev + 1) % 3);
-    }, delay);
+      setActiveSeqIndex((prev) => (prev + 1) % 2);
+    }, 5000);
 
     return () => clearTimeout(timer);
   }, [activeSeqIndex]);
@@ -89,7 +85,7 @@ export default function BlogHero3D({ posts }) {
     }
 
     const tick = () => {
-      setRotation((r) => (r + 0.22) % 360);
+      setRotation((r) => (r + 0.48) % 360);
       animRef.current = requestAnimationFrame(tick);
     };
 
@@ -166,12 +162,10 @@ export default function BlogHero3D({ posts }) {
           {/* Giant Static Background Text (Placed behind the 3D rotating scene) */}
           <div 
             className={`blog-hero-3d-pivot-text ${
-              activeSeqIndex === 0 ? 'preview-style-0' :
-              activeSeqIndex === 1 ? 'preview-style-2' :
-              'preview-style-3'
+              activeSeqIndex === 0 ? 'preview-style-0' : 'preview-style-2'
             }`}
             style={{
-              '--layer-transition-duration': activeSeqIndex === 2 ? '2.5s' : '5s'
+              '--layer-transition-duration': '5s'
             }}
           >
             {['B', 'L', 'O', 'G', 'S'].map((char, idx) => {
@@ -201,8 +195,6 @@ export default function BlogHero3D({ posts }) {
                   <span className="letter-layer layer-hollow">{char}</span>
                   {/* Layer 2: Gradient Fill */}
                   <span className="letter-layer layer-gradient">{char}</span>
-                  {/* Layer 3: Platinum Silver */}
-                  <span className="letter-layer layer-silver">{char}</span>
                 </span>
               );
             })}
@@ -241,38 +233,37 @@ export default function BlogHero3D({ posts }) {
                     opacity: cardOpacity,
                   }}
                 >
-                  <div 
+                  <Link 
+                    href={`/insights/blog/${post.slug}`}
                     className="blog-hero-3d-card"
                     onMouseEnter={() => setIsHovered(true)}
                     onMouseLeave={() => setIsHovered(false)}
+                    onMouseDown={(e) => e.stopPropagation()} // Prevents dragging on click
+                    onTouchStart={(e) => e.stopPropagation()}
                   >
-                    {/* Card Header: Category & Read Time */}
-                    <div className="hero-card-header">
-                      <span className={`hero-card-category cat-${post.category}`}>
+                    {/* Background Image Overlay */}
+                    <div className="hero-card-bg-image-wrapper">
+                      <Image
+                        src={post.banner}
+                        alt={post.title}
+                        fill
+                        sizes="160px"
+                        priority={idx < 4}
+                        className="hero-card-bg-image"
+                      />
+                      <div className="hero-card-bg-overlay" />
+                    </div>
+
+                    {/* Content Overlay text */}
+                    <div className="hero-card-overlay-content">
+                      <span className="hero-card-overlay-category">
                         {post.category.replace('-', ' ')}
                       </span>
-                      <span className="hero-card-readtime">{readTime} min read</span>
+                      <h3 className="hero-card-overlay-title">
+                        {post.title}
+                      </h3>
                     </div>
-
-                    {/* Card Body: Title & Summary */}
-                    <div className="hero-card-body">
-                      <h3 className="hero-card-title">{post.title}</h3>
-                      <p className="hero-card-summary">{post.summary}</p>
-                    </div>
-
-                    {/* Card Footer: Action */}
-                    <div className="hero-card-footer">
-                      <Link 
-                        href={`/insights/blog/${post.slug}`} 
-                        className="hero-card-action"
-                        onMouseDown={(e) => e.stopPropagation()} // Prevents dragging on click
-                        onTouchStart={(e) => e.stopPropagation()}
-                      >
-                        <span>Read Article</span>
-                        <ArrowRight size={14} className="action-arrow" />
-                      </Link>
-                    </div>
-                  </div>
+                  </Link>
                 </div>
               );
             })}

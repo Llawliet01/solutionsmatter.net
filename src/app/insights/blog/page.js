@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { Search, ArrowRight, BookOpen, Layers } from 'lucide-react';
+import { Search, ArrowRight, BookOpen, Layers, Eye, Heart, Mail, Share2, ArrowDown } from 'lucide-react';
 import { blogPosts } from '@/data/blog';
 import CTA from '@/components/CTA';
 import BlogHero3D from '@/components/BlogHero3D';
@@ -81,17 +81,21 @@ export default function BlogListingPage() {
             <div className="featured-article-container">
               <h2 className="section-subheader-title">Featured Article</h2>
               <div className="card featured-card">
+                
+                {/* Overlapping Floating Image Block */}
                 <div className="featured-img-area">
                   <div className="featured-img-wrapper">
                     <Image
                       src={featuredPost.banner}
                       alt={featuredPost.title}
-                      width={500}
-                      height={350}
+                      width={400}
+                      height={400}
                       className="featured-fallback-img"
                     />
                   </div>
                 </div>
+
+                {/* Content Details Block */}
                 <div className="featured-details-area">
                   <span className="category-badge-pill">{featuredPost.category.replace('-', ' ')}</span>
                   <h3>{featuredPost.title}</h3>
@@ -101,6 +105,7 @@ export default function BlogListingPage() {
                     <ArrowRight size={16} />
                   </Link>
                 </div>
+
               </div>
             </div>
           )}
@@ -117,26 +122,63 @@ export default function BlogListingPage() {
                 <p>No insights found matching your search query or category filters.</p>
               </div>
             ) : (
-              <div className="grid-3">
+              <div className="grid-2">
                 {latestPosts.map((post) => (
                   <div key={post.slug} className="card blog-list-card">
-                    <div className="blog-card-img-wrapper">
-                      <Image
-                        src={post.banner}
-                        alt={post.title}
-                        width={350}
-                        height={200}
-                        className="blog-card-fallback-img"
-                      />
+                    
+                    {/* Left Column containing floating image and date display */}
+                    <div className="blog-card-left-column">
+                      <div className="blog-card-img-wrapper">
+                        <Image
+                          src={post.banner}
+                          alt={post.title}
+                          width={350}
+                          height={200}
+                          className="blog-card-fallback-img"
+                        />
+                      </div>
+                      <div className="blog-card-date-box">
+                        <span className="date-day">{post.date.day}</span>
+                        <span className="date-month">{post.date.month}</span>
+                      </div>
                     </div>
+
+                    {/* Right Column containing content details */}
                     <div className="blog-card-content">
-                      <span className="category-badge-pill-small">{post.category.replace('-', ' ')}</span>
+                      <div className="blog-card-top-row">
+                        <span className="category-badge-pill-small">{post.category.replace('-', ' ')}</span>
+                        
+                        <div className="blog-card-author-badge">
+                          <div className="author-avatar-wrapper">
+                            <Image
+                              src={post.author.avatar}
+                              alt={post.author.name}
+                              width={24}
+                              height={24}
+                              className="author-avatar"
+                            />
+                          </div>
+                          <span className="author-name">{post.author.name}</span>
+                        </div>
+                      </div>
+
                       <h3>{post.title}</h3>
+                      <hr className="blog-card-divider" />
                       <p>{post.summary}</p>
-                      <Link href={`/insights/blog/${post.slug}`} className="blog-card-action-link">
-                        <span>Read Article</span>
-                        <ArrowRight size={14} />
-                      </Link>
+                      
+                      {/* Social icons row and floating action click arrow */}
+                      <div className="blog-card-footer">
+                        <div className="blog-card-social-icons">
+                          <span className="social-icon-btn"><Eye size={16} /></span>
+                          <span className="social-icon-btn"><Heart size={16} /></span>
+                          <span className="social-icon-btn"><Mail size={16} /></span>
+                          <span className="social-icon-btn"><Share2 size={16} /></span>
+                        </div>
+                        <Link href={`/insights/blog/${post.slug}`} className="blog-card-arrow-action-btn">
+                          <ArrowDown size={20} className="arrow-down-icon" />
+                        </Link>
+                      </div>
+
                     </div>
                   </div>
                 ))}
