@@ -47,6 +47,8 @@ export default function AboutPage() {
     const trackEl = trackRef.current;
     if (!canvasEl || !trackEl) return;
 
+    document.body.classList.add('hide-footer');
+
     // ─── 1. THREE.JS SCENE SETUP ───
     const scene = new THREE.Scene();
     
@@ -214,21 +216,7 @@ export default function AboutPage() {
       }
     });
 
-    // ─── 6. INTERACTIVE MOUSE DISPLACEMENT ───
-    const mouse = new THREE.Vector2(-9999, -9999);
-    
-    const handleMouseMove = (e) => {
-      const rect = canvasEl.getBoundingClientRect();
-      mouse.x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
-      mouse.y = -((e.clientY - rect.top) / rect.height) * 2 + 1;
-    };
 
-    const handleMouseLeave = () => {
-      mouse.set(-9999, -9999);
-    };
-
-    window.addEventListener('mousemove', handleMouseMove);
-    canvasEl.addEventListener('mouseleave', handleMouseLeave);
 
     // ─── 7. ANIMATION RENDER LOOP ───
     const clock = new THREE.Clock();
@@ -242,23 +230,16 @@ export default function AboutPage() {
       const pointsPos = pointsGeometry.attributes.position.array;
       const currentPos = [];
 
-      // Project mouse screen coords to 3D Z=0 plane for cursor displacement
-      let cursor3D = new THREE.Vector3(-9999, -9999, -9999);
-      if (mouse.x > -1.5) {
-        const tempV = new THREE.Vector3(mouse.x, mouse.y, 0.5).unproject(camera);
-        const dir = tempV.sub(camera.position).normalize();
-        const distToZ0 = -camera.position.z / dir.z;
-        cursor3D.copy(camera.position).add(dir.multiplyScalar(distToZ0));
-      }
+
 
       // Morph particle positions
       for (let i = 0; i < N; i++) {
         const r = randomPositions[i];
         const t = targetPoints[i] || r; // Fallback to random if target isn't defined
 
-        // Organic assembly stagger delay based on index (completes earlier by 0.65 progress)
+        // Organic assembly stagger delay based on index (completes at 1.0 progress)
         const startProgress = 0.05 + (i % 100) * 0.002; // ranges from 0.05 to 0.25
-        const duration = 0.40;
+        const duration = 0.75;
         let localT = (p - startProgress) / duration;
         localT = Math.max(0, Math.min(1, localT));
 
@@ -276,20 +257,7 @@ export default function AboutPage() {
         let py = r.y + (t.y - r.y) * easedT + driftY;
         let pz = r.z + (t.z - r.z) * easedT + driftZ;
 
-        // Interactive cursor push-away displacement
-        if (cursor3D.x > -999) {
-          const dx = px - cursor3D.x;
-          const dy = py - cursor3D.y;
-          const dz = pz - cursor3D.z;
-          const dist = Math.sqrt(dx * dx + dy * dy + dz * dz);
-          const dispRadius = 2.4;
-          if (dist < dispRadius && dist > 0.1) {
-            const force = (1.0 - dist / dispRadius) * 0.9 * (0.15 + 0.85 * easedT);
-            px += (dx / dist) * force;
-            py += (dy / dist) * force;
-            pz += (dz / dist) * force;
-          }
-        }
+
 
         pointsPos[i * 3] = px;
         pointsPos[i * 3 + 1] = py;
@@ -359,8 +327,7 @@ export default function AboutPage() {
     return () => {
       cancelAnimationFrame(animationFrameId);
       window.removeEventListener('resize', handleResize);
-      window.removeEventListener('mousemove', handleMouseMove);
-      canvasEl.removeEventListener('mouseleave', handleMouseLeave);
+      document.body.classList.remove('hide-footer');
       
       scrollTimeline.kill();
       renderer.dispose();
@@ -404,80 +371,8 @@ export default function AboutPage() {
             </div>
           </div>
 
-          {/* Final Overlay (75% - 100% Scroll) */}
-          <div 
-            className="about-hero-overlay-final"
-            style={{ 
-              opacity: finalOpacity,
-              pointerEvents: finalOpacity > 0.05 ? 'auto' : 'none'
-            }}
-          >
-            <span className="badge is-accent">Solutions Matter</span>
-            <h1>Premium IT Partners</h1>
-            <p>We transform chaotic business bottlenecks into high-compliance, custom digital solutions.</p>
-          </div>
-
         </div>
       </div>
-
-      {/* CORPORATE PROFILE SECTION */}
-      <section className="section-spacing profile-section">
-        <div className="container">
-          <div className="about-split-grid">
-            <div className="about-intro-text">
-              <h2>Company Overview</h2>
-              <p>
-                We believe that software should match the unique operations of the enterprise using it. Pre-packaged SaaS applications often introduce user friction, lock data behind expensive license paywalls, and prevent crucial integrations.
-              </p>
-              <p>
-                Solutions Matter co-engineers custom web portals, cross-platform mobile apps, and machine learning models from scratch. We focus on scalability, clean interface design, and deep system connectivity.
-              </p>
-            </div>
-            <div className="card mission-vision-card">
-              <div className="mission-box">
-                <h3>Our Mission</h3>
-                <p>
-                  To design and build secure, custom software architectures that automate administrative bottlenecks, secure corporate databases, and drive lead conversions.
-                </p>
-              </div>
-              <div className="vision-box">
-                <h3>Our Vision</h3>
-                <p>
-                  To serve as the primary technology partner for scaling SMEs, startups, and enterprises seeking secure digital transformations and custom IP equity.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* CORE VALUES SECTION */}
-      <section className="section-spacing values-section">
-        <div className="container">
-          <div className="heading-group">
-            <span className="badge">Our Standards</span>
-            <h2>Core Corporate Values</h2>
-            <p>The engineering principles that guide our development cycles and software quality assurances.</p>
-          </div>
-          <div className="grid-2">
-            {values.map((v, idx) => (
-              <div key={idx} className="card value-card">
-                <div className="value-icon-box">{v.icon}</div>
-                <div>
-                  <h3>{v.title}</h3>
-                  <p>{v.desc}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-
-          {/* Middle CTA */}
-          <CTA variant="middle" />
-        </div>
-      </section>
-
-      {/* BOTTOM CTA */}
-      <CTA variant="bottom" />
     </div>
   );
 }
