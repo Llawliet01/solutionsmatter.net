@@ -60,10 +60,10 @@ export default function RetailEcommerceIndustry({ industry }) {
   });
 
   const channels = [
-    { icon: Globe, name: 'Web Storefront', desc: 'Next.js storefront scoring 98+ on Google Lighthouse speed benchmarks.', img: '/images/rt2_web_storefront.png' },
-    { icon: Smartphone, name: 'Mobile App Node', desc: 'React Native architecture supporting push updates, offline cart, and instant biometric checkout.', img: '/images/rt2_mobile_app_node.png' },
-    { icon: RefreshCw, name: 'Marketplace Sync', desc: 'Real-time sync adapters linking Shopify, Amazon, and eBay feeds to the central DB.', img: '/images/rt2_marketplace_sync.png' },
-    { icon: Package, name: 'POS Systems', desc: 'In-store point-of-sale integration that syncs physical transactions to the central ledger.', img: '/images/rt2_pos_systems.png' },
+    { icon: Globe, name: 'Web Storefront', desc: 'Next.js storefront scoring 98+ on Google Lighthouse speed benchmarks.', img: '/images/rt2_web_storefront.webp' },
+    { icon: Smartphone, name: 'Mobile App Node', desc: 'React Native architecture supporting push updates, offline cart, and instant biometric checkout.', img: '/images/rt2_mobile_app_node.webp' },
+    { icon: RefreshCw, name: 'Marketplace Sync', desc: 'Real-time sync adapters linking Shopify, Amazon, and eBay feeds to the central DB.', img: '/images/rt2_marketplace_sync.webp' },
+    { icon: Package, name: 'POS Systems', desc: 'In-store point-of-sale integration that syncs physical transactions to the central ledger.', img: '/images/rt2_pos_systems.webp' },
   ];
 
   const funnelSteps = [
@@ -82,7 +82,7 @@ export default function RetailEcommerceIndustry({ industry }) {
       title: 'Mobile Commerce App',
       desc: 'Cross-platform apps for iOS and Android featuring product catalogs, personalized recommendations, wish lists, one-tap secure checkout, and push notification campaigns.',
       badges: ['iOS', 'Android', 'Mobile SDK'],
-      img: '/images/rt2_tech_mobile_app.png',
+      img: '/images/rt2_tech_mobile_app.webp',
       icon: Smartphone
     },
     {
@@ -90,7 +90,7 @@ export default function RetailEcommerceIndustry({ industry }) {
       title: 'E-Commerce Storefront',
       desc: 'Modern web storefronts with server-side rendering, headless commerce integration, collection pages, and merchant shopping feed generation.',
       badges: ['Next.js', 'React', 'Tailwind'],
-      img: '/images/rt2_tech_storefront.png',
+      img: '/images/rt2_tech_storefront.webp',
       icon: Globe
     },
     {
@@ -98,7 +98,7 @@ export default function RetailEcommerceIndustry({ industry }) {
       title: 'Inventory Sync Engine',
       desc: 'Central SQL stock ledger syncing all channels in real-time via webhook receivers, preventing overselling across web, app, and in-store.',
       badges: ['SQL', 'Webhooks', 'Real-time'],
-      img: '/images/rt2_tech_sync_engine.png',
+      img: '/images/rt2_tech_sync_engine.webp',
       icon: Package
     },
     {
@@ -106,7 +106,7 @@ export default function RetailEcommerceIndustry({ industry }) {
       title: 'CRM & Loyalty Platform',
       desc: 'Customer purchase history, segmentation tags, loyalty point engines, and automated email/SMS re-engagement campaigns.',
       badges: ['CRM', 'Automation', 'Analytics'],
-      img: '/images/rt2_tech_crm_loyalty.png',
+      img: '/images/rt2_tech_crm_loyalty.webp',
       icon: BarChart2
     }
   ];

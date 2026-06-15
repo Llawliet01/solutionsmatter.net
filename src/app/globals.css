@@ -4203,7 +4203,7 @@ a {
 }
 .growth-acc-content {
   display: grid;
-  grid-template-columns: 120px 1fr;
+  grid-template-columns: 1fr;
   gap: 24px;
   padding-top: 12px;
   animation: slideDown 0.3s ease forwards;
@@ -19262,6 +19262,21 @@ body.hide-footer .marquee-container {
   .about-hero-overlay-final {
     max-width: 90% !important;
   }
+}
+
+/* Floating overlay labels for Scene 1 Digital Chaos */
+.about-chaos-label {
+  position: absolute;
+  color: rgba(255, 255, 255, 0.48);
+  font-family: var(--font-sans), sans-serif;
+  font-size: clamp(13px, 1.8vw, 20px);
+  font-weight: 500;
+  pointer-events: none;
+  z-index: 2;
+  transition: opacity 0.4s ease, transform 0.4s ease;
+  text-shadow: 0 0 12px rgba(139, 92, 246, 0.35);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
 }
 
 /* INDUSTRY_CSS_MARKER_START */

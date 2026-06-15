@@ -195,7 +195,7 @@ export default function CareersPage() {
             <div className="careers-hero-right">
               <div className="careers-hero-image-frame">
                 <Image
-                  src="/images/careers_hero.png"
+                  src="/images/careers_hero.webp"
                   alt="Modern Software Development Workspace"
                   fill
                   className="careers-hero-real-img"
@@ -251,7 +251,7 @@ export default function CareersPage() {
             <div className="careers-benefits-left">
               <div className="careers-benefits-image-frame">
                 <Image
-                  src="/images/careers_benefits.png"
+                  src="/images/careers_benefits.webp"
                   alt="Engineering Team Collaboration"
                   fill
                   className="careers-benefits-real-img"

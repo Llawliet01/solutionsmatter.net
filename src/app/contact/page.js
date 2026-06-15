@@ -1,7 +1,8 @@
 'use client';
 
 import { useState } from 'react';
-import { Mail, Send, CheckCircle2, ShieldAlert } from 'lucide-react';
+import { Mail, Send, CheckCircle2, ShieldAlert, Phone, MapPin, Lock, Clock, ShieldCheck, Sparkles, ArrowRight } from 'lucide-react';
+import './contact.css';
 
 export default function ContactPage() {
   const [formData, setFormData] = useState({
@@ -15,6 +16,36 @@ export default function ContactPage() {
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [errors, setErrors] = useState({});
   const [submitError, setSubmitError] = useState('');
+
+  const categories = [
+    'AI & Automation',
+    'Web & SaaS',
+    'Mobile App Dev',
+    'Custom CRM & ERP',
+    'Cloud DevOps',
+    'General Query'
+  ];
+
+  const selectCategory = (category) => {
+    setFormData(prev => ({ ...prev, subject: category }));
+    if (errors.subject) {
+      setErrors(prev => ({ ...prev, subject: null }));
+    }
+  };
+
+  const [toast, setToast] = useState({ show: false, message: '', type: 'success' });
+
+  const showToastNotification = (message, type = 'success') => {
+    setToast({ show: true, message, type });
+    setTimeout(() => {
+      setToast(prev => {
+        if (prev.message === message) {
+          return { ...prev, show: false };
+        }
+        return prev;
+      });
+    }, 4000);
+  };
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -43,11 +74,14 @@ export default function ContactPage() {
     const validationErrors = validateForm();
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors);
+      showToastNotification('Please correct the errors in the form.', 'error');
       return;
     }
 
     setIsSubmitting(true);
     setSubmitError('');
+
+    console.log("Contact Form - Submitting API Payload:", formData);
 
     try {
       const response = await fetch('/api/contact', {
@@ -56,8 +90,12 @@ export default function ContactPage() {
         body: JSON.stringify(formData)
       });
 
+      const responseData = await response.json().catch(() => ({}));
+      console.log("Contact Form - API Response:", { status: response.status, ok: response.ok, data: responseData });
+
       if (response.ok) {
         setFormSubmitted(true);
+        showToastNotification('Request submitted successfully!', 'success');
         setFormData({
           name: '',
           email: '',
@@ -66,18 +104,37 @@ export default function ContactPage() {
           message: ''
         });
       } else {
-        const errorData = await response.json();
-        setSubmitError(errorData.message || 'Something went wrong during form submission. Please try again.');
+        const errMsg = responseData.message || 'Something went wrong during form submission. Please try again.';
+        setSubmitError(errMsg);
+        showToastNotification(errMsg, 'error');
       }
     } catch (err) {
-      setSubmitError('Failed to connect to the server API. Please verify your connection.');
+      console.error("Contact Form - API Network Error:", err);
+      const errMsg = 'Failed to connect to the server API. Please verify your connection.';
+      setSubmitError(errMsg);
+      showToastNotification(errMsg, 'error');
     } finally {
       setIsSubmitting(false);
     }
   };
 
   return (
-    <>
+    <div className="contact-page-wrapper">
+      {/* Toast Notification */}
+      {toast.show && (
+        <div className={`contact-toast ${toast.type}`}>
+          <div className="contact-toast-content">
+            {toast.type === 'success' ? <CheckCircle2 size={18} /> : <ShieldAlert size={18} />}
+            <span>{toast.message}</span>
+          </div>
+          <button className="contact-toast-close" onClick={() => setToast({ show: false, message: '', type: 'success' })}>✕</button>
+        </div>
+      )}
+
+      {/* Background Floating Orbs */}
+      <div className="contact-bg-orb orb-purple"></div>
+      <div className="contact-bg-orb orb-teal"></div>
+
       {/* Contact Hero Section */}
       <section className="contact-hero">
         <div className="container">
@@ -99,28 +156,49 @@ export default function ContactPage() {
             {/* Info Cards Column */}
             <div className="contact-info-column">
               <h2>Contact Channels</h2>
-              <p>
+              <p className="section-intro">
                 Our engineering office operates remote-first across global zones. For partnerships, software consults, or support inquiries, contact our main routing address.
               </p>
               
-              <div className="card email-info-card">
-                <div className="info-icon-box">
-                  <Mail size={24} />
-                </div>
-                <div className="info-details">
-                  <h3>General Email Address</h3>
-                  <p>General inquiries and consulting bookings:</p>
-                  <a href="mailto:info@solutionsmatter.com" className="contact-link-email">
-                    info@solutionsmatter.com
-                  </a>
+              <div className="contact-channels-list">
+                <div className="contact-channel-card">
+                  <div className="icon-box">
+                    <Mail size={22} />
+                  </div>
+                  <div className="info-details">
+                    <h3>General Email Address</h3>
+                    <p>General inquiries and consulting bookings:</p>
+                    <a href="mailto:info@solutionsmatter.com">
+                      info@solutionsmatter.com
+                    </a>
+                  </div>
                 </div>
               </div>
 
-              <div className="card info-notes-card">
-                <h3>Proposal Submission Notes</h3>
-                <p>
-                  All software blueprints are drafted under mutual non-disclosure agreements (NDAs) to protect your company&apos;s intellectual property assets.
-                </p>
+              {/* Bento Trust Grid */}
+              <div className="contact-trust-card">
+                <div>
+                  <h3>Client Trust Guarantee</h3>
+                  <p style={{ fontSize: '13.5px', color: 'var(--text-secondary)' }}>We coordinate securely to protect corporate IP and code blueprints.</p>
+                </div>
+                
+                <div className="contact-trust-grid">
+                  <div className="trust-badge-item">
+                    <Lock size={20} />
+                    <span className="trust-badge-title">NDA Guarantee</span>
+                    <span className="trust-badge-desc">100% Protected</span>
+                  </div>
+                  <div className="trust-badge-item">
+                    <Clock size={20} />
+                    <span className="trust-badge-title">Fast Callback</span>
+                    <span className="trust-badge-desc">&lt; 24h Turnaround</span>
+                  </div>
+                  <div className="trust-badge-item">
+                    <ShieldCheck size={20} />
+                    <span className="trust-badge-title">IP Assignment</span>
+                    <span className="trust-badge-desc">Full Ownership</span>
+                  </div>
+                </div>
               </div>
             </div>
 
@@ -150,6 +228,25 @@ export default function ContactPage() {
                   </div>
                 ) : (
                   <form onSubmit={handleSubmit} className="contact-project-form">
+                    
+                    {/* Interactive Project Category pills */}
+                    <div className="contact-category-wrapper">
+                      <span className="contact-category-label">What can we help you build?</span>
+                      <div className="contact-category-pills">
+                        {categories.map((cat) => (
+                          <button
+                            type="button"
+                            key={cat}
+                            className={`contact-category-pill ${formData.subject === cat ? 'active' : ''}`}
+                            onClick={() => selectCategory(cat)}
+                          >
+                            {cat}
+                          </button>
+                        ))}
+                      </div>
+                      {errors.subject && <span className="error-text">{errors.subject}</span>}
+                    </div>
+
                     <div className="form-group">
                       <label htmlFor="name">Your Name</label>
                       <input
@@ -195,20 +292,6 @@ export default function ContactPage() {
                     </div>
 
                     <div className="form-group">
-                      <label htmlFor="subject">Subject</label>
-                      <input
-                        type="text"
-                        id="subject"
-                        name="subject"
-                        value={formData.subject}
-                        onChange={handleInputChange}
-                        className={`form-input ${errors.subject ? 'input-error' : ''}`}
-                        placeholder="e.g. Custom Software Development"
-                      />
-                      {errors.subject && <span className="error-text">{errors.subject}</span>}
-                    </div>
-
-                    <div className="form-group">
                       <label htmlFor="message">Project Requirements / Message</label>
                       <textarea
                         id="message"
@@ -240,6 +323,6 @@ export default function ContactPage() {
           </div>
         </div>
       </section>
-    </>
+    </div>
   );
 }

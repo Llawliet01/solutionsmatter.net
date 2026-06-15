@@ -36,14 +36,14 @@ const getServiceIcon = (slug) => {
 // Map services to images in public folder
 const getServiceImage = (slug) => {
   switch (slug) {
-    case 'custom-software-development': return '/images/blog_serverless_scale.webp';
-    case 'web-development': return '/images/blog_cloud_native.webp';
-    case 'mobile-app-development': return '/images/blog_uiux_conversions.webp';
-    case 'ui-ux-design': return '/images/blog_uiux_conversions.webp';
-    case 'ai-automation': return '/images/blog_ai_enterprise.webp';
-    case 'cloud-devops': return '/images/blog_cloud_native.webp';
-    case 'saas-development': return '/images/blog_serverless_scale.webp';
-    default: return '/images/blog_custom_crmerp.webp';
+    case 'custom-software-development': return '/images/hero_code_dark.webp';
+    case 'web-development': return '/images/hero_web_dev.webp';
+    case 'mobile-app-development': return '/images/hero_mobile_dev.webp';
+    case 'ui-ux-design': return '/images/hero_ui_ux.webp';
+    case 'ai-automation': return '/images/hero_ai_automation.webp';
+    case 'cloud-devops': return '/images/hero_cloud_devops.webp';
+    case 'saas-development': return '/images/hero_saas_dev.webp';
+    default: return '/images/hero_crm_dev.webp';
   }
 };
 
@@ -257,12 +257,12 @@ export default function Home() {
 
   const getCaseStudyImage = (slug) => {
     switch (slug) {
-      case 'ai-driven-patient-diagnostics': return '/images/blog_ai_enterprise.webp';
-      case 'secure-cloud-finance-migration': return '/images/blog_cloud_native.webp';
-      case 'saas-analytics-platform': return '/images/blog_serverless_scale.webp';
-      case 'manufacturing-erp-modernization': return '/images/blog_custom_crmerp.webp';
-      case 'e-commerce-mobile-transformation': return '/images/blog_uiux_conversions.webp';
-      default: return '/images/blog_serverless_scale.webp';
+      case 'ai-driven-patient-diagnostics': return '/images/case_healthcare.webp';
+      case 'secure-cloud-finance-migration': return '/images/case_finance.webp';
+      case 'saas-analytics-platform': return '/images/case_saas.webp';
+      case 'manufacturing-erp-modernization': return '/images/case_erp.webp';
+      case 'e-commerce-mobile-transformation': return '/images/case_ecommerce.webp';
+      default: return '/images/case_saas.webp';
     }
   };
 
@@ -505,13 +505,13 @@ export default function Home() {
                 <hr className="achievement-metrics-divider" />
                 <div className="achievement-avatar-stack">
                   <div className="achievement-avatar-item">
-                    <Image src="/images/avatar1.png" alt="Client Avatar 1" width={32} height={32} />
+                    <Image src="/images/avatar1.webp" alt="Client Avatar 1" width={32} height={32} />
                   </div>
                   <div className="achievement-avatar-item">
-                    <Image src="/images/avatar2.png" alt="Client Avatar 2" width={32} height={32} />
+                    <Image src="/images/avatar2.webp" alt="Client Avatar 2" width={32} height={32} />
                   </div>
                   <div className="achievement-avatar-item">
-                    <Image src="/images/avatar3.png" alt="Client Avatar 3" width={32} height={32} />
+                    <Image src="/images/avatar3.webp" alt="Client Avatar 3" width={32} height={32} />
                   </div>
                   <div className="achievement-avatar-plus">+</div>
                 </div>
@@ -577,15 +577,6 @@ export default function Home() {
                     </button>
                     {isActive && (
                       <div className="growth-acc-content">
-                        <div className="growth-acc-img-wrapper">
-                          <Image 
-                            src={item.img} 
-                            alt={item.title} 
-                            width={120} 
-                            height={120} 
-                            style={{ objectFit: 'cover', width: '100%', height: '100%' }}
-                          />
-                        </div>
                         <div className="growth-acc-text">
                           <p>{item.desc}</p>
                           <div className="growth-acc-checklist">
@@ -608,7 +599,7 @@ export default function Home() {
           <div className={`growth-right ${activeGrowthIndex !== null ? 'grow-active' : ''}`}>
             <div className="growth-vertical-image-wrapper reveal reveal-image-grow">
               <Image 
-                src="/images/hero_workspace.webp" 
+                src="/images/why_sprints.webp" 
                 alt="High-performance custom database engineering solutions"
                 width={720}
                 height={640}
@@ -792,16 +783,16 @@ export default function Home() {
           <div className="reviews-right reveal reveal-fade-left">
             <div className="faces-grid">
               <div className="face-card">
-                <Image src="/images/blog_uiux_conversions.webp" alt="Client Review" fill style={{ objectFit: 'cover' }} />
+                <Image src="/images/avatar1.webp" alt="Client Review" fill style={{ objectFit: 'cover' }} />
               </div>
               <div className="face-card">
-                <Image src="/images/blog_ai_enterprise.webp" alt="Client Review" fill style={{ objectFit: 'cover' }} />
+                <Image src="/images/avatar2.webp" alt="Client Review" fill style={{ objectFit: 'cover' }} />
               </div>
               <div className="face-card">
-                <Image src="/images/blog_custom_crmerp.webp" alt="Client Review" fill style={{ objectFit: 'cover' }} />
+                <Image src="/images/avatar3.webp" alt="Client Review" fill style={{ objectFit: 'cover' }} />
               </div>
               <div className="face-card">
-                <Image src="/images/blog_cloud_native.webp" alt="Client Review" fill style={{ objectFit: 'cover' }} />
+                <Image src="/images/avatar4.webp" alt="Client Review" fill style={{ objectFit: 'cover' }} />
               </div>
             </div>
           </div>

@@ -42,15 +42,15 @@ export async function generateMetadata({ params }) {
 // Map service slug to a relevant main image
 const getServiceMainImage = (slug) => {
   switch (slug) {
-    case 'custom-software-development': return '/images/blog_serverless_scale.webp';
-    case 'web-development': return '/images/blog_cloud_native.webp';
-    case 'mobile-app-development': return '/images/blog_uiux_conversions.webp';
-    case 'ui-ux-design': return '/images/blog_uiux_conversions.webp';
-    case 'ai-automation': return '/images/blog_ai_enterprise.webp';
-    case 'cloud-devops': return '/images/blog_cloud_native.webp';
-    case 'saas-development': return '/images/blog_serverless_scale.webp';
-    case 'crm-development': return '/images/blog_custom_crmerp.webp';
-    case 'erp-development': return '/images/blog_custom_crmerp.webp';
+    case 'custom-software-development': return '/images/hero_code_dark.webp';
+    case 'web-development': return '/images/hero_web_dev.webp';
+    case 'mobile-app-development': return '/images/hero_mobile_dev.webp';
+    case 'ui-ux-design': return '/images/hero_ui_ux.webp';
+    case 'ai-automation': return '/images/hero_ai_automation.webp';
+    case 'cloud-devops': return '/images/hero_cloud_devops.webp';
+    case 'saas-development': return '/images/hero_saas_dev.webp';
+    case 'crm-development': return '/images/hero_crm_dev.webp';
+    case 'erp-development': return '/images/hero_erp_dev.webp';
     default: return '/images/hero_workspace.webp';
   }
 };
@@ -58,17 +58,17 @@ const getServiceMainImage = (slug) => {
 // Map service slug to a custom generated background hero image
 const getServiceHeroImage = (slug) => {
   switch (slug) {
-    case 'custom-software-development': return '/images/hero_code_dark.png';
-    case 'web-development': return '/images/hero_web_dev.png';
-    case 'mobile-app-development': return '/images/hero_mobile_dev.png';
-    case 'ui-ux-design': return '/images/hero_ui_ux.png';
-    case 'ai-automation': return '/images/hero_ai_automation.png';
-    case 'cloud-devops': return '/images/hero_cloud_devops.png';
-    case 'saas-development': return '/images/hero_saas_dev.png';
-    case 'crm-development': return '/images/hero_crm_dev.png';
-    case 'erp-development': return '/images/hero_erp_dev.png';
-    case 'support-maintenance': return '/images/hero_support_maintenance.png';
-    default: return '/images/hero_code_dark.png';
+    case 'custom-software-development': return '/images/hero_code_dark.webp';
+    case 'web-development': return '/images/hero_web_dev.webp';
+    case 'mobile-app-development': return '/images/hero_mobile_dev.webp';
+    case 'ui-ux-design': return '/images/hero_ui_ux.webp';
+    case 'ai-automation': return '/images/hero_ai_automation.webp';
+    case 'cloud-devops': return '/images/hero_cloud_devops.webp';
+    case 'saas-development': return '/images/hero_saas_dev.webp';
+    case 'crm-development': return '/images/hero_crm_dev.webp';
+    case 'erp-development': return '/images/hero_erp_dev.webp';
+    case 'support-maintenance': return '/images/hero_support_maintenance.webp';
+    default: return '/images/hero_code_dark.webp';
   }
 };
 
@@ -247,7 +247,7 @@ export default async function ServiceDetailPage({ params }) {
                   {service.relatedSolutions?.length > 0 && (
                     <div className="related-resource-single-card">
                       <Image 
-                        src="/images/resource_solutions_bg.png" 
+                        src="/images/resource_solutions_bg.webp" 
                         alt="" 
                         fill
                         className="rr-sc-bg-image"
@@ -276,7 +276,7 @@ export default async function ServiceDetailPage({ params }) {
                   {service.relatedIndustries?.length > 0 && (
                     <div className="related-resource-single-card">
                       <Image 
-                        src="/images/resource_industries_bg.png" 
+                        src="/images/resource_industries_bg.webp" 
                         alt="" 
                         fill
                         className="rr-sc-bg-image"

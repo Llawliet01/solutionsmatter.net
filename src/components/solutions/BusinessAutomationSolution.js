@@ -574,7 +574,7 @@ export default function BusinessAutomationSolution({ solution }) {
             {/* Recommended Services Column */}
             <div className="related-resource-single-card">
               <Image 
-                src="/images/resource_services_bg.png" 
+                src="/images/resource_services_bg.webp" 
                 alt="" 
                 fill
                 className="rr-sc-bg-image"
@@ -601,7 +601,7 @@ export default function BusinessAutomationSolution({ solution }) {
             {/* Target Industries Column */}
             <div className="related-resource-single-card">
               <Image 
-                src="/images/resource_industries_bg.png" 
+                src="/images/resource_industries_bg.webp" 
                 alt="" 
                 fill
                 className="rr-sc-bg-image"

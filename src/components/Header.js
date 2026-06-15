@@ -97,6 +97,9 @@ export default function Header() {
   ];
 
   const getIndustryHeaderClass = () => {
+    if (pathname === '/company/about') {
+      return 'about-page-header';
+    }
     if (pathname && pathname.startsWith('/insights/blog')) {
       return 'blog-page-header';
     }

@@ -55,7 +55,7 @@ export default async function CaseStudyDetailPage({ params }) {
     'publisher': {
       '@type': 'Organization',
       'name': 'Solutions Matter',
-      'logo': 'https://www.solutionsmatter.com/images/logo.png'
+      'logo': 'https://www.solutionsmatter.com/images/logo.webp'
     }
   };
 

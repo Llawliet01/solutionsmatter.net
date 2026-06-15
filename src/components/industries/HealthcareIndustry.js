@@ -14,7 +14,7 @@ const scenarios = [
     result: 'Custom automated DICOM pre-screening pipeline flags critical anomalies instantly upon scan upload, automatically escalating urgent priority reviews to available specialists.',
     details: 'Integrates secure edge-to-cloud DICOM nodes, real-time alert dispatch webhooks, and multi-class neural network inference engines with 94.2% classification accuracy.',
     metric: '12s flagging latency',
-    image: '/images/hc_radiology_ai.png',
+    image: '/images/hc_radiology_ai.webp',
   },
   {
     badge: 'Patient Intake',
@@ -23,7 +23,7 @@ const scenarios = [
     result: 'Modern patient scheduling portal featuring automated calendar updates, real-time sync with internal practitioner rosters, and instant insurance eligibility validation.',
     details: 'Includes direct FHIR-compliant record linkages, secure patient portal authentication, dynamic waitlist queue optimization, and automated reminder broadcasts via SMS.',
     metric: '-45% Intake Load',
-    image: '/images/hc_booking_portal.png',
+    image: '/images/hc_booking_portal.webp',
   },
   {
     badge: 'Remote Care',
@@ -32,7 +32,7 @@ const scenarios = [
     result: 'Real-time bidirectional WebSocket pipelines syncing wearable device readings directly to clinical dashboard interfaces used by remote care coordinators.',
     details: 'Features end-to-end encrypted vital sign pipelines, secure WebSocket client-server streaming nodes, and automated threshold alerts with instant clinician dispatch.',
     metric: '150ms sync delay',
-    image: '/images/hc_remote_telemetry.png',
+    image: '/images/hc_remote_telemetry.webp',
   }
 ];
 

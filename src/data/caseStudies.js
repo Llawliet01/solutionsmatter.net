@@ -6,7 +6,7 @@ export const caseStudies = [
     challenge: 'A medical diagnostics provider struggled with manual image analysis workflows, which resulted in treatment delays. They needed an automated system capable of pre-screening medical images with high accuracy while maintaining strict patient data compliance.',
     solution: 'We engineered a custom AI pipeline utilizing PyTorch and FastAPI. The system classifies potential anomalies in medical scans, routing priority cases directly to radiologist review queues. All patient records remain encrypted at rest and in transit.',
     technologies: ['Python', 'PyTorch', 'FastAPI', 'AWS CloudHSM', 'PostgreSQL', 'Docker'],
-    banner: '/images/case_healthcare.png',
+    banner: '/images/case_healthcare.webp',
     year: '2024',
     tag: 'Healthcare · AI Diagnostics',
     stats: [
@@ -115,7 +115,7 @@ async def perform_diagnosis(file: UploadFile = File(...), user: User = Depends(g
     challenge: 'A banking solution client ran their ledger transactions on outdated on-premise hardware. High server overhead, frequent security patches, and limited developer deployment pipelines blocked the launch of their mobile API platforms.',
     solution: 'We refactored their core code architecture into Docker containers and designed a Kubernetes infrastructure setup on AWS. Using Terraform, we provisioned secure, auto-scaling staging and production environments, leading to instant deployment.',
     technologies: ['AWS', 'Kubernetes', 'Docker', 'Terraform', 'Go', 'Linux'],
-    banner: '/images/case_finance.png',
+    banner: '/images/case_finance.webp',
     year: '2024',
     tag: 'Fintech · Cloud DevOps',
     stats: [
@@ -223,7 +223,7 @@ resource "aws_security_group" "db_private_subnet" {
     challenge: 'A subscription metrics provider experienced high customer onboarding dropout rates. Their platform suffered from slow load times and lacked secure database isolation for corporate user records.',
     solution: 'We rebuilt their web application using Next.js App Router and optimized database schemas in PostgreSQL with isolated row-level security. We designed a Stripe billing logic to automate tier upgrades.',
     technologies: ['Next.js', 'React.js', 'PostgreSQL', 'Stripe API', 'Redis', 'Vercel'],
-    banner: '/images/case_saas.png',
+    banner: '/images/case_saas.webp',
     year: '2025',
     tag: 'SaaS · UX Optimization',
     stats: [
@@ -317,7 +317,7 @@ CREATE POLICY tenant_isolation_policy ON subscriptions
     challenge: 'An industrial manufacturing enterprise struggled with disjointed inventory spreadsheets. Stock logs were consistently inaccurate, leading to procurement delays and assembly queue stoppages.',
     solution: 'We engineered a custom central ERP platform. We linked warehousing, order booking, vendor billing, and shift scheduling modules into a single web application running a PostgreSQL database.',
     technologies: ['Python', 'Django', 'React.js', 'PostgreSQL', 'Docker', 'Redux'],
-    banner: '/images/case_erp.png',
+    banner: '/images/case_erp.webp',
     year: '2025',
     tag: 'ERP · Operations',
     stats: [
@@ -420,7 +420,7 @@ const inventorySlice = createSlice({
     challenge: 'A retail brand wanted to launch a mobile shopping app to capture mobile traffic, but struggled with syncing stock logs with their physical retail databases.',
     solution: 'We programmed a cross-platform mobile application in React Native. The app interfaces with a custom CRM system that automatically syncs inventories between digital purchases and store registries.',
     technologies: ['React Native', 'Expo', 'Node.js', 'PostgreSQL', 'Stripe API', 'Redis'],
-    banner: '/images/case_ecommerce.png',
+    banner: '/images/case_ecommerce.webp',
     year: '2025',
     tag: 'Retail · Mobile D2C',
     stats: [

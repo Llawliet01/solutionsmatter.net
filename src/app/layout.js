@@ -44,7 +44,7 @@ export default function RootLayout({ children }) {
     '@type': 'Organization',
     'name': 'Solutions Matter',
     'url': 'https://www.solutionsmatter.com',
-    'logo': 'https://www.solutionsmatter.com/images/logo.png',
+    'logo': 'https://www.solutionsmatter.com/images/logo.webp',
     'email': 'mailto:info@solutionsmatter.com',
     'description': 'Solutions Matter is a premium IT consulting and custom software development company focused on digital transformation and custom tech solutions.'
   };

@@ -59,7 +59,7 @@ export default async function BlogDetailPage({ params }) {
       'name': 'Solutions Matter',
       'logo': {
         '@type': 'ImageObject',
-        'url': 'https://www.solutionsmatter.com/images/logo.png'
+        'url': 'https://www.solutionsmatter.com/images/logo.webp'
       }
     }
   };
