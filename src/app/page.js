@@ -969,7 +969,7 @@ export default function Home() {
               <div key={post.slug} className={`blog-vertical-card reveal reveal-fade-up ${index === 1 ? 'delay-200' : ''}`}>
                 <div className="blog-vertical-card-content">
                   <div className="blog-vertical-card-meta">
-                    <span>05 June 2025</span>
+                    <span>06 June 2026</span>
                   </div>
                   
                   <h3 className="blog-vertical-card-title">{post.title}</h3>

@@ -4,7 +4,6 @@ import { services } from '@/data/services';
 import { solutions } from '@/data/solutions';
 
 export default function Footer() {
-  const currentYear = new Date().getFullYear();
   const footerServices = services.slice(0, 6);
   const footerSolutions = solutions;
 
@@ -100,7 +99,7 @@ export default function Footer() {
       <div className="footer-bottom">
         <div className="container footer-bottom-inner">
           <p className="copyright-text">
-            &copy; {currentYear} Solutions Matter. All rights reserved.
+            &copy; 2009-2027 Solutions Matter. All rights reserved.
           </p>
           <div className="policy-links">
             <Link href="/privacy">Privacy Policy</Link>

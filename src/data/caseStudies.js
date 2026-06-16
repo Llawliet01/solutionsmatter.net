@@ -224,7 +224,7 @@ resource "aws_security_group" "db_private_subnet" {
     solution: 'We rebuilt their web application using Next.js App Router and optimized database schemas in PostgreSQL with isolated row-level security. We designed a Stripe billing logic to automate tier upgrades.',
     technologies: ['Next.js', 'React.js', 'PostgreSQL', 'Stripe API', 'Redis', 'Vercel'],
     banner: '/images/case_saas.webp',
-    year: '2025',
+    year: '2026',
     tag: 'SaaS · UX Optimization',
     stats: [
       { num: '98/100', label: 'Page Speed Score' },
@@ -318,7 +318,7 @@ CREATE POLICY tenant_isolation_policy ON subscriptions
     solution: 'We engineered a custom central ERP platform. We linked warehousing, order booking, vendor billing, and shift scheduling modules into a single web application running a PostgreSQL database.',
     technologies: ['Python', 'Django', 'React.js', 'PostgreSQL', 'Docker', 'Redux'],
     banner: '/images/case_erp.webp',
-    year: '2025',
+    year: '2026',
     tag: 'ERP · Operations',
     stats: [
       { num: '100%', label: 'Database accuracy' },
@@ -421,7 +421,7 @@ const inventorySlice = createSlice({
     solution: 'We programmed a cross-platform mobile application in React Native. The app interfaces with a custom CRM system that automatically syncs inventories between digital purchases and store registries.',
     technologies: ['React Native', 'Expo', 'Node.js', 'PostgreSQL', 'Stripe API', 'Redis'],
     banner: '/images/case_ecommerce.webp',
-    year: '2025',
+    year: '2026',
     tag: 'Retail · Mobile D2C',
     stats: [
       { num: '+40%', label: 'Digital conversions' },
