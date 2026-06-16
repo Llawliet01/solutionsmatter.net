@@ -58,7 +58,7 @@ export default function AboutPage() {
   };
 
   const whyChooseUs = [
-    { title: 'Spotlight Security', desc: 'Every database and endpoint is locked with HIPAA-compliant encryption standards and API security tokens.', isLarge: true, bgImage: '/images/why_security.webp' },
+    { title: 'Spotlight Security', desc: 'Every database and endpoint is locked with state-of-the-art encryption standards and API security tokens.', isLarge: true, bgImage: '/images/why_security.webp' },
     { title: 'Absolute IP Ownership', desc: 'The source repository and relational schemas are 100% owned by your business.', isLarge: false, bgImage: '/images/why_ip.webp' },
     { title: 'No Licensing Traps', desc: 'Pay only for hosting infrastructure. Scale database rows infinitely without seat licenses.', isLarge: false, bgImage: '/images/why_licensing.webp' },
     { title: 'Predictable Sprints', desc: 'Bi-weekly builds deployed to staging links so you can click, test, and audit progress in real-time.', isLarge: true, bgImage: '/images/why_sprints.webp' }
@@ -85,7 +85,7 @@ export default function AboutPage() {
   ];
 
   const industriesList = [
-    { name: 'Healthcare', icon: <Heart size={36} />, solutions: 'HIPAA compliance pipelines, medical database encryption, telemetry dashboards.', slug: 'healthcare' },
+    { name: 'Healthcare', icon: <Heart size={36} />, solutions: 'Secure healthcare pipelines, medical database encryption, telemetry dashboards.', slug: 'healthcare' },
     { name: 'Finance', icon: <Landmark size={36} />, solutions: 'High-durability transaction ledgers, bank API aggregations, data validation.', slug: 'finance' },
     { name: 'Retail & Ecom', icon: <ShoppingCart size={36} />, solutions: 'Custom inventory systems, Stripe payment checkouts, database sync.', slug: 'retail' },
     { name: 'Manufacturing', icon: <Factory size={36} />, solutions: 'Supply-chain logistics loggers, real-time telemetry, equipment alerts.', slug: 'manufacturing' },
@@ -93,16 +93,16 @@ export default function AboutPage() {
   ];
 
   const testimonials = [
-    { text: 'Redesigned our inventory database, eliminating licensing fees and reducing synchronization lag by 90%.', author: 'Sarah Jenkins', role: 'CTO', initial: 'S' },
-    { text: 'Solutions Matter built our patient tracking system. The HIPAA compliance parameters were met perfectly, and delivery was on time.', author: 'Dr. Michael Chen', role: 'Director', initial: 'M' },
-    { text: 'The bi-weekly staging builds allowed us to test features as they were developed. Zero surprises at launch.', author: 'David Vance', role: 'VP Operations', initial: 'D' },
-    { text: 'Replacing our legacy CRM with a custom Next.js portal saved us thousands in seat fees and let us automate workflows.', author: 'Amanda Ross', role: 'CEO', initial: 'A' }
+    { text: 'Redesigned our inventory database, eliminating licensing fees and reducing synchronization lag by 90%.', author: 'S. Kapoor', role: 'CTO', initial: 'S' },
+    { text: 'Solutions Matter built our patient tracking system. The data security parameters were met perfectly, and delivery was on time.', author: 'Dr. Manoj Kumar', role: 'Director', initial: 'M' },
+    { text: 'The bi-weekly staging builds allowed us to test features as they were developed. Zero surprises at launch.', author: 'Devendra Vyas', role: 'VP Operations', initial: 'D' },
+    { text: 'Replacing our legacy CRM with a custom Next.js portal saved us thousands in seat fees and let us automate workflows.', author: 'Ananya Roy', role: 'CEO', initial: 'A' }
   ];
 
   const faqData = [
     { q: 'Who owns the custom software code?', a: 'You do. We grant complete intellectual property rights. The repository access, database design files, and deployment scripts belong fully to your company.' },
     { q: 'How do you bill for development services?', a: 'We bill in predictable fixed monthly payments matching Sprint cycles. No hidden fees or per-user costs.' },
-    { q: 'Do you design software to handle high compliance standards?', a: 'Yes. We build HIPAA-compliant, secure database schemas with audited encryption models and role-based permissions.' },
+    { q: 'Do you design software to handle high compliance standards?', a: 'Yes. We build secure database schemas with audited encryption models, role-based permissions, and compliance configurations.' },
     { q: 'Can you migrate data from our existing legacy system?', a: 'We regularly migrate MySQL, Excel, and legacy spreadsheets into modern, scalable PostgreSQL relational tables, ensuring data integrity.' },
     { q: 'How do we track progress during the build?', a: 'You get full access to code commit logs and active staging links updated at the end of every two-week Sprint.' }
   ];
@@ -207,29 +207,36 @@ export default function AboutPage() {
   useEffect(() => {
     if (typeof window === 'undefined') return;
     
+    const isMobile = window.innerWidth <= 767;
+
     document.body.classList.add('about-page-active');
     
     // Register GSAP ScrollTrigger
     gsap.registerPlugin(ScrollTrigger);
 
     // Initialize Lenis Smooth Scroll
-    const lenis = new Lenis({
-      duration: 1.2,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-      orientation: 'vertical',
-      gestureOrientation: 'vertical',
-      smoothWheel: true,
-      wheelMultiplier: 1,
-      smoothTouch: false,
-      touchMultiplier: 2,
-      infinite: false,
-    });
+    let lenis;
+    if (!isMobile) {
+      lenis = new Lenis({
+        duration: 1.2,
+        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+        orientation: 'vertical',
+        gestureOrientation: 'vertical',
+        smoothWheel: true,
+        wheelMultiplier: 1,
+        smoothTouch: false,
+        touchMultiplier: 2,
+        infinite: false,
+      });
 
-    function raf(time) {
-      lenis.raf(time);
+      const raf = (time) => {
+        if (lenis) {
+          lenis.raf(time);
+          requestAnimationFrame(raf);
+        }
+      };
       requestAnimationFrame(raf);
     }
-    requestAnimationFrame(raf);
 
     // Track mouse coordinates for Custom Cursor follow logic
     const cursor = document.getElementById('about-cursor');
@@ -243,10 +250,13 @@ export default function AboutPage() {
       follower.style.top = `${e.clientY}px`;
     };
     
-    window.addEventListener('mousemove', onMouseMove);
+    if (!isMobile) {
+      window.addEventListener('mousemove', onMouseMove);
+    }
 
     // Attach custom cursor expansions for interactive items
     const setupCursorListeners = () => {
+      if (isMobile) return;
       const interactiveElements = document.querySelectorAll(
         '.btn, .about-glass-card, .about-value-card, .about-wheel-node, .about-industry-hex-wrapper, .about-tech-logo-card, .about-faq-item, .about-testimonial-card'
       );
@@ -291,28 +301,46 @@ export default function AboutPage() {
 
     const canvasEl = canvasRef.current;
     const trackEl = trackRef.current;
-    if (!canvasEl || !trackEl) return;
 
-    // ─── 1. THREE.JS SCENE SETUP ───
-    const scene = new THREE.Scene();
-    
-    // Camera
-    const camera = new THREE.PerspectiveCamera(
-      50,
-      canvasEl.clientWidth / canvasEl.clientHeight,
-      0.1,
-      100
-    );
-    camera.position.z = 16;
+    // Variables for Three.js setup
+    let renderer;
+    let scene;
+    let camera;
+    let pointsGeometry;
+    let pointsMaterial;
+    let linesGeometry;
+    let linesMaterial;
+    let trailGeometry;
+    let trailMaterial;
+    let scrollTimeline;
+    let animationFrameId;
+    let handleResize;
+    let chaosObjects = [];
+    let shockwaveRings = [];
 
-    // Renderer (transparent background)
-    const renderer = new THREE.WebGLRenderer({
-      canvas: canvasEl,
-      alpha: true,
-      antialias: true
-    });
-    renderer.setSize(canvasEl.clientWidth, canvasEl.clientHeight);
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    const runThreeJS = !isMobile && canvasEl && trackEl;
+
+    if (runThreeJS) {
+      // ─── 1. THREE.JS SCENE SETUP ───
+      scene = new THREE.Scene();
+      
+      // Camera
+      camera = new THREE.PerspectiveCamera(
+        50,
+        canvasEl.clientWidth / canvasEl.clientHeight,
+        0.1,
+        100
+      );
+      camera.position.z = 16;
+
+      // Renderer (transparent background)
+      renderer = new THREE.WebGLRenderer({
+        canvas: canvasEl,
+        alpha: true,
+        antialias: true
+      });
+      renderer.setSize(canvasEl.clientWidth, canvasEl.clientHeight);
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
     // ─── 2. TEXT POINT SAMPLING ───
     const getTargetCoordinates = () => {
@@ -678,16 +706,22 @@ export default function AboutPage() {
     // ─── 7. ANIMATION REVEAL ELEMENTS ───
     const reveals = document.querySelectorAll('.about-reveal-section');
     reveals.forEach((sec) => {
+      const isMobile = window.innerWidth <= 767;
+      const isTablet = window.innerWidth > 767 && window.innerWidth <= 1024;
+      
+      const startY = isMobile ? 15 : isTablet ? 30 : 70;
+      const duration = isMobile ? 0.5 : isTablet ? 0.65 : 0.8;
+
       gsap.fromTo(sec, 
-        { opacity: 0, y: 70 },
+        { opacity: 0, y: startY },
         { 
           opacity: 1, 
           y: 0,
-          duration: 0.8,
+          duration: duration,
           ease: 'power2.out',
           scrollTrigger: {
             trigger: sec,
-            start: 'top 82%',
+            start: 'top 85%',
             toggleActions: 'play none none none'
           }
         }
@@ -714,15 +748,23 @@ export default function AboutPage() {
     });
 
     // ─── 7.8. PROCESS HORIZONTAL PROGRESS TIMELINE ───
-    gsap.to('.about-process-timeline-bar-fill', {
-      width: '100%',
-      ease: 'none',
-      scrollTrigger: {
-        trigger: '.about-process-horizontal-container',
-        start: 'top 75%',
-        end: 'bottom 45%',
-        scrub: true
-      }
+    let mm = gsap.matchMedia();
+    mm.add({
+      isDesktop: "(min-width: 768px)",
+      isMobile: "(max-width: 767px)"
+    }, (context) => {
+      const { isDesktop } = context.conditions;
+      gsap.to('.about-process-timeline-bar-fill', {
+        width: isDesktop ? '100%' : '100%',
+        height: isDesktop ? '100%' : '100%',
+        ease: 'none',
+        scrollTrigger: {
+          trigger: '.about-process-horizontal-container',
+          start: isDesktop ? 'top 75%' : 'top 60%',
+          end: isDesktop ? 'bottom 45%' : 'bottom 40%',
+          scrub: true
+        }
+      });
     });
 
     const processStepsElements = document.querySelectorAll('.about-process-step');
@@ -754,17 +796,26 @@ export default function AboutPage() {
     );
 
     // ─── 7.95. HERO STAGGERED LINE REVEAL ───
-    gsap.to('.about-hero-heading-wrapper .line-reveal span', {
-      y: 0,
-      opacity: 1,
-      stagger: 0.15,
-      duration: 0.8,
-      ease: 'power3.out',
-      scrollTrigger: {
+    const animateHeroHeading = () => {
+      gsap.to('.about-hero-heading-wrapper .line-reveal span', {
+        y: 0,
+        opacity: 1,
+        stagger: 0.15,
+        duration: 0.8,
+        ease: 'power3.out'
+      });
+    };
+
+    if (isMobile) {
+      animateHeroHeading();
+    } else {
+      ScrollTrigger.create({
         trigger: '.about-hero-heading-wrapper',
-        start: 'top 85%'
-      }
-    });
+        start: 'top 85%',
+        onEnter: () => animateHeroHeading(),
+        once: true
+      });
+    }
 
     // ─── 7.96. FINAL CTA CHARACTER REVEAL ───
     const chars = document.querySelectorAll('.about-final-cta-container h2 .char-reveal');
@@ -933,53 +984,62 @@ export default function AboutPage() {
 
     animate();
 
-    // ─── 9. RESIZE EVENT HANDLER ───
-    const handleResize = () => {
-      const width = canvasEl.clientWidth;
-      const height = canvasEl.clientHeight;
-      const aspect = width / height;
+      // ─── 9. RESIZE EVENT HANDLER ───
+      handleResize = () => {
+        if (!canvasEl || !camera || !renderer) return;
+        const width = canvasEl.clientWidth;
+        const height = canvasEl.clientHeight;
+        const aspect = width / height;
 
-      if (aspect < 1.0) {
-        camera.position.z = 24;
-      } else {
-        camera.position.z = 16;
-      }
+        if (aspect < 1.0) {
+          camera.position.z = 24;
+        } else {
+          camera.position.z = 16;
+        }
 
-      camera.aspect = aspect;
-      camera.updateProjectionMatrix();
-      renderer.setSize(width, height);
-    };
-    window.addEventListener('resize', handleResize);
-    handleResize();
+        camera.aspect = aspect;
+        camera.updateProjectionMatrix();
+        renderer.setSize(width, height);
+      };
+      window.addEventListener('resize', handleResize);
+      handleResize();
+    }
 
     // ─── 10. CLEANUP / DISPOSE ───
     return () => {
       document.body.classList.remove('about-page-active');
-      cancelAnimationFrame(animationFrameId);
-      window.removeEventListener('resize', handleResize);
-      window.removeEventListener('mousemove', onMouseMove);
-      lenis.destroy();
+      if (animationFrameId) cancelAnimationFrame(animationFrameId);
+      if (!isMobile) {
+        window.removeEventListener('mousemove', onMouseMove);
+      }
+      if (lenis) lenis.destroy();
 
-      chaosObjects.forEach((obj) => {
-        obj.geometry.dispose();
-        obj.material.dispose();
-        if (obj.material.map) obj.material.map.dispose();
-      });
+      if (runThreeJS) {
+        if (handleResize) window.removeEventListener('resize', handleResize);
+        
+        chaosObjects.forEach((obj) => {
+          if (obj.geometry) obj.geometry.dispose();
+          if (obj.material) {
+            obj.material.dispose();
+            if (obj.material.map) obj.material.map.dispose();
+          }
+        });
 
-      shockwaveRings.forEach((ring) => {
-        ring.mesh.geometry.dispose();
-        ring.material.dispose();
-      });
+        shockwaveRings.forEach((ring) => {
+          if (ring.mesh && ring.mesh.geometry) ring.mesh.geometry.dispose();
+          if (ring.material) ring.material.dispose();
+        });
 
-      trailGeometry.dispose();
-      trailMaterial.dispose();
-      
-      scrollTimeline.kill();
-      renderer.dispose();
-      pointsGeometry.dispose();
-      pointsMaterial.dispose();
-      linesGeometry.dispose();
-      linesMaterial.dispose();
+        if (trailGeometry) trailGeometry.dispose();
+        if (trailMaterial) trailMaterial.dispose();
+        
+        if (scrollTimeline) scrollTimeline.kill();
+        if (renderer) renderer.dispose();
+        if (pointsGeometry) pointsGeometry.dispose();
+        if (pointsMaterial) pointsMaterial.dispose();
+        if (linesGeometry) linesGeometry.dispose();
+        if (linesMaterial) linesMaterial.dispose();
+      }
     };
   }, []);
 
@@ -1073,7 +1133,7 @@ export default function AboutPage() {
       </div>
 
       {/* 1. HERO SECTION */}
-      <section className="about-section about-hero-section about-reveal-section">
+      <section className="about-section about-hero-section">
         <div className="about-orb"></div>
         <div className="about-container">
           <div className="about-hero-content">
@@ -1314,9 +1374,11 @@ export default function AboutPage() {
                 <div className="about-process-step-node">
                   {step.num}
                 </div>
-                <div className="about-process-step-title">{step.title}</div>
-                <div className="about-process-step-details">
-                  <p>{step.details}</p>
+                <div className="about-process-step-content">
+                  <div className="about-process-step-title">{step.title}</div>
+                  <div className="about-process-step-details">
+                    <p>{step.details}</p>
+                  </div>
                 </div>
               </div>
             ))}

@@ -5,7 +5,7 @@ export const blogPosts = [
     category: 'ai-insights',
     banner: '/images/blog_ai_enterprise.webp',
     date: { day: '12', month: 'JUNE' },
-    author: { name: 'Igor MARTY', avatar: '/images/avatar1.webp' },
+    author: { name: 'Ishan Mehta', avatar: '/images/avatar1.webp' },
     summary: 'Artificial Intelligence is no longer just a laboratory experiment or a simple predictive tool. In today\'s enterprise, generative AI is actively reshaping how departments interact with their data, how workflows are triggered, and how customer issues are addressed, driving productivity and operational excellence across the entire software development lifecycle.',
     content: `
       <p>Artificial Intelligence is no longer just a laboratory experiment or a simple predictive tool. In today's enterprise, generative AI is actively reshaping how departments interact with their data, how workflows are triggered, and how customer issues are addressed.</p>
@@ -68,7 +68,7 @@ console.log("Found matching documentation blocks: " + searchResults.length);</co
     category: 'technology-trends',
     banner: '/images/blog_react_nextjs_perf.webp',
     date: { day: '15', month: 'JUNE' },
-    author: { name: 'Sarah CONNER', avatar: '/images/avatar2.webp' },
+    author: { name: 'Shreya Sen', avatar: '/images/avatar2.webp' },
     summary: 'A technical analysis of how edge computing and serverless database systems eliminate server scaling overhead and lower operational costs.',
     content: `
       <p>As internet traffic becomes increasingly dynamic, maintaining dedicated physical servers can lead to high operating costs or unexpected site crashes. Serverless infrastructure offers a scalable alternative by executing code only when triggered by user actions.</p>
@@ -145,7 +145,7 @@ export default {
     category: 'resources',
     banner: '/images/blog_cloud_native.webp',
     date: { day: '18', month: 'JUNE' },
-    author: { name: 'Alex MERGER', avatar: '/images/avatar3.webp' },
+    author: { name: 'Alok Mishra', avatar: '/images/avatar3.webp' },
     summary: 'A structured roadmap outlining how legacy organizations can migrate databases and apps to secure containerized cloud environments.',
     content: `
       <p>Transitioning from legacy on-premise hardware to cloud-native platforms can feel daunting. However, a structured migration plan secures database assets, increases system reliability, and improves collaboration.</p>
@@ -231,7 +231,7 @@ spec:
     category: 'technology-trends',
     banner: '/images/blog_uiux_conversions.webp',
     date: { day: '20', month: 'JUNE' },
-    author: { name: 'Igor MARTY', avatar: '/images/avatar1.webp' },
+    author: { name: 'Ishan Mehta', avatar: '/images/avatar1.webp' },
     summary: 'Learn how intuitive interface layouts, design systems, and responsive styling drive product signups and client retention.',
     content: `
       <p>Interface design is much more than visual aesthetics. The layout, interaction states, and accessibility of a digital product directly impact customer trust, signup ratios, and long-term client retention.</p>
@@ -305,7 +305,7 @@ spec:
     category: 'resources',
     banner: '/images/blog_custom_crmerp.webp',
     date: { day: '22', month: 'JUNE' },
-    author: { name: 'Sarah CONNER', avatar: '/images/avatar2.webp' },
+    author: { name: 'Shreya Sen', avatar: '/images/avatar2.webp' },
     summary: 'An analysis of long-term costs, data privacy, and workflow alignment when choosing between off-the-shelf SaaS and custom enterprise portals.',
     content: `
       <p>For growing companies, managing operations across separate pre-packaged software services can become expensive and create data discrepancies. A custom, unified CRM & ERP application solves these challenges.</p>
@@ -380,7 +380,7 @@ const syncLedgerRecord = async (invoiceData) => {
     category: 'resources',
     banner: '/images/blog_security_owasp.webp',
     date: { day: '24', month: 'JUNE' },
-    author: { name: 'Alex MERGER', avatar: '/images/avatar3.webp' },
+    author: { name: 'Alok Mishra', avatar: '/images/avatar3.webp' },
     summary: 'An in-depth look at implementing row-level security and JSON Web Token (JWT) verification keys to protect tenant data isolations.',
     content: `
       <p>As multi-tenant SaaS applications scale, ensuring data isolation between distinct customer accounts becomes the primary engineering concern. Simple authorization checks are no longer sufficient.</p>
@@ -392,13 +392,13 @@ const syncLedgerRecord = async (invoiceData) => {
         <h4>Vulnerability Audit: SQL Injection Protection</h4>
         <div class="code-blocks-row">
           <div class="code-box vulnerable">
-            <h5>❌ Vulnerable Code</h5>
+            <h5>Vulnerable Code</h5>
             <pre><code>// Raw query interpolation
 const query = "SELECT * FROM users 
   WHERE email = '" + req.body.email + "'";</code></pre>
           </div>
           <div class="code-box secure">
-            <h5>✅ Secure Code</h5>
+            <h5>Secure Code</h5>
             <pre><code>// Parameterized database query
 const query = "SELECT * FROM users 
   WHERE email = $1";
@@ -451,7 +451,7 @@ CREATE POLICY tenant_isolation_policy ON customer_accounts
     category: 'technology-trends',
     banner: '/images/blog_websockets_realtime.webp',
     date: { day: '26', month: 'JUNE' },
-    author: { name: 'Igor MARTY', avatar: '/images/avatar1.webp' },
+    author: { name: 'Ishan Mehta', avatar: '/images/avatar1.webp' },
     summary: 'How to build low-latency data pipelines using Node.js, Socket.io, and redis brokers to push telemetry updates to client dashboards.',
     content: `
       <p>Traditional HTTP polling creates high network overhead and delays metric deliveries. WebSocket protocols offer persistent bidirectional channels for pushing telemetry updates instantly.</p>
@@ -519,7 +519,7 @@ io.use((socket, next) => {
     category: 'technology-trends',
     banner: '/images/blog_react_nextjs_perf.webp',
     date: { day: '28', month: 'JUNE' },
-    author: { name: 'Sarah CONNER', avatar: '/images/avatar2.webp' },
+    author: { name: 'Shreya Sen', avatar: '/images/avatar2.webp' },
     summary: 'A technical guide on component memoization, dynamic imports, image optimization, and caching strategies to achieve 100/100 Lighthouse scores.',
     content: `
       <p>Achieving fast page speeds directly improves user satisfaction and SEO visibility. Next.js offers native tools to optimize server-side rendering and client-side bundle distributions.</p>
@@ -586,7 +586,7 @@ const ExpensiveChart = dynamic(
     category: 'technology-trends',
     banner: '/images/blog_grpc_microservices.webp',
     date: { day: '30', month: 'JUNE' },
-    author: { name: 'Alex MERGER', avatar: '/images/avatar3.webp' },
+    author: { name: 'Alok Mishra', avatar: '/images/avatar3.webp' },
     summary: 'Explore gRPC protocol buffers and stream communication to build high-performance microservice backends.',
     content: `
       <p>Microservice architectures require fast, reliable communication between components. While HTTP REST APIs are popular, gRPC offers a high-performance alternative using HTTP/2 and Protocol Buffers.</p>
@@ -658,7 +658,7 @@ service UserService {
     category: 'resources',
     banner: '/images/blog_docker_orchestration.webp',
     date: { day: '02', month: 'JULY' },
-    author: { name: 'Igor MARTY', avatar: '/images/avatar1.webp' },
+    author: { name: 'Ishan Mehta', avatar: '/images/avatar1.webp' },
     summary: 'A step-by-step developer guide to configuring Kubernetes clusters and scaling containerized apps in production.',
     content: `
       <p>Deploying docker containers to production is only the first step. Container orchestration tools ensure your systems scale, self-heal, and handle incoming user traffic efficiently.</p>
@@ -743,7 +743,7 @@ spec:
     category: 'ai-insights',
     banner: '/images/blog_predictive_ml.webp',
     date: { day: '05', month: 'JULY' },
-    author: { name: 'Sarah CONNER', avatar: '/images/avatar2.webp' },
+    author: { name: 'Shreya Sen', avatar: '/images/avatar2.webp' },
     summary: 'How to train regression models on customer purchase behavior to forecast product inventory requirements.',
     content: `
       <p>Predicting inventory needs is critical for modern retailers. Deploying custom machine learning pipelines lets businesses analyze sales metrics and forecast demand curves.</p>

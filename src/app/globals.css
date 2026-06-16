@@ -28,12 +28,14 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
 }
 
 html {
   font-size: 62.5%; /* For rem styling scale */
   scroll-behavior: smooth;
   height: 100%;
+  overflow-x: hidden !important;
 }
 
 body {
@@ -58,7 +60,7 @@ body {
   min-height: 100%;
   display: flex;
   flex-direction: column;
-  overflow-x: hidden;
+  overflow-x: hidden !important;
 }
 
 /* Scrollbar styling */
@@ -262,6 +264,7 @@ a {
   background: transparent !important;
   padding: 40px 0;
   border: none !important;
+  transition: padding 0.3s ease;
 }
 
 .marquee-container:hover .marquee-content {
@@ -283,11 +286,50 @@ a {
   color: var(--main-dark);
   margin-right: 100px;
   line-height: 1;
+  transition: font-size 0.3s ease, margin-right 0.3s ease;
 }
 
 .marquee-item span {
   -webkit-text-stroke: 2px var(--primary);
   color: transparent;
+}
+
+@media (max-width: 1400px) {
+  .marquee-item {
+    font-size: 150px !important;
+    margin-right: 80px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .marquee-container {
+    padding: 24px 0;
+  }
+  .marquee-item {
+    font-size: 100px !important;
+    margin-right: 60px;
+  }
+}
+
+@media (max-width: 768px) {
+  .marquee-item {
+    font-size: 70px !important;
+    margin-right: 40px;
+  }
+}
+
+@media (max-width: 480px) {
+  .marquee-container {
+    padding: 16px 0;
+  }
+  .marquee-item {
+    font-size: 44px !important;
+    margin-right: 24px;
+    -webkit-text-stroke-width: 1px;
+  }
+  .marquee-item span {
+    -webkit-text-stroke-width: 1px !important;
+  }
 }
 
 @keyframes marquee {
@@ -647,6 +689,14 @@ a {
   border-left: 1px solid var(--border);
   cursor: pointer;
   transition: all 0.3s ease;
+  -webkit-tap-highlight-color: transparent;
+  outline: none;
+}
+.header-toggle-btn:focus,
+.header-toggle-btn:active,
+.header-toggle-btn:focus-visible {
+  outline: none !important;
+  box-shadow: none !important;
 }
 .header-toggle-btn:hover {
   background: rgba(94, 59, 238, 0.05);
@@ -699,6 +749,7 @@ a {
   border: none;
   padding: 8px;
   color: var(--text-secondary);
+  -webkit-tap-highlight-color: transparent;
 }
 .chevron-icon.rotated {
   transform: rotate(180deg);
@@ -759,7 +810,7 @@ a {
     transform: translate(-50%, 0);
   }
 }
-@media (max-width: 992px) {
+@media (max-width: 1200px) {
   .desktop-nav {
     display: none;
   }
@@ -768,6 +819,8 @@ a {
   }
   .header-toggle-btn {
     display: flex;
+    height: 70px !important;
+    width: 70px !important;
   }
   .header-container-fluid {
     padding-right: 0; /* Align mobile toggle to screen edge */
@@ -2310,7 +2363,7 @@ a {
   white-space: nowrap !important;
 }
 
-@media (max-width: 991px) {
+@media (max-width: 1072px) {
   .service-hero-title {
     font-size: 5.6rem !important;
     white-space: normal !important;
@@ -2377,7 +2430,7 @@ a {
   transform: translateY(-1px);
 }
 
-@media (max-width: 991px) {
+@media (max-width: 1200px) {
   .site-header.is-scrolled .header-toggle-btn {
     border-left: none;
   }
@@ -2399,7 +2452,7 @@ a {
   align-items: start;
   margin-bottom: 60px;
 }
-@media (max-width: 992px) {
+@media (max-width: 998px) {
   .overview-split-layout {
     grid-template-columns: 1fr;
     gap: 32px;
@@ -2409,6 +2462,7 @@ a {
   }
   .major-services-card {
     margin-left: 0 !important;
+    display: none !important;
   }
 }
 .service-sidebar-left {
@@ -4926,8 +4980,10 @@ a {
   border-radius: 0px !important; /* Sharp card borders */
   padding: 9px 9px 9px 32px !important; /* Image has 9px padding, text has 32px left padding */
   gap: 24px !important;
-  width: 650px !important; /* Increased card width 650px */
-  height: 455px !important; /* Card height 455px */
+  width: 100% !important; /* Fully responsive width */
+  max-width: 650px !important;
+  height: auto !important; /* Flexible height to prevent vertical text clipping */
+  min-height: 455px !important;
   overflow: hidden;
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
@@ -5064,6 +5120,37 @@ a {
   .blog-grid-container {
     margin-left: calc((100vw - 1200px) / 2 - 60px) !important;
     margin-right: auto !important;
+  }
+}
+
+/* Responsive constraints for the blog cards section */
+@media (max-width: 1250px) {
+  .blog-grid-container {
+    grid-template-columns: 1fr !important;
+    justify-items: center !important;
+    gap: 24px !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .blog-vertical-card {
+    grid-template-columns: 1fr !important;
+    height: auto !important;
+    min-height: 0 !important;
+    padding: 24px !important;
+    gap: 20px !important;
+  }
+  .blog-vertical-card-img-wrapper {
+    width: 100% !important;
+    height: 220px !important;
+    order: -1; /* Place image above text */
+  }
+  .blog-vertical-card-content {
+    height: auto !important;
+    gap: 12px !important;
+  }
+  .blog-vertical-card-summary {
+    margin-bottom: 8px !important;
   }
 }
 
@@ -6153,8 +6240,8 @@ a {
   50% { transform: scaleX(1.5); opacity: 0.8; }
 }
 
-/* Responsive — stack vertically on mobile */
-@media (max-width: 768px) {
+/* Responsive — stack vertically on mobile and tablet */
+@media (max-width: 1024px) {
   .process-hscroll-outer {
     height: auto !important;
   }
@@ -6174,14 +6261,50 @@ a {
   }
   .process-hscroll-card {
     flex: 0 0 100%;
+    padding: 30px 24px 24px;
+    gap: 16px;
+  }
+  .phsc-watermark {
+    font-size: 7rem;
+  }
+  .phsc-title {
+    font-size: 2.2rem;
+  }
+  .phsc-desc {
+    font-size: 1.45rem;
+  }
+  .phsc-icon-box {
+    width: 60px;
+    height: 60px;
+    border-radius: 16px;
+  }
+  .phsc-icon-box svg {
+    width: 24px;
+    height: 24px;
   }
   .process-hscroll-progress-hint {
     display: none;
   }
 }
 
+@media (max-width: 480px) {
+  .process-hscroll-card {
+    padding: 24px 20px 20px;
+    gap: 12px;
+  }
+  .phsc-watermark {
+    font-size: 5.5rem;
+  }
+  .phsc-title {
+    font-size: 1.9rem;
+  }
+  .phsc-desc {
+    font-size: 1.4rem;
+  }
+}
+
 /* Reverted -25vh negative margin workaround as calculation is now dynamically correct */
-@media (min-width: 769px) {
+@media (min-width: 1025px) {
   .after-hscroll-container {
     position: relative;
     z-index: 10;
@@ -7730,7 +7853,7 @@ a {
   overflow: hidden;
 }
 
-@media (max-width: 991px) {
+@media (max-width: 1070px) {
   .bpa-comparison-dashboard {
     grid-template-columns: 1fr;
     gap: 30px;
@@ -7744,11 +7867,20 @@ a {
   gap: 12px;
 }
 
-@media (max-width: 991px) {
+@media (max-width: 1070px) {
   .bpa-tabs-container {
-    flex-direction: row;
-    overflow-x: auto;
-    padding-bottom: 8px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+  .bpa-tab-selector {
+    padding: 16px;
+  }
+}
+
+@media (max-width: 576px) {
+  .bpa-tabs-container {
+    grid-template-columns: 1fr;
   }
 }
 
@@ -9014,6 +9146,13 @@ a {
   grid-template-columns: repeat(3, 1fr);
   gap: 16px;
   margin-bottom: 24px;
+}
+
+@media (max-width: 576px) {
+  .ai-db-metrics {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
 }
 
 .db-metric-item {
@@ -10431,6 +10570,8 @@ a {
   font-size: 1.65rem;
   font-weight: 850;
   color: var(--main-dark);
+  min-width: 0;
+  word-wrap: break-word;
 }
 
 /* Redesigned content card - split container */
@@ -10455,10 +10596,18 @@ a {
     padding: 30px;
   }
 }
+@media (max-width: 576px) {
+  .dt-stages-content-card {
+    padding: 20px;
+    gap: 24px;
+  }
+}
 
 .dt-card-details-side {
   display: flex;
   flex-direction: column;
+  min-width: 0;
+  width: 100%;
 }
 
 .content-stage-lbl {
@@ -10520,6 +10669,7 @@ a {
   display: flex;
   align-items: center;
   justify-content: center;
+  min-width: 0;
 }
 
 .dt-stage-visual {
@@ -10651,6 +10801,16 @@ a {
   grid-template-columns: 1fr 40px 1fr;
   align-items: center;
   gap: 12px;
+}
+
+@media (max-width: 576px) {
+  .dt-visual-translation .translation-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  .translation-arrow {
+    transform: rotate(90deg);
+  }
 }
 
 .translation-col {
@@ -10822,6 +10982,13 @@ a {
   display: flex;
   gap: 24px;
   width: 100%;
+}
+
+@media (max-width: 576px) {
+  .router-paths {
+    flex-direction: column;
+    gap: 16px;
+  }
 }
 
 .router-path {
@@ -14626,6 +14793,8 @@ a {
 }
 
 .search-box-wrapper .search-icon {
+  position: static !important;
+  transform: none !important;
   color: var(--text-secondary);
   margin-right: 10px;
   flex-shrink: 0;
@@ -15344,6 +15513,7 @@ a {
 /* Main 3D Container (preserve-3d) */
 .blog-hero-3d-scene {
   position: relative;
+  top: 40px; /* Shift rotating cards lower */
   width: 100%;
   height: 100%;
   transform-style: preserve-3d;
@@ -15363,7 +15533,7 @@ a {
   z-index: 1; /* Rendered behind the rotating 3D cards */
   color: #ed0000; /* Vibrant solid red from reference image */
   font-family: var(--font-heading);
-  font-size: 38rem; /* Massive font size */
+  font-size: clamp(3.2rem, 18vw, 38rem) !important; /* Fluid font size to prevent overflow */
   font-weight: 900;
   letter-spacing: 0.06em; /* Expanded spacing to make it horizontally longer */
   line-height: 1;
@@ -15516,66 +15686,83 @@ a {
   transform: scale(1.08);
 }
 
-/* Responsive Rules for 3D Hero */
+/* Fluid card and viewport scaling for 3D rotating carousel */
+@media (max-width: 1399px) {
+  .blog-hero-3d-card-wrapper {
+    width: 140px;
+    height: 200px;
+  }
+}
+@media (max-width: 1199px) {
+  .blog-hero-3d-card-wrapper {
+    width: 120px;
+    height: 170px;
+  }
+  .blog-hero-3d-viewport {
+    height: 580px;
+  }
+}
 @media (max-width: 1024px) {
   .hero-3d-title {
     font-size: 4.2rem;
   }
-  .blog-hero-3d-pivot-text {
-    font-size: 28rem;
-    top: 28%;
+  .blog-hero-3d-card-wrapper {
+    width: 110px;
+    height: 155px;
+  }
+  .blog-hero-3d-viewport {
+    height: 520px;
+  }
+  .hero-card-overlay-title {
+    font-size: 1.05rem !important;
+    -webkit-line-clamp: 3;
+  }
+  .hero-card-overlay-category {
+    font-size: 0.8rem !important;
   }
 }
-
 @media (max-width: 768px) {
   .blog-hero-3d-viewport {
     height: 440px;
   }
-  .blog-hero-3d-pivot-text {
-    font-size: 20rem;
-    top: 28%;
-  }
   .blog-hero-3d-card-wrapper {
-    width: 190px;
-    height: 170px;
+    width: 90px;
+    height: 130px;
   }
   .blog-hero-3d-card {
-    padding: 16px;
+    padding: 12px;
   }
-  .hero-card-title {
-    font-size: 1.35rem;
-    margin: 6px 0;
+  .hero-card-overlay-title {
+    font-size: 0.95rem !important;
     -webkit-line-clamp: 2;
+  }
+  .hero-card-overlay-category {
+    font-size: 0.75rem !important;
   }
   .hero-card-summary {
     display: none;
   }
 }
-
 @media (max-width: 480px) {
   .hero-3d-title {
     font-size: 3.4rem;
   }
   .blog-hero-3d-viewport {
-    height: 380px;
-  }
-  .blog-hero-3d-pivot-text {
-    font-size: 13rem;
-    top: 28%;
+    height: 360px;
   }
   .blog-hero-3d-card-wrapper {
-    width: 160px;
-    height: 140px;
+    width: 75px;
+    height: 105px;
   }
   .blog-hero-3d-card {
-    padding: 12px;
+    padding: 8px;
   }
-  .hero-card-title {
-    font-size: 1.2rem;
+  .hero-card-overlay-title {
+    font-size: 0.85rem !important;
     -webkit-line-clamp: 2;
   }
-  .hero-card-action {
-    font-size: 1.1rem;
+  .hero-card-overlay-category {
+    font-size: 0.7rem !important;
   }
 }
 
@@ -17504,6 +17691,9 @@ body.theme-red-white .ml-metrics-table td {
   background: #F4F6F9 !important;
   font-family: var(--font-inter), 'Inter', sans-serif !important;
   color: #0D0D0D !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  overflow-x: hidden !important;
 }
 
 /* Accent bindings per index theme */
@@ -17649,6 +17839,9 @@ body.theme-red-white .ml-metrics-table td {
 .left-content-area {
   display: flex !important;
   flex-direction: column !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  min-width: 0 !important;
 }
 
 .left-content-area .content-block {
@@ -17658,6 +17851,9 @@ body.theme-red-white .ml-metrics-table td {
   border-radius: 24px !important;
   padding: 40px 48px !important;
   box-shadow: 0 8px 32px rgba(25, 39, 43, 0.02) !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
 }
 
 .left-content-area .content-block h2 {
@@ -17732,7 +17928,9 @@ body.theme-red-white .ml-metrics-table td {
   color: #FFFFFF !important;
   padding: 24px !important;
   border-radius: 12px !important;
+  max-width: 100% !important;
   overflow-x: auto !important;
+  white-space: pre !important;
   margin: 28px 0 !important;
   font-family: Consolas, Monaco, monospace !important;
   font-size: 13px !important;
@@ -17741,7 +17939,10 @@ body.theme-red-white .ml-metrics-table td {
 }
 
 .detailed-report-content table.ml-metrics-table {
+  display: block !important;
   width: 100% !important;
+  overflow-x: auto !important;
+  -webkit-overflow-scrolling: touch !important;
   border-collapse: collapse !important;
   margin: 32px 0 !important;
   font-size: 13.5px !important;
@@ -17805,6 +18006,9 @@ body.theme-red-white .ml-metrics-table td {
 .right-sidebar-area {
   display: flex !important;
   flex-direction: column !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  min-width: 0 !important;
 }
 
 .right-sidebar-area .sidebar-card {
@@ -17814,6 +18018,9 @@ body.theme-red-white .ml-metrics-table td {
   padding: 32px !important;
   margin-bottom: 32px !important;
   box-shadow: 0 8px 32px rgba(25, 39, 43, 0.02) !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
 }
 
 .right-sidebar-area .sidebar-card h3 {
@@ -17951,6 +18158,9 @@ body.theme-red-white .ml-metrics-table td {
   .detail-layout-grid {
     grid-template-columns: 1fr !important;
     gap: 40px !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
   }
   .left-content-area .content-block {
     padding: 32px 24px !important;
@@ -19279,5 +19489,651 @@ body.hide-footer .marquee-container {
   text-transform: uppercase;
 }
 
+@media (max-width: 767px) {
+  .about-hero-scroll-track {
+    display: none !important;
+  }
+  .about-hero-canvas {
+    display: none !important;
+  }
+}
+
+/* --- HOMEPAGE RESPONSIVENESS AND LAYOUT FIXES --- */
+@media (max-width: 992px) {
+  .home-services-section .grid-3 {
+    grid-template-columns: repeat(2, 1fr) !important;
+    border-right: none !important;
+  }
+  .home-services-section .service-card {
+    border-right: 1.5px solid rgba(25, 39, 43, 0.35) !important;
+  }
+  .achievement-image-wrapper {
+    width: 100% !important;
+    height: auto !important;
+    aspect-ratio: 800/548 !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .section-spacing {
+    padding: 110px 0 60px !important;
+  }
+  .hero-split-section {
+    padding: 120px 0 60px !important;
+  }
+  .hero-split-counters {
+    gap: 40px !important;
+  }
+  .hero-split-counter-item:first-child {
+    padding-right: 40px !important;
+  }
+  .achievement-right-column h2,
+  .about-right-content h2,
+  .tech-stack-section h2,
+  .testimonials-section h2 {
+    font-size: 2.6rem !important;
+  }
+  .achievement-badge-overlay {
+    top: 12px !important;
+    right: 12px !important;
+    bottom: auto !important;
+    left: auto !important;
+    padding: 10px 14px !important;
+  }
+  .carousel-nav-btn {
+    display: none !important;
+  }
+  .case-study-card-left {
+    padding: 24px 20px !important;
+    gap: 12px !important;
+  }
+  .case-study-card-title {
+    font-size: 2.2rem !important;
+  }
+}
+
+@media (max-width: 1200px) {
+  .site-header {
+    width: 100% !important;
+    top: 0 !important;
+    border-radius: 0 !important;
+    background: var(--white) !important;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05) !important;
+  }
+  .header-container-fluid {
+    height: 70px !important;
+    padding-left: 16px !important;
+    padding-right: 16px !important;
+  }
+  .logo-wrapper {
+    padding: 0 16px 0 0 !important;
+    border-right: none !important;
+  }
+  .mobile-nav-drawer {
+    top: 70px !important;
+  }
+}
+
+@media (max-width: 600px) {
+  .home-services-section .grid-3 {
+    grid-template-columns: 1fr !important;
+    border-right: none !important;
+  }
+  .home-services-section .service-card {
+    border-right: 1.5px solid rgba(25, 39, 43, 0.35) !important;
+  }
+}
+
+@media (max-width: 576px) {
+  .counter-grid-boxes {
+    grid-template-columns: 1fr !important;
+    gap: 16px !important;
+  }
+  .counter-box-card {
+    padding: 24px 20px !important;
+    min-height: auto !important;
+  }
+  .achievement-metrics-overlay {
+    width: 140px !important;
+    height: auto !important;
+    padding: 8px 10px !important;
+    gap: 4px !important;
+  }
+  .achievement-metrics-title {
+    font-size: 1.2rem !important;
+  }
+  .achievement-metrics-divider {
+    margin: 2px 0 !important;
+  }
+  .achievement-avatar-item {
+    width: 24px !important;
+    height: 24px !important;
+  }
+  .achievement-avatar-plus {
+    width: 24px !important;
+    height: 24px !important;
+    font-size: 1.1rem !important;
+    line-height: 22px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-split-counters {
+    gap: 20px !important;
+    width: 100% !important;
+    justify-content: flex-start !important;
+  }
+  .hero-split-counter-item:first-child {
+    padding-right: 20px !important;
+  }
+  .hero-split-counter-num {
+    font-size: 3.8rem !important;
+  }
+  .hero-split-counter-lbl {
+    font-size: 1.3rem !important;
+    white-space: nowrap !important;
+  }
+  .achievement-right-column h2,
+  .about-right-content h2,
+  .tech-stack-section h2,
+  .testimonials-section h2 {
+    font-size: 2.2rem !important;
+  }
+  .achievement-badge-overlay {
+    top: 8px !important;
+    right: 8px !important;
+    bottom: auto !important;
+    left: auto !important;
+    padding: 6px 10px !important;
+  }
+  .achievement-badge-text {
+    font-size: 1.1rem !important;
+  }
+  .achievement-badge-icon {
+    width: 18px !important;
+    height: 18px !important;
+  }
+}
+
+@media (max-width: 366px) {
+  /* Scale down hero main titles and tweak margins to prevent line-by-line reveal clipping */
+  .hero-title {
+    font-size: 2.2rem !important;
+    line-height: 1.25 !important;
+  }
+  .reveal-line-wrapper {
+    padding-right: 0.1em !important;
+    margin-right: -0.1em !important;
+  }
+
+  /* Scale down hero paragraph subtext */
+  .hero-split-paragraph {
+    font-size: 1.45rem !important;
+    line-height: 1.55 !important;
+  }
+
+  /* Stack counters vertically on small devices to prevent overflow */
+  .hero-split-counters {
+    flex-direction: column !important;
+    gap: 16px !important;
+    align-items: flex-start !important;
+    width: 100% !important;
+  }
+  .hero-split-counter-item {
+    width: 100% !important;
+  }
+  .hero-split-counter-item:first-child {
+    padding-right: 0 !important;
+    border-right: none !important;
+  }
+  .hero-split-counter-item:first-child::after {
+    display: none !important;
+  }
+
+  /* Force hero workspace image wrapper and image to scale fully */
+  .hero-split-image-wrapper {
+    width: 100% !important;
+    max-width: 100% !important;
+    height: auto !important;
+  }
+  .hero-img-fallback {
+    width: 100% !important;
+    max-width: 100% !important;
+    height: auto !important;
+  }
+
+  /* Scale down service detail page animated hero titles and subtexts */
+  .hero-reveal-title {
+    font-size: 1.8rem !important;
+    line-height: 1.25 !important;
+  }
+  .hero-reveal-subtext {
+    font-size: 1.2rem !important;
+    line-height: 1.5 !important;
+  }
+  .hero-text-reveal {
+    width: 92% !important;
+    padding: 0 8px !important;
+    box-sizing: border-box !important;
+  }
+}
+
+/* ==========================================================================
+   Responsive Overrides for Solution Pages
+   ========================================================================== */
+
+/* 1. Scale down hero section titles and subtitles */
+@media (max-width: 991px) {
+  .smvp-hero-title,
+  .bpa-hero-title,
+  .ai-hero-title,
+  .ce-hero-title,
+  .dt-hero-title {
+    font-size: 4.0rem !important;
+  }
+  .smvp-hero-subtitle,
+  .bpa-hero-subtitle,
+  .ai-hero-subtitle,
+  .ce-hero-subtitle,
+  .dt-hero-subtitle {
+    font-size: 1.7rem !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .smvp-hero-section,
+  .bpa-hero-section,
+  .ai-hero-section,
+  .ce-hero-section,
+  .dt-hero-section {
+    padding: 120px 0 60px !important;
+  }
+  .smvp-hero-title,
+  .bpa-hero-title,
+  .ai-hero-title,
+  .ce-hero-title,
+  .dt-hero-title {
+    font-size: 3.2rem !important;
+  }
+  .smvp-hero-subtitle,
+  .bpa-hero-subtitle,
+  .ai-hero-subtitle,
+  .ce-hero-subtitle,
+  .dt-hero-subtitle {
+    font-size: 1.5rem !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .smvp-hero-section,
+  .bpa-hero-section,
+  .ai-hero-section,
+  .ce-hero-section,
+  .dt-hero-section {
+    padding: 110px 0 50px !important;
+  }
+  .smvp-hero-title,
+  .bpa-hero-title,
+  .ai-hero-title,
+  .ce-hero-title,
+  .dt-hero-title {
+    font-size: 2.4rem !important;
+    line-height: 1.25 !important;
+  }
+  .smvp-hero-subtitle,
+  .bpa-hero-subtitle,
+  .ai-hero-subtitle,
+  .ce-hero-subtitle,
+  .dt-hero-subtitle {
+    font-size: 1.35rem !important;
+    line-height: 1.5 !important;
+  }
+}
+
+/* 2. BPA Pipeline Data Sync Vertical Stack and Animation */
+@media (max-width: 576px) {
+  .bpa-sync-nodes {
+    flex-direction: column !important;
+    gap: 16px !important;
+    align-items: center !important;
+  }
+  .bpa-sync-nodes .sync-connector {
+    width: 2px !important;
+    height: 24px !important;
+    margin: 4px 0 !important;
+    flex: none !important;
+  }
+  .bpa-sync-nodes .sync-connector .connector-dot {
+    top: 0 !important;
+    left: -2px !important;
+    width: 6px !important;
+    height: 6px !important;
+    animation-name: data-flow-anim-vertical !important;
+  }
+}
+
+@keyframes data-flow-anim-vertical {
+  0% { top: 0%; opacity: 0; }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% { top: 100%; opacity: 0; }
+}
+
+/* 3. CRM/ERP pipeline columns vertical stacking */
+@media (max-width: 576px) {
+  .ce-db-crm-view {
+    grid-template-columns: 1fr !important;
+    gap: 16px !important;
+  }
+}
+
+/* 4. Dashboard headers vertical stack on mobile */
+@media (max-width: 480px) {
+  .bpa-db-header,
+  .ce-db-header,
+  .dt-db-header {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 8px !important;
+  }
+}
+
+/* 5. Prevent DT live indicator badge text wrapping */
+.dt-live-indicator {
+  white-space: nowrap !important;
+}
+
+/* 6. Remove hero section image or terminal visualizers on screen widths <= 434px */
+@media (max-width: 434px) {
+  .hero-split-right,
+  .smvp-hero-right,
+  .bpa-hero-right,
+  .ai-hero-right,
+  .ce-hero-right,
+  .dt-hero-right,
+  .fb2-hero-right,
+  .mf2-hero-right,
+  .rt2-hero-right,
+  .st2-hero-right,
+  .hc2-hero-visual,
+  .careers-hero-right {
+    display: none !important;
+  }
+}
+
 /* INDUSTRY_CSS_MARKER_START */
+
+/* ==========================================================
+   Responsive Overrides for Blog Page (<= 940px)
+   ========================================================== */
+@media (max-width: 940px) {
+  /* 2. Normalize the Featured Card Layout */
+  body.theme-red-white .featured-card {
+    flex-direction: column !important;
+    align-items: center !important;
+    padding: 32px 24px 24px 24px !important;
+    margin-left: 0 !important;
+    min-height: auto !important;
+    overflow: hidden !important;
+  }
+
+  body.theme-red-white .featured-img-area {
+    position: relative !important;
+    left: 0 !important;
+    top: 0 !important;
+    transform: none !important;
+    width: 100% !important;
+    height: 250px !important;
+    margin-bottom: 20px !important;
+    box-shadow: none !important;
+  }
+
+  body.theme-red-white .featured-card:hover .featured-img-area {
+    transform: none !important;
+    box-shadow: none !important;
+  }
+
+  body.theme-red-white .featured-details-area {
+    margin-left: 0 !important;
+    width: 100% !important;
+  }
+
+  /* 3. Latest Articles Grid & List Cards Stacking */
+  .latest-articles-container .grid-2 {
+    grid-template-columns: 1fr !important;
+    gap: 24px !important;
+  }
+
+  body.theme-red-white .blog-list-card {
+    flex-direction: column !important;
+    height: auto !important;
+    padding: 24px !important;
+    overflow: hidden !important;
+    margin-top: 24px !important;
+  }
+
+  body.theme-red-white .blog-card-left-column {
+    width: 100% !important;
+    height: 200px !important;
+    margin-bottom: 16px !important;
+  }
+
+  body.theme-red-white .blog-card-left-column .blog-card-img-wrapper {
+    position: relative !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    box-shadow: none !important;
+  }
+
+  body.theme-red-white .blog-card-date-box {
+    position: absolute !important;
+    top: 12px !important;
+    left: 12px !important;
+    margin-top: 0 !important;
+    background: rgba(255, 255, 255, 0.95) !important;
+    padding: 6px 12px !important;
+    border-radius: 8px !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1) !important;
+    z-index: 12 !important;
+  }
+
+  body.theme-red-white .date-day {
+    font-size: 2.6rem !important;
+    color: #ed0000 !important;
+  }
+
+  body.theme-red-white .date-month {
+    font-size: 0.95rem !important;
+    margin-top: 0 !important;
+  }
+
+  body.theme-red-white .blog-list-card .blog-card-content {
+    padding: 0 !important;
+    width: 100% !important;
+  }
+
+  body.theme-red-white .blog-card-arrow-action-btn {
+    position: relative !important;
+    bottom: 0 !important;
+    right: 0 !important;
+    margin-top: 16px !important;
+    align-self: flex-end !important;
+  }
+}
+
+/* ==========================================================
+   Responsive Overrides for Case Study Pages (<= 590px)
+   ========================================================== */
+@media (max-width: 590px) {
+  /* 1. Containers and Layout Structure */
+  .case-study-detail-wrapper .case-detail-hero .container,
+  .case-study-detail-wrapper .case-detail-body-section .container {
+    padding: 0 16px !important;
+  }
+
+  /* 2. Detail Page Titles and Subtitles */
+  .detail-page-title {
+    font-size: clamp(24px, 7vw, 32px) !important;
+    line-height: 1.15 !important;
+    margin-bottom: 16px !important;
+  }
+
+  .detail-page-subtitle {
+    font-size: 14px !important;
+    margin-bottom: 32px !important;
+  }
+
+  /* 3. Hero Visual Image Panel */
+  .detail-hero-visual-panel {
+    height: 220px !important;
+    border-radius: 16px !important;
+    margin-top: 8px !important;
+  }
+
+  /* 4. Left Content Area Blocks */
+  .left-content-area .content-block {
+    padding: 20px 16px !important;
+    border-radius: 12px !important;
+    margin-bottom: 32px !important;
+  }
+
+  .left-content-area .content-block h2 {
+    font-size: 22px !important;
+  }
+
+  .large-overview-paragraph {
+    font-size: 14.5px !important;
+    line-height: 1.65 !important;
+  }
+
+  .detailed-report-content h3 {
+    font-size: 18px !important;
+    margin: 28px 0 12px 0 !important;
+  }
+
+  .detailed-report-content p {
+    font-size: 14px !important;
+    line-height: 1.65 !important;
+    margin-bottom: 16px !important;
+  }
+
+  .detailed-report-content blockquote {
+    font-size: 16px !important;
+    margin: 24px 0 !important;
+    padding-left: 14px !important;
+  }
+
+  /* 5. Safe wrapping for code blocks and tables to prevent horizontal overflow/cutoff */
+  .detailed-report-content pre {
+    max-width: 100% !important;
+    overflow-x: auto !important;
+    white-space: pre !important;
+    padding: 16px !important;
+    font-size: 12px !important;
+    margin: 20px 0 !important;
+    border-radius: 8px !important;
+  }
+
+  .detailed-report-content table.ml-metrics-table {
+    display: block !important;
+    width: 100% !important;
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    margin: 24px 0 !important;
+  }
+
+  .detailed-report-content th, 
+  .detailed-report-content td {
+    padding: 10px 12px !important;
+    font-size: 12px !important;
+  }
+
+  /* 6. Sidebar Cards spacing */
+  .right-sidebar-area .sidebar-card {
+    padding: 20px 16px !important;
+    border-radius: 12px !important;
+    margin-bottom: 24px !important;
+  }
+
+  .right-sidebar-area .sidebar-card h3 {
+    font-size: 17px !important;
+    margin-bottom: 16px !important;
+  }
+
+  /* 7. Implementation Roadmap execution checklist spacing */
+  .implementation-step-row {
+    gap: 12px !important;
+  }
+
+  .step-badge-circle {
+    width: 24px !important;
+    height: 24px !important;
+    font-size: 11px !important;
+  }
+
+  .implementation-step-row p {
+    font-size: 14px !important;
+    padding-top: 1px !important;
+  }
+
+  /* 8. CTA and Page Flow adjustments */
+  .cta-middle-box {
+    padding: 24px 16px !important;
+    margin: 32px 0 !important;
+    border-radius: 12px !important;
+    gap: 16px !important;
+  }
+
+  .cta-middle-content h3 {
+    font-size: 1.8rem !important;
+  }
+
+  .cta-middle-content p {
+    font-size: 1.3rem !important;
+  }
+
+  .cta-middle-btn {
+    font-size: 1.35rem !important;
+    padding: 12px 24px !important;
+  }
+
+  .page-flow-card {
+    padding: 20px 16px !important;
+    border-radius: 12px !important;
+  }
+
+  .page-flow-text h3 {
+    font-size: 1.8rem !important;
+  }
+}
+
+/* Remove rotating card animation below 600px size but keep watermark text and pull section up */
+@media (max-width: 600px) {
+  body.theme-red-white .blog-hero-3d-section {
+    min-height: auto !important;
+    padding-top: 100px !important;
+  }
+
+  body.theme-red-white .blog-hero-3d-viewport {
+    height: 120px !important;
+    margin-top: 0 !important;
+  }
+
+  body.theme-red-white .blog-hero-3d-pivot-text {
+    top: 50% !important;
+  }
+
+  body.theme-red-white .blog-hero-3d-scene {
+    display: none !important;
+  }
+
+  body.theme-red-white .blog-listing-section {
+    padding-top: 60px !important;
+  }
+}
+
+
+
 

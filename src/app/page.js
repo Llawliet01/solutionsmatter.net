@@ -271,19 +271,19 @@ export default function Home() {
   // Clients reviews (strictly name and text)
   const testimonials = [
     {
-      name: 'James Reynolds',
+      name: 'Amit Sharma',
       review: 'Solutions Matter built our custom database framework on schedule. The system handles concurrent ledger data with zero latency. Their team maintains rigorous security audits.'
     },
     {
-      name: 'Sarah Jenkins',
+      name: 'Sunita Nair',
       review: 'The Startup MVP development package helped us launch our SaaS platform in 6 weeks. The row-level data isolation works flawlessly, and Stripe recurring billing was simple to deploy.'
     },
     {
-      name: 'Arthur Pendelton',
+      name: 'Arjun Prasad',
       review: 'Migrating our legacy inventory dashboards to containerized AWS services reduced our maintenance overhead substantially. Their DevOps engineering is top-tier.'
     },
     {
-      name: 'Eleanor Vance',
+      name: 'Esha Verma',
       review: 'Their enterprise integration expertise allowed us to sync our multi-tenant cloud storage hubs seamlessly. The custom security layers are solid, and the delivery was ahead of schedule.'
     }
   ];
@@ -381,13 +381,13 @@ export default function Home() {
             <div className="hero-split-counters">
               <div className="hero-split-counter-item">
                 <span className="hero-split-counter-num">
-                  <AnimatedCounter target="5" suffix="k+" />
+                  <AnimatedCounter target="360" suffix="+" />
                 </span>
                 <span className="hero-split-counter-lbl">Happy Clients</span>
               </div>
               <div className="hero-split-counter-item">
                 <span className="hero-split-counter-num">
-                  <AnimatedCounter target="9" suffix="+" />
+                  <AnimatedCounter target="17" suffix="+" />
                 </span>
                 <span className="hero-split-counter-lbl">Years Experience</span>
               </div>
@@ -501,7 +501,7 @@ export default function Home() {
               
               {/* Bottom-left overlay metrics card */}
               <div className="achievement-metrics-overlay">
-                <div className="achievement-metrics-title">36k+ Trusted Global Clients</div>
+                <div className="achievement-metrics-title">360+ Trusted Clients</div>
                 <hr className="achievement-metrics-divider" />
                 <div className="achievement-avatar-stack">
                   <div className="achievement-avatar-item">
@@ -534,15 +534,15 @@ export default function Home() {
                 <div className="counter-box-icon">
                   <CheckCircle2 size={20} />
                 </div>
-                <h3 className="counter-box-num">36k+</h3>
-                <p style={{ fontSize: '1.4rem', margin: 0 }}>Trusted Global Clients</p>
+                <h3 className="counter-box-num">360+</h3>
+                <p style={{ fontSize: '1.4rem', margin: 0 }}>Trusted Clients</p>
               </div>
               <div className="counter-box-card style-bg-white">
                 <div className="counter-box-icon">
                   <CheckCircle2 size={20} />
                 </div>
-                <h3 className="counter-box-num">850+</h3>
-                <p style={{ fontSize: '1.4rem', margin: 0 }}>Best Project Complete</p>
+                <h3 className="counter-box-num">450+</h3>
+                <p style={{ fontSize: '1.4rem', margin: 0 }}>Projects Completed</p>
               </div>
             </div>
           </div>
@@ -747,7 +747,7 @@ export default function Home() {
           <div className="reviews-left reveal reveal-fade-right">
             <span className="badge">Clients Feedback</span>
             <h2 style={{ fontSize: '3.6rem', marginTop: '8px', marginBottom: '32px' }}>
-              <strong>1250+ People Say </strong>
+              <strong>300+ People Say </strong>
               <span className="light-weight" style={{ fontWeight: '400' }}>About Us</span>
             </h2>
             

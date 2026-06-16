@@ -78,7 +78,7 @@ const positions = [
     type: 'remote',
     dept: 'Engineering',
     exp: '5+ years',
-    loc: 'Remote',
+    loc: 'India (Remote)',
     isNew: true,
     icon: Cpu,
     colorClass: 'ic-blue',
@@ -89,7 +89,7 @@ const positions = [
     type: 'remote',
     dept: 'Design',
     exp: '7+ years',
-    loc: 'Remote',
+    loc: 'Bengaluru, India (Hybrid)',
     isNew: false,
     icon: Sparkles,
     colorClass: 'ic-teal',
@@ -100,7 +100,7 @@ const positions = [
     type: 'remote',
     dept: 'Engineering',
     exp: '4+ years',
-    loc: 'Remote',
+    loc: 'India (Remote)',
     isNew: true,
     icon: Cpu,
     colorClass: 'ic-purple',
@@ -111,7 +111,7 @@ const positions = [
     type: 'remote',
     dept: 'Solutions',
     exp: '8+ years',
-    loc: 'Remote',
+    loc: 'Bengaluru, India (Hybrid)',
     isNew: false,
     icon: Database,
     colorClass: 'ic-amber',
@@ -122,7 +122,7 @@ const positions = [
     type: 'remote',
     dept: 'DevOps',
     exp: '5+ years',
-    loc: 'Remote',
+    loc: 'India (Remote)',
     isNew: true,
     icon: ShieldCheck,
     colorClass: 'ic-coral',
@@ -163,7 +163,7 @@ export default function CareersPage() {
             <div className="careers-hero-left">
               <div className="careers-hero-badge">
                 <Code2 size={13} />
-                <span>We're hiring engineers</span>
+                <span>We&apos;re hiring engineers</span>
               </div>
               
               <h1 className="careers-hero-headline">
@@ -183,11 +183,6 @@ export default function CareersPage() {
                 <div className="careers-stat-box">
                   <div className="careers-stat-num">5</div>
                   <div className="careers-stat-label">Open roles</div>
-                </div>
-                <div className="careers-stat-divider"></div>
-                <div className="careers-stat-box">
-                  <div className="careers-stat-num">12+</div>
-                  <div className="careers-stat-label">Countries represented</div>
                 </div>
               </div>
             </div>
@@ -335,8 +330,8 @@ export default function CareersPage() {
       {/* BOTTOM GENERAL CTA */}
       <section className="careers-section is-white-bg" style={{ borderBottom: 'none' }}>
         <div className="container" style={{ textAlign: 'center' }}>
-          <h2 className="careers-section-title" style={{ marginBottom: '12px' }}>Don't see the right role?</h2>
-          <p className="careers-hero-sub" style={{ margin: '0 auto 32px auto' }}>We're always looking for exceptional engineering talent. Send us your portfolio and let's start a conversation.</p>
+          <h2 className="careers-section-title" style={{ marginBottom: '12px' }}>Don&apos;t see the right role?</h2>
+          <p className="careers-hero-sub" style={{ margin: '0 auto 32px auto' }}>We&apos;re always looking for exceptional engineering talent. Send us your portfolio and let&apos;s start a conversation.</p>
           <Link 
             href="/contact" 
             className="careers-apply-action-btn" 

@@ -375,7 +375,7 @@ export const services = [
       'Fast turnaround for critical bug fixes and hot-patch updates',
       'Proactive application optimization preventing speed degradation',
       'Automated daily backup systems and disaster recovery plans',
-      'Ongoing compliance updates for data protection regulations (GDPR)'
+      'Ongoing compliance updates for applicable data protection regulations'
     ],
     features: [
       { title: 'Server Telemetry Setup', desc: 'Continuous monitor configuration for server memory, error rates, and connection speeds.' },

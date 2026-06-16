@@ -1428,6 +1428,8 @@ body:has(.rt2-theme) .marquee-item span {
   margin-bottom: 12px;
   position: relative;
   z-index: 1;
+  font-variant-numeric: lining-nums;
+  font-feature-settings: "lnum" 1;
 }
 .premium-stat-card .hc2-stat-label,
 .premium-stat-card .fb2-stat-label,
@@ -2638,4 +2640,257 @@ body:has(.rt2-theme) .marquee-item span {
 .site-header[class*="industry-header-"] .mobile-email-link {
   color: #cbd5e1 !important;
 }
+
+/* =========================================================
+   RESPONSIVE OVERRIDES & TYPOGRAPHY CORRECTIONS FOR V2
+   ========================================================= */
+
+/* Force lining numerals globally on all industry stat numbers to prevent oldstyle digits (e.g. 9 looking like g) */
+.hc2-stat-num,
+.fb2-stat-num,
+.st2-stat-num,
+.mf2-stat-num,
+.rt2-stat-num {
+  font-variant-numeric: lining-nums !important;
+  font-feature-settings: "lnum" 1 !important;
+}
+
+/* Stacking for statistics grids on mobile/tablet viewports to prevent wrapping and clipping of numbers */
+@media (max-width: 991px) {
+  .premium-stats-grid {
+    grid-template-columns: 1fr !important;
+    gap: 24px !important;
+  }
+}
+
+/* Adjust industry hero sections to prevent sticky/fixed header overlap on mobile viewports (<=1024px) */
+@media (max-width: 1024px) {
+  .hc2-hero,
+  .fb2-hero,
+  .st2-hero,
+  .mf2-hero,
+  .rt2-hero {
+    min-height: auto !important;
+    display: block !important;
+    padding-top: 140px !important;
+    padding-bottom: 80px !important;
+  }
+}
+
+/* Hide right-side visual components and expand case card text area on viewports <= 602px */
+@media (max-width: 602px) {
+  .hc2-case-visual-panel,
+  .fb2-case-visual,
+  .st2-case-code,
+  .mf2-case-visual,
+  .rt2-case-visual {
+    display: none !important;
+  }
+
+  .hc2-case-inner,
+  .fb2-case-inner,
+  .st2-case-inner,
+  .mf2-case-inner,
+  .rt2-case-inner {
+    grid-template-columns: 1fr !important;
+    gap: 0 !important;
+  }
+
+  .hc2-case-card,
+  .fb2-case-card,
+  .st2-case-card,
+  .mf2-case-card,
+  .rt2-case-card {
+    padding: 32px 24px !important;
+  }
+}
+
+/* Position the Close Details button at the bottom-right on viewports <= 433px and add bottom padding to prevent overlap */
+@media (max-width: 433px) {
+  .hc2-case-card,
+  .fb2-case-card,
+  .st2-case-card,
+  .mf2-case-card,
+  .rt2-case-card {
+    padding-bottom: 76px !important;
+  }
+
+  .hc2-case-card .case-flip-btn,
+  .fb2-case-card .case-flip-btn,
+  .st2-case-card .case-flip-btn,
+  .mf2-case-card .case-flip-btn,
+  .rt2-case-card .case-flip-btn {
+    top: auto !important;
+    bottom: 20px !important;
+    right: 20px !important;
+  }
+}
+
+/* Allow wrapping for Finance Hero metrics and action buttons on viewports <= 768px */
+@media (max-width: 768px) {
+  .fb2-hero-left .fb2-hero-actions {
+    flex-wrap: wrap !important;
+    gap: 12px !important;
+  }
+  .fb2-hero-left .fb2-live-metrics {
+    flex-wrap: wrap !important;
+    gap: 12px !important;
+    margin-top: 24px !important;
+  }
+}
+
+/* Stack Retail Sync Metrics Microcards on mobile/tablet viewports to prevent horizontal clipping */
+@media (max-width: 768px) {
+  .retail-metric-microgrid {
+    grid-template-columns: 1fr !important;
+    gap: 16px !important;
+  }
+}
+
+/* Hide subtext descriptions in Conversion Optimization funnel steps on viewports <= 942px */
+@media (max-width: 942px) {
+  .rt2-funnel-step-premium .rt2-funnel-desc {
+    display: none !important;
+  }
+}
+
+/* Gradually decrease size of Manufacturing Implementation Process cards on viewports <= 423px */
+@media (max-width: 423px) {
+  .mf2-workflow-card {
+    flex: 0 0 calc(100vw - 48px) !important;
+    padding: 24px 20px !important;
+    gap: 16px !important;
+  }
+}
+
+/* Center-align hero section elements for all industry pages on viewports between 435px and 1017px */
+@media (min-width: 435px) and (max-width: 1017px) {
+  .hc2-hero-content,
+  .fb2-hero-left,
+  .st2-hero-left,
+  .mf2-hero-left,
+  .rt2-hero-left {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    text-align: center !important;
+  }
+  .hc2-hero-sub,
+  .fb2-hero-sub,
+  .st2-hero-sub,
+  .mf2-hero-sub,
+  .rt2-hero-sub {
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+  .hc2-hero-actions,
+  .fb2-hero-actions,
+  .st2-hero-actions,
+  .mf2-hero-actions,
+  .rt2-hero-actions {
+    justify-content: center !important;
+  }
+  .hc2-trust-badges,
+  .fb2-live-metrics,
+  .st2-tech-row,
+  .rt2-social-proof {
+    justify-content: center !important;
+  }
+}
+
+/* Show descriptions in metrics cards on viewports between 435px and 763px, then format/hide on smaller viewports */
+.retail-micro-desc {
+  display: none;
+  font-size: 13px;
+  color: #9c8e92;
+  line-height: 1.5;
+  margin-top: 4px;
+}
+
+@media (min-width: 601px) and (max-width: 763px) {
+  .retail-micro-desc {
+    display: block !important;
+  }
+  .retail-micro-desc .desc-full {
+    display: inline !important;
+  }
+  .retail-micro-desc .desc-medium {
+    display: none !important;
+  }
+}
+
+@media (min-width: 435px) and (max-width: 600px) {
+  .retail-micro-desc {
+    display: block !important;
+  }
+  .retail-micro-desc .desc-full {
+    display: none !important;
+  }
+  .retail-micro-desc .desc-medium {
+    display: inline !important;
+  }
+}
+
+@media (max-width: 434px) {
+  .retail-micro-desc {
+    display: none !important;
+  }
+  .retail-metric-microcard {
+    align-items: center !important;
+    text-align: center !important;
+  }
+  .retail-metric-microcard-icon-wrap {
+    margin: 0 auto !important;
+  }
+}
+
+/* Hide step rate percentages inside Retail funnel step blocks and center text/content on viewports <= 479px */
+@media (max-width: 479px) {
+  .rt2-funnel-step-premium .rt2-funnel-rate {
+    display: none !important;
+  }
+  .rt2-funnel-step-premium {
+    justify-content: center !important;
+  }
+  .rt2-funnel-left {
+    justify-content: center !important;
+    flex: none !important;
+  }
+}
+
+/* Gradually decrease size of Retail tech cards in What We Build section on viewports <= 670px */
+@media (max-width: 670px) {
+  .rt2-tech-card {
+    flex: 0 0 calc(43vw + 133px) !important;
+    height: auto !important;
+    min-height: 420px !important;
+    padding: 24px !important;
+  }
+}
+
+/* Enforce statistics cards in 1 row (3 columns) between 701px and 990px */
+@media (min-width: 701px) and (max-width: 990px) {
+  .premium-stats-grid {
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 16px !important;
+  }
+}
+
+/* Hide the statistics blocks completely on viewports <= 700px on all five industry pages */
+@media (max-width: 700px) {
+  .premium-stats-grid,
+  .rt2-stats-section,
+  .hc2-stats-section,
+  .fb2-stats-section,
+  .mf2-stats-section,
+  .st2-stats-section {
+    display: none !important;
+  }
+}
+
+
+
+
+
+
 

@@ -20,6 +20,8 @@ export default function ProcessHorizontalScroll({ steps }) {
   // This matches the CSS: padding-left: max(24px, calc((100vw - 1200px) / 2 + 24px))
   const calcMaxTranslate = () => {
     const vw = window.innerWidth;
+    if (vw <= 1024) return 0;
+
     const paddingLeft = Math.max(24, (vw - 1200) / 2 + 24);
     // Total width of all cards + gaps laid out in the track
     const totalCardsWidth = n * CARD_W + (n - 1) * CARD_GAP;
@@ -34,6 +36,7 @@ export default function ProcessHorizontalScroll({ steps }) {
 
   useEffect(() => {
     // Apply the real value after mount — runs only on client, after hydration
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setMaxTranslate(calcMaxTranslate());
 
     const handleResize = () => setMaxTranslate(calcMaxTranslate());
@@ -46,6 +49,11 @@ export default function ProcessHorizontalScroll({ steps }) {
     const outer = outerRef.current;
     const track = trackRef.current;
     if (!outer || !track) return;
+
+    if (window.innerWidth <= 1024) {
+      track.style.transform = '';
+      return;
+    }
 
     const onScroll = () => {
       const rect = outer.getBoundingClientRect();

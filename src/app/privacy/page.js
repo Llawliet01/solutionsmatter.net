@@ -11,7 +11,7 @@ export default function PrivacyPage() {
       <section className="policy-hero">
         <div className="container">
           <h1>Privacy Policy</h1>
-          <p>Effective Date: June 15, 2026</p>
+          <p>Effective Date: June 06, 2026</p>
         </div>
       </section>
 
@@ -20,7 +20,7 @@ export default function PrivacyPage() {
           <div className="card policy-card-content">
             <h2>1. Introduction & Scope</h2>
             <p>
-              Solutions Matter ("we," "our," or "us") is committed to protecting your privacy and ensuring the security of your corporate and personal data. This Privacy Policy outlines our practices regarding the collection, usage, storage, and protection of information when you visit our website, schedule consulting discovery sessions, interact with our staging environments, or contract our custom software engineering services.
+              Solutions Matter (&quot;we,&quot; &quot;our,&quot; or &quot;us&quot;) is committed to protecting your privacy and ensuring the security of your corporate and personal data. This Privacy Policy outlines our practices regarding the collection, usage, storage, and protection of information when you visit our website, schedule consulting discovery sessions, interact with our staging environments, or contract our custom software engineering services.
             </p>
 
             <h2>2. Types of Information We Collect</h2>
@@ -66,7 +66,7 @@ export default function PrivacyPage() {
               <li><strong>Network Encryptions:</strong> All data in transit is encrypted using TLS 1.3 cryptographic protocols. All data at rest is stored behind AES-256 database encryptions.</li>
               <li><strong>Virtual Private Clouds (VPC):</strong> Databases and API endpoints created for our clients are isolated within secure, virtual private networks on Amazon Web Services (AWS) with strict firewall white-lists.</li>
               <li><strong>Row-Level Security (RLS):</strong> Multi-tenant SaaS schemas utilize active database-level policies to ensure strict tenant data segregation, preventing authorization bypasses (BOLA).</li>
-              <li><strong>Compliance Readiness:</strong> We build databases according to HIPAA compliance rules, SOC 2 guidelines, and OWASP Top 10 security standards.</li>
+              <li><strong>Compliance Readiness:</strong> We build databases according to industry-standard data security guidelines and OWASP Top 10 security standards.</li>
             </ul>
 
             <h2>7. Data Retention & Purging Policies</h2>
@@ -74,14 +74,14 @@ export default function PrivacyPage() {
               We retain contact lead records for up to 24 months to coordinate prospective accounts. For active projects, client data is stored strictly for the duration of the MSA contract. Upon contract termination or project handoff, we execute automated scripts to wipe database credentials and staging backups from our networks, transferring 100% intellectual property ownership to the client.
             </p>
 
-            <h2>8. Your Legal Rights (GDPR & CCPA compliance)</h2>
+            <h2>8. Your Legal Rights</h2>
             <p>
-              Under international data regulations (including GDPR and CCPA), you hold full authority over your data. You may exercise the following options:
+              Under applicable international data regulations, you hold full authority over your data. You may exercise the following options:
             </p>
             <ul style={{ paddingLeft: '20px', listStyleType: 'disc', fontSize: '1.5rem', color: 'var(--text-secondary)', lineHeight: '1.6', display: 'flex', flexDirection: 'column', gap: '8px' }}>
               <li><strong>Right of Access & Portability:</strong> Request a complete summary export of any contact records we have collected.</li>
               <li><strong>Right to Rectification:</strong> Request changes to correct inaccurate phone numbers, names, or corporate profiles.</li>
-              <li><strong>Right of Erasure ("Right to be Forgotten"):</strong> Request immediate purging of your contact records from our active lead databases.</li>
+              <li><strong>Right of Erasure (&quot;Right to be Forgotten&quot;):</strong> Request immediate purging of your contact records from our active lead databases.</li>
             </ul>
 
             <h2>9. Policy Modifications</h2>

@@ -11,7 +11,7 @@ export default function CookiesPage() {
       <section className="policy-hero">
         <div className="container">
           <h1>Cookie Policy</h1>
-          <p>Effective Date: June 15, 2026</p>
+          <p>Effective Date: June 06, 2026</p>
         </div>
       </section>
 
@@ -74,7 +74,7 @@ export default function CookiesPage() {
 
             <h2>4. Managing Cookie Settings on Your Device</h2>
             <p>
-              You hold complete control over your browser's cookie storage. You can audit, block, or delete cookies by accessing your web browser settings. Follow the guides below for common browsers:
+              You hold complete control over your browser&apos;s cookie storage. You can audit, block, or delete cookies by accessing your web browser settings. Follow the guides below for common browsers:
             </p>
             <ul style={{ paddingLeft: '20px', listStyleType: 'disc', fontSize: '1.5rem', color: 'var(--text-secondary)', lineHeight: '1.6', display: 'flex', flexDirection: 'column', gap: '8px' }}>
               <li><strong>Google Chrome:</strong> Go to Settings → Privacy and Security → Cookies and other site data.</li>

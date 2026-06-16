@@ -11,7 +11,7 @@ export default function TermsPage() {
       <section className="policy-hero">
         <div className="container">
           <h1>Terms & Conditions</h1>
-          <p>Effective Date: June 15, 2026</p>
+          <p>Effective Date: June 06, 2026</p>
         </div>
       </section>
 
@@ -20,7 +20,7 @@ export default function TermsPage() {
           <div className="card policy-card-content">
             <h2>1. Contractual Agreement & Scope</h2>
             <p>
-              These Terms & Conditions constitute a legally binding agreement between Solutions Matter ("we," "our," or "us") and the individual or business entity accessing our website or contracting our engineering services ("Client," "you," or "your"). By utilizing our services, reviewing custom staging environments, or engaging in consultation discovery sessions, you acknowledge and agree to abide by these terms.
+              These Terms & Conditions constitute a legally binding agreement between Solutions Matter (&quot;we,&quot; &quot;our,&quot; or &quot;us&quot;) and the individual or business entity accessing our website or contracting our engineering services (&quot;Client,&quot; &quot;you,&quot; or &quot;your&quot;). By utilizing our services, reviewing custom staging environments, or engaging in consultation discovery sessions, you acknowledge and agree to abide by these terms.
             </p>
 
             <h2>2. Scope of Services & SOW Execution</h2>
@@ -59,7 +59,7 @@ export default function TermsPage() {
 
             <h2>8. Limitation of Liability</h2>
             <p>
-              To the maximum extent permitted by governing law, Solutions Matter's total aggregate liability for any claims, damages, or breaches arising under these Terms, MSAs, or SOWs is strictly capped at the total amount paid by Client to Solutions Matter during the preceding three (3) months. We are not liable for data loss, server downtime, security breaches, or revenue losses occurring outside our direct control or within third-party hosting infrastructures (such as AWS, GCP, Vercel).
+              To the maximum extent permitted by governing law, Solutions Matter&apos;s total aggregate liability for any claims, damages, or breaches arising under these Terms, MSAs, or SOWs is strictly capped at the total amount paid by Client to Solutions Matter during the preceding three (3) months. We are not liable for data loss, server downtime, security breaches, or revenue losses occurring outside our direct control or within third-party hosting infrastructures (such as AWS, GCP, Vercel).
             </p>
 
             <h2>9. Contract Termination Policies</h2>

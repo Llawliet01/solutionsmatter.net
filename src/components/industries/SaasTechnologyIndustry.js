@@ -417,7 +417,7 @@ export default function SaasTechnologyIndustry({ industry }) {
               {/* Back of Card */}
               <div className="case-card-back">
                 <div className="st2-case-card" style={{ margin: 0, position: 'relative' }}>
-                  <button className="case-flip-btn" style={{ position: 'absolute', right: '56px', top: '56px', padding: '6px 16px', fontSize: '12px', borderColor: 'rgba(139, 92, 246, 0.4)', zIndex: 10 }} onClick={() => setCaseFlipped(false)}>
+                  <button className="case-flip-btn" style={{ position: 'absolute', right: '24px', top: '24px', padding: '6px 16px', fontSize: '12px', borderColor: 'rgba(139, 92, 246, 0.4)', zIndex: 10 }} onClick={() => setCaseFlipped(false)}>
                     Close Details
                   </button>
                   <div className="st2-case-eyebrow">Case Study — Detailed Report</div>

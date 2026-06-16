@@ -31,8 +31,8 @@ export default function RetailEcommerceIndustry({ industry }) {
   const [activeTab, setActiveTab] = useState('traffic');
   const [checkoutStage, setCheckoutStage] = useState('cart'); // 'cart' | 'processing' | 'confirmed'
   const [cartItems, setCartItems] = useState([
-    { id: 1, name: 'Premium Leather Boots', price: 180, qty: 1, img: '🥾' },
-    { id: 2, name: 'Minimalist Backpack', price: 120, qty: 1, img: '🎒' },
+    { id: 1, name: 'Premium Leather Boots', price: 180, qty: 1, img: 'Boots' },
+    { id: 2, name: 'Minimalist Backpack', price: 120, qty: 1, img: 'Pack' },
   ]);
 
   const cartTotal = cartItems.reduce((sum, item) => sum + item.price * item.qty, 0);
@@ -117,7 +117,26 @@ export default function RetailEcommerceIndustry({ industry }) {
   const techN = techCards.length;
   const CARD_W = 420;
   const CARD_GAP = 28;
-  const maxTranslate = (techN - 2) * (CARD_W + CARD_GAP) + 0.3 * CARD_W;
+  const [maxTranslate, setMaxTranslate] = useState((techN - 2) * (CARD_W + CARD_GAP) + 0.3 * CARD_W);
+
+  useEffect(() => {
+    const handleResize = () => {
+      const track = techTrackRef.current;
+      if (!track) return;
+      const cardEl = track.querySelector('.rt2-tech-card');
+      if (cardEl) {
+        const cardWidth = cardEl.offsetWidth;
+        const style = window.getComputedStyle(track);
+        const gap = parseFloat(style.gap) || 28;
+        const newMaxTranslate = (techN - 2) * (cardWidth + gap) + 0.3 * cardWidth;
+        setMaxTranslate(newMaxTranslate);
+      }
+    };
+
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, [techN]);
 
   useEffect(() => {
     const outer = techOuterRef.current;
@@ -211,7 +230,7 @@ export default function RetailEcommerceIndustry({ industry }) {
               <div className="rt2-phone-screen">
                 {/* App Header */}
                 <div className="rt2-app-header">
-                  <span className="rt2-app-logo">🛍 ShopNow</span>
+                  <span className="rt2-app-logo" style={{ display: 'inline-flex', alignItems: 'center', gap: '4px' }}><ShoppingBag size={16} /> ShopNow</span>
                   <div className="rt2-cart-icon-wrap">
                     <ShoppingBag size={18} />
                     <span className="rt2-cart-count">{cartItems.length}</span>
@@ -224,7 +243,7 @@ export default function RetailEcommerceIndustry({ industry }) {
                     <div className="rt2-cart-title">Your Cart</div>
                     {cartItems.map(item => (
                       <div key={item.id} className="rt2-cart-item">
-                        <span className="rt2-item-img">{item.img}</span>
+                        <span className="rt2-item-img" style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center' }}><Package size={16} /></span>
                         <div className="rt2-item-details">
                           <span className="rt2-item-name">{item.name}</span>
                           <span className="rt2-item-price">${item.price} × {item.qty}</span>
@@ -239,10 +258,10 @@ export default function RetailEcommerceIndustry({ industry }) {
                     <button className="rt2-checkout-btn" onClick={handleCheckout}>
                       <span>Checkout Securely</span>
                     </button>
-                    <div className="rt2-payment-icons">
-                      <span>🍎 Pay</span>
-                      <span>💳 Card</span>
-                      <span>🅿️ Wallet</span>
+                    <div className="rt2-payment-icons" style={{ fontSize: '11px', opacity: 0.8, gap: '8px' }}>
+                      <span>Apple Pay</span>
+                      <span>Credit Card</span>
+                      <span>Digital Wallet</span>
                     </div>
                   </div>
                 )}
@@ -255,11 +274,11 @@ export default function RetailEcommerceIndustry({ industry }) {
                 )}
                 {checkoutStage === 'confirmed' && (
                   <div className="rt2-confirmed-view">
-                    <div className="rt2-confirmed-icon">✅</div>
+                    <div className="rt2-confirmed-icon" style={{ display: 'inline-flex', justifyContent: 'center', marginBottom: '8px' }}><CheckCircle size={32} color="#10b981" /></div>
                     <h4>Order Confirmed!</h4>
                     <p>Order #RT-29481</p>
                     <p className="rt2-confirmed-sub">Estimated delivery: 2-3 days</p>
-                    <div className="rt2-loyalty-badge">🎁 +142 loyalty points earned</div>
+                    <div className="rt2-loyalty-badge">+142 loyalty points earned</div>
                   </div>
                 )}
               </div>
@@ -318,6 +337,10 @@ export default function RetailEcommerceIndustry({ industry }) {
                 </div>
                 <span className="retail-micro-num">&lt;200ms</span>
                 <span className="retail-micro-lbl">Sync latency</span>
+                <p className="retail-micro-desc">
+                  <span className="desc-full">Our real-time transaction engine writes every single sale to a central database ledger in under 200ms.</span>
+                  <span className="desc-medium">Real-time sync writes sales to a central ledger under 200ms.</span>
+                </p>
               </div>
               <div className="retail-metric-microcard reveal-on-scroll delay-100">
                 <div className="retail-metric-microcard-icon-wrap">
@@ -325,6 +348,10 @@ export default function RetailEcommerceIndustry({ industry }) {
                 </div>
                 <span className="retail-micro-num">4</span>
                 <span className="retail-micro-lbl">Unified channels</span>
+                <p className="retail-micro-desc">
+                  <span className="desc-full">Provides synchronous updates linking storefronts, mobile app feeds, third-party marketplaces, and POS databases.</span>
+                  <span className="desc-medium">Synchronous updates linking storefront, mobile app, and POS feeds.</span>
+                </p>
               </div>
               <div className="retail-metric-microcard reveal-on-scroll delay-200">
                 <div className="retail-metric-microcard-icon-wrap">
@@ -332,6 +359,10 @@ export default function RetailEcommerceIndustry({ industry }) {
                 </div>
                 <span className="retail-micro-num">0</span>
                 <span className="retail-micro-lbl">Oversells guaranteed</span>
+                <p className="retail-micro-desc">
+                  <span className="desc-full">Strict inventory locking ensures that customer checkouts never exceed actual physical stock limits.</span>
+                  <span className="desc-medium">Inventory locking guarantees zero double-selling across channels.</span>
+                </p>
               </div>
             </div>
           </div>
@@ -356,7 +387,7 @@ export default function RetailEcommerceIndustry({ industry }) {
                   <div className="rt2-stock-nums">
                     <span className="rt2-stock-qty">{ch.stock} in stock</span>
                     <span className={`rt2-stock-tag ${ch.status}`}>
-                      {ch.status === 'critical' ? '🚨 CRITICAL' : ch.status === 'low' ? '⚠ LOW' : '✓ OK'}
+                      {ch.status === 'critical' ? 'CRITICAL' : ch.status === 'low' ? 'LOW' : 'OK'}
                     </span>
                   </div>
                 </div>
@@ -523,7 +554,7 @@ export default function RetailEcommerceIndustry({ industry }) {
               {/* Back of Card */}
               <div className="case-card-back">
                 <div className="rt2-case-card" style={{ margin: 0, position: 'relative' }}>
-                  <button className="case-flip-btn" style={{ position: 'absolute', right: '56px', top: '56px', padding: '6px 16px', fontSize: '12px', borderColor: 'rgba(244, 63, 94, 0.4)', zIndex: 10 }} onClick={() => setCaseFlipped(false)}>
+                  <button className="case-flip-btn" style={{ position: 'absolute', right: '24px', top: '24px', padding: '6px 16px', fontSize: '12px', borderColor: 'rgba(244, 63, 94, 0.4)', zIndex: 10 }} onClick={() => setCaseFlipped(false)}>
                     Close Details
                   </button>
                   <div className="rt2-case-eyebrow">Case Study — Detailed Report</div>

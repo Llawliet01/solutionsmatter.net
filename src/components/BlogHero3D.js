@@ -63,13 +63,19 @@ export default function BlogHero3D({ posts }) {
     const handleResize = () => {
       const w = window.innerWidth;
       if (w < 480) {
-        setRadius(200);
+        setRadius(Math.max(105, w * 0.3));
       } else if (w < 768) {
-        setRadius(260);
-      } else if (w < 1024) {
-        setRadius(320);
+        setRadius(w * 0.32);
+      } else if (w < 940) {
+        setRadius(w * 0.33);
+      } else if (w < 1100) {
+        setRadius(w * 0.34);
+      } else if (w < 1250) {
+        setRadius(w * 0.32);
+      } else if (w < 1400) {
+        setRadius(w * 0.35);
       } else {
-        setRadius(400);
+        setRadius(380);
       }
     };
     window.addEventListener('resize', handleResize);
@@ -85,7 +91,8 @@ export default function BlogHero3D({ posts }) {
     }
 
     const tick = () => {
-      setRotation((r) => (r + 0.48) % 360);
+      const step = window.innerWidth < 1024 ? 1.0 : 0.48; // Faster speed for mobile and tablet
+      setRotation((r) => (r + step) % 360);
       animRef.current = requestAnimationFrame(tick);
     };
 

@@ -97,7 +97,26 @@ export default function ManufacturingIndustry({ industry }) {
 
   const CARD_W = 420;
   const CARD_GAP = 28;
-  const maxTranslate = (workflowSteps.length - 2) * (CARD_W + CARD_GAP) + 0.3 * CARD_W;
+  const [maxTranslate, setMaxTranslate] = useState((workflowSteps.length - 2) * (CARD_W + CARD_GAP) + 0.3 * CARD_W);
+
+  useEffect(() => {
+    const handleResize = () => {
+      const track = workflowTrackRef.current;
+      if (!track) return;
+      const cardEl = track.querySelector('.mf2-workflow-card');
+      if (cardEl) {
+        const cardWidth = cardEl.offsetWidth;
+        const style = window.getComputedStyle(track);
+        const gap = parseFloat(style.gap) || 28;
+        const newMaxTranslate = (workflowSteps.length - 2) * (cardWidth + gap) + 0.3 * cardWidth;
+        setMaxTranslate(newMaxTranslate);
+      }
+    };
+
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   useEffect(() => {
     const outer = workflowOuterRef.current;
@@ -408,7 +427,7 @@ export default function ManufacturingIndustry({ industry }) {
               {/* Back of Card */}
               <div className="case-card-back">
                 <div className="mf2-case-card" style={{ margin: 0, position: 'relative' }}>
-                  <button className="case-flip-btn" style={{ position: 'absolute', right: '56px', top: '56px', padding: '6px 16px', fontSize: '12px', borderColor: 'rgba(245, 158, 11, 0.4)', zIndex: 10 }} onClick={() => setCaseFlipped(false)}>
+                  <button className="case-flip-btn" style={{ position: 'absolute', right: '24px', top: '24px', padding: '6px 16px', fontSize: '12px', borderColor: 'rgba(245, 158, 11, 0.4)', zIndex: 10 }} onClick={() => setCaseFlipped(false)}>
                     Close Details
                   </button>
                   <div className="mf2-case-eyebrow">Case Study — Detailed Report</div>

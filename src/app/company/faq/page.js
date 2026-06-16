@@ -307,7 +307,7 @@ export default function FAQPage() {
                     <HelpCircle size={40} />
                   </div>
                   <h3>No matching FAQs found</h3>
-                  <p>Try searching for keywords like "nextjs", "mvp", "security" or pick another topic from the sidebar.</p>
+                  <p>Try searching for keywords like &quot;nextjs&quot;, &quot;mvp&quot;, &quot;security&quot; or pick another topic from the sidebar.</p>
                 </div>
               )}
             </div>

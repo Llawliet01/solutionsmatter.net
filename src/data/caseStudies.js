@@ -14,7 +14,7 @@ export const caseStudies = [
       { num: '-60%', label: 'Queue processing time' }
     ],
     implementation: [
-      'Configured a HIPAA-compliant virtual private cloud on AWS.',
+      'Configured a secure, isolated virtual private cloud on AWS.',
       'Developed a deep learning model to pre-screen medical images for structural anomalies.',
       'Constructed a FastAPI integration layer connecting the AI engine to existing hospital EHR software.',
       'Implemented audit logs to track every data interaction.'
@@ -22,7 +22,7 @@ export const caseStudies = [
     outcome: [
       '94% classification accuracy for pre-screened anomaly classes.',
       '60% reduction in diagnostics processing queue times.',
-      'Complete HIPAA compliance alignment with encrypted logs.'
+      'Complete regulatory alignment with encrypted logs.'
     ],
     relatedServices: [
       { slug: 'custom-software-development', title: 'Custom Software Development' },
@@ -104,7 +104,7 @@ async def perform_diagnosis(file: UploadFile = File(...), user: User = Depends(g
         </tbody>
       </table>
 
-      <h3>3. Enterprise EHR Integration & HIPAA Security Compliance</h3>
+      <h3>3. Enterprise EHR Integration & Data Security Compliance</h3>
       <p>Data privacy is paramount in digital health. To fulfill strict healthcare regulations, all data operations are routed through a private AWS VPC. Database values are encrypted using AWS CloudHSM keys. Our custom audit middleware logs every API handshake, user access, and model call in an unalterable log database, creating a comprehensive audit trail for external compliance inspectors.</p>
     `
   },

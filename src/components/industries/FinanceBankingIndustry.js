@@ -545,7 +545,7 @@ export default function FinanceBankingIndustry({ industry }) {
               {/* Back of Card */}
               <div className="case-card-back">
                 <div className="fb2-case-card" style={{ margin: 0, position: 'relative' }}>
-                  <button className="case-flip-btn" style={{ position: 'absolute', right: '56px', top: '56px', padding: '6px 16px', fontSize: '12px', borderColor: 'rgba(201, 162, 39, 0.4)', zIndex: 10 }} onClick={() => setCaseFlipped(false)}>
+                  <button className="case-flip-btn" style={{ position: 'absolute', right: '24px', top: '24px', padding: '6px 16px', fontSize: '12px', borderColor: 'rgba(201, 162, 39, 0.4)', zIndex: 10 }} onClick={() => setCaseFlipped(false)}>
                     Close Details
                   </button>
                   <div className="fb2-case-eyebrow">Case Study — Detailed Report</div>
