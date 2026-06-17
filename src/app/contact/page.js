@@ -81,6 +81,21 @@ export default function ContactPage() {
     setIsSubmitting(true);
     setSubmitError('');
 
+    // ----- API call for logging -----
+    try {
+      const response = await fetch('/api/api-contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      });
+      const text = await response.text();
+      console.log('API response:', response.status, text);
+    } catch (error) {
+      console.error('API error:', error);
+    }
+    // -------------------------------------
+
+
     const subject = encodeURIComponent(`[Website Inquiry] ${formData.subject}`);
     const body = encodeURIComponent(
       `Name: ${formData.name}\nEmail: ${formData.email}\nCompany: ${formData.companyName}\nSubject: ${formData.subject}\n\nMessage:\n${formData.message}`
