@@ -1499,7 +1499,7 @@ export default function AboutPage() {
                   data-target={metric.value} 
                   data-suffix={metric.suffix}
                 >
-                  0
+                  {metric.value}{metric.suffix}
                 </div>
                 <div className="about-metric-label">{metric.label}</div>
               </div>

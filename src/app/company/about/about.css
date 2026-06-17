@@ -198,6 +198,7 @@
   padding-bottom: 6px;
 }
 
+
 .about-hero-heading-wrapper .line-reveal span {
   display: block;
   transform: translateY(100px);
@@ -205,6 +206,15 @@
   background: linear-gradient(90deg, #ffffff 35%, var(--about-cyan) 75%, var(--about-purple) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+}
+
+/* On mobile/tablet (≤767px), always show the hero heading — GSAP may not fire before paint */
+@media (max-width: 767px) {
+  .about-hero-heading-wrapper .line-reveal span {
+    transform: translateY(0) !important;
+    opacity: 1 !important;
+    transition: none !important;
+  }
 }
 
 .about-hero-desc {
