@@ -6,6 +6,7 @@ import { blogPosts } from '@/data/blog';
 import CTA from '@/components/CTA';
 import PageFlow from '@/components/PageFlow';
 import ThemeBodyToggle from '@/components/ThemeBodyToggle';
+import { makeBreadcrumbSchema, makeMetadata } from '@/lib/seo';
 
 export async function generateStaticParams() {
   return blogPosts.map((post) => ({
@@ -24,13 +25,14 @@ export async function generateMetadata({ params }) {
     };
   }
 
-  return {
-    title: `${post.title} | Technical Blog`,
+  return makeMetadata({
+    title: `${post.title} | Solutions Matter`,
     description: post.summary.substring(0, 155),
-    alternates: {
-      canonical: `/insights/blog/${slug}`
-    }
-  };
+    path: `/insights/blog/${slug}`,
+    type: 'article',
+    image: post.banner,
+    keywords: [post.title, post.category.replace('-', ' '), 'technical article'],
+  });
 }
 
 export default async function BlogDetailPage({ params }) {
@@ -41,6 +43,12 @@ export default async function BlogDetailPage({ params }) {
   if (!post) {
     notFound();
   }
+
+  const breadcrumbSchema = makeBreadcrumbSchema([
+    { name: 'Home', path: '/' },
+    { name: 'Blog', path: '/insights/blog' },
+    { name: post.title, path: `/insights/blog/${slug}` },
+  ]);
 
   // Find 2 related articles (excluding current post)
   const relatedArticles = blogPosts
@@ -67,6 +75,7 @@ export default async function BlogDetailPage({ params }) {
   return (
     <>
       <ThemeBodyToggle />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaJson) }}

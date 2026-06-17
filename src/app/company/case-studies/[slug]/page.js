@@ -8,6 +8,7 @@ import {
 import { caseStudies } from '@/data/caseStudies';
 import CTA from '@/components/CTA';
 import PageFlow from '@/components/PageFlow';
+import { makeBreadcrumbSchema, makeMetadata } from '@/lib/seo';
 
 export async function generateStaticParams() {
   return caseStudies.map((cs) => ({
@@ -26,13 +27,14 @@ export async function generateMetadata({ params }) {
     };
   }
 
-  return {
-    title: `${cs.title} | Case Study | Solutions Matter`,
+  return makeMetadata({
+    title: `${cs.title} Case Study | Solutions Matter`,
     description: cs.challenge.substring(0, 155),
-    alternates: {
-      canonical: `/company/case-studies/${slug}`
-    }
-  };
+    path: `/company/case-studies/${slug}`,
+    type: 'article',
+    image: cs.banner,
+    keywords: [cs.title, 'case study', 'software implementation'],
+  });
 }
 
 export default async function CaseStudyDetailPage({ params }) {
@@ -45,6 +47,12 @@ export default async function CaseStudyDetailPage({ params }) {
   if (!cs) {
     notFound();
   }
+
+  const breadcrumbSchema = makeBreadcrumbSchema([
+    { name: 'Home', path: '/' },
+    { name: 'Case Studies', path: '/company/case-studies' },
+    { name: cs.title, path: `/company/case-studies/${slug}` },
+  ]);
 
   const schemaJson = {
     '@context': 'https://schema.org',
@@ -61,6 +69,7 @@ export default async function CaseStudyDetailPage({ params }) {
 
   return (
     <div className={`case-study-detail-wrapper cs-accent-theme-${csIdx + 1}`}>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaJson) }}

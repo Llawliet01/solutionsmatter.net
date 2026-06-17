@@ -495,8 +495,13 @@ export default function Home() {
               
               {/* Center-left overlay badge */}
               <div className="achievement-badge-overlay">
-                <Globe className="achievement-badge-icon" />
-                <span className="achievement-badge-text">Solutions <span>Matter</span></span>
+                <Image
+                  src="/images/logo.webp"
+                  alt="Solutions Matter Logo"
+                  width={164}
+                  height={32}
+                  className="achievement-badge-logo"
+                />
               </div>
               
               {/* Bottom-left overlay metrics card */}

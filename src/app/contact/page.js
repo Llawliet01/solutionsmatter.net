@@ -81,41 +81,28 @@ export default function ContactPage() {
     setIsSubmitting(true);
     setSubmitError('');
 
-    console.log("Contact Form - Submitting API Payload:", formData);
+    const subject = encodeURIComponent(`[Website Inquiry] ${formData.subject}`);
+    const body = encodeURIComponent(
+      `Name: ${formData.name}\nEmail: ${formData.email}\nCompany: ${formData.companyName}\nSubject: ${formData.subject}\n\nMessage:\n${formData.message}`
+    );
 
-    try {
-      const response = await fetch('/api/contact', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData)
-      });
+    const mailtoUrl = `mailto:info@solutionsmatter.com?subject=${subject}&body=${body}`;
 
-      const responseData = await response.json().catch(() => ({}));
-      console.log("Contact Form - API Response:", { status: response.status, ok: response.ok, data: responseData });
+    setFormSubmitted(true);
+    showToastNotification('Your message is ready to send from your email client.', 'success');
+    setFormData({
+      name: '',
+      email: '',
+      companyName: '',
+      subject: '',
+      message: ''
+    });
 
-      if (response.ok) {
-        setFormSubmitted(true);
-        showToastNotification('Request submitted successfully!', 'success');
-        setFormData({
-          name: '',
-          email: '',
-          companyName: '',
-          subject: '',
-          message: ''
-        });
-      } else {
-        const errMsg = responseData.message || 'Something went wrong during form submission. Please try again.';
-        setSubmitError(errMsg);
-        showToastNotification(errMsg, 'error');
-      }
-    } catch (err) {
-      console.error("Contact Form - API Network Error:", err);
-      const errMsg = 'Failed to connect to the server API. Please verify your connection.';
-      setSubmitError(errMsg);
-      showToastNotification(errMsg, 'error');
-    } finally {
-      setIsSubmitting(false);
+    if (typeof window !== 'undefined') {
+      window.location.href = mailtoUrl;
     }
+
+    setIsSubmitting(false);
   };
 
   return (

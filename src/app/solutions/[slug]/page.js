@@ -5,6 +5,7 @@ import BusinessAutomationSolution from '@/components/solutions/BusinessAutomatio
 import AiSolutionsSolution from '@/components/solutions/AiSolutionsSolution';
 import CrmErpSolution from '@/components/solutions/CrmErpSolution';
 import DigitalTransformationSolution from '@/components/solutions/DigitalTransformationSolution';
+import { makeBreadcrumbSchema, makeMetadata } from '@/lib/seo';
 
 export async function generateStaticParams() {
   return solutions.map((s) => ({
@@ -23,13 +24,14 @@ export async function generateMetadata({ params }) {
     };
   }
 
-  return {
-    title: `${solution.title} | Operations Solutions`,
+  return makeMetadata({
+    title: `${solution.title} | Solutions Matter`,
     description: solution.overview.substring(0, 155),
-    alternates: {
-      canonical: `/solutions/${slug}`
-    }
-  };
+    path: `/solutions/${slug}`,
+    type: 'article',
+    image: '/images/logo.webp',
+    keywords: [solution.title, 'business solution', 'enterprise software'],
+  });
 }
 
 export default async function SolutionDetailPage({ params }) {
@@ -40,6 +42,12 @@ export default async function SolutionDetailPage({ params }) {
   if (!solution) {
     notFound();
   }
+
+  const breadcrumbSchema = makeBreadcrumbSchema([
+    { name: 'Home', path: '/' },
+    { name: 'Solutions', path: '/solutions' },
+    { name: solution.title, path: `/solutions/${slug}` },
+  ]);
 
   // Inject Solution Schema JSON-LD
   const schemaJson = {
@@ -72,6 +80,7 @@ export default async function SolutionDetailPage({ params }) {
 
   return (
     <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaJson) }}

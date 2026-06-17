@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { 
   ChevronDown, Menu, X, Mail, Globe, ArrowRight, 
@@ -128,8 +129,14 @@ export default function Header() {
       <div className="header-container-fluid">
         <div className="logo-wrapper">
           <Link href="/" className="logo-area" onClick={closeAll}>
-            <Globe className="logo-icon" />
-            <span className="logo-text">Solutions <span>Matter</span></span>
+            <Image
+              src="/images/logo.webp"
+              alt="Solutions Matter Logo"
+              width={164}
+              height={40}
+              className="logo-image"
+              priority
+            />
           </Link>
         </div>
 

@@ -488,6 +488,17 @@ a {
 .logo-text span {
   color: var(--primary);
 }
+.logo-image {
+  height: auto;
+  width: 164px;
+  max-height: 32px;
+  display: block;
+  transition: filter 0.3s ease;
+}
+.about-page-header .logo-image,
+.site-header[class*="industry-header-"] .logo-image {
+  filter: brightness(0) invert(1) !important;
+}
 .desktop-nav {
   display: flex;
   justify-content: center;
@@ -871,6 +882,13 @@ a {
 }
 .footer-logo-text span {
   color: var(--secondary) !important; /* Accent color */
+}
+.footer-logo-image {
+  height: auto;
+  width: 184px;
+  max-height: 36px;
+  display: block;
+  filter: brightness(0) invert(1) !important;
 }
 .footer-tagline {
   font-size: 1.45rem;
@@ -4100,6 +4118,13 @@ a {
   gap: 8px;
   z-index: 10;
   box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+}
+.achievement-badge-logo {
+  height: auto;
+  width: 164px;
+  max-height: 32px;
+  display: block;
+  filter: brightness(0) invert(1) !important;
 }
 .achievement-badge-icon {
   color: var(--primary) !important;

@@ -6,6 +6,7 @@ import FinanceBankingIndustry from '@/components/industries/FinanceBankingIndust
 import SaasTechnologyIndustry from '@/components/industries/SaasTechnologyIndustry';
 import ManufacturingIndustry from '@/components/industries/ManufacturingIndustry';
 import RetailEcommerceIndustry from '@/components/industries/RetailEcommerceIndustry';
+import { makeBreadcrumbSchema, makeMetadata } from '@/lib/seo';
 
 export async function generateStaticParams() {
   return industries.map((i) => ({
@@ -24,13 +25,14 @@ export async function generateMetadata({ params }) {
     };
   }
 
-  return {
-    title: `${industry.title} Industry | Sector Solutions`,
+  return makeMetadata({
+    title: `${industry.title} Industry Solutions | Solutions Matter`,
     description: industry.overview.substring(0, 155),
-    alternates: {
-      canonical: `/industries/${slug}`
-    }
-  };
+    path: `/industries/${slug}`,
+    type: 'article',
+    image: '/images/logo.webp',
+    keywords: [industry.title, 'industry software solutions', 'sector solutions'],
+  });
 }
 
 export default async function IndustryDetailPage({ params }) {
@@ -41,6 +43,12 @@ export default async function IndustryDetailPage({ params }) {
   if (!industry) {
     notFound();
   }
+
+  const breadcrumbSchema = makeBreadcrumbSchema([
+    { name: 'Home', path: '/' },
+    { name: 'Industries', path: '/industries' },
+    { name: industry.title, path: `/industries/${slug}` },
+  ]);
 
   // Inject Industry Schema JSON-LD
   const schemaJson = {
@@ -73,6 +81,7 @@ export default async function IndustryDetailPage({ params }) {
 
   return (
     <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaJson) }}

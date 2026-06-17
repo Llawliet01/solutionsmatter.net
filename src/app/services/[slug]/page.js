@@ -12,6 +12,7 @@ import ServiceHeroScroll from '@/components/ServiceHeroScroll';
 import CTA from '@/components/CTA';
 import ProcessHorizontalScroll from '@/components/ProcessHorizontalScroll';
 import BackgroundRings from '@/components/BackgroundRings';
+import { makeBreadcrumbSchema, makeMetadata } from '@/lib/seo';
 
 export async function generateStaticParams() {
   return services.map((s) => ({
@@ -30,13 +31,14 @@ export async function generateMetadata({ params }) {
     };
   }
 
-  return {
-    title: `${service.title} | Technical Services`,
+  return makeMetadata({
+    title: `${service.title} | Solutions Matter`,
     description: service.overview.substring(0, 155),
-    alternates: {
-      canonical: `/services/${slug}`
-    }
-  };
+    path: `/services/${slug}`,
+    type: 'article',
+    image: getServiceMainImage(slug),
+    keywords: [service.title, 'custom software services', 'technical services'],
+  });
 }
 
 // Map service slug to a relevant main image
@@ -81,6 +83,12 @@ export default async function ServiceDetailPage({ params }) {
     notFound();
   }
 
+  const breadcrumbSchema = makeBreadcrumbSchema([
+    { name: 'Home', path: '/' },
+    { name: 'Services', path: '/services' },
+    { name: service.title, path: `/services/${slug}` },
+  ]);
+
   // Find previous and next services for bottom redirection
   const serviceIndex = services.findIndex(s => s.slug === slug);
   const prevService = services[serviceIndex - 1] || services[services.length - 1];
@@ -110,6 +118,7 @@ export default async function ServiceDetailPage({ params }) {
 
   return (
     <div style={{ position: 'relative', overflow: 'clip', width: '100%' }}>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
       <BackgroundRings count={12} />
       <ServiceHeroScroll />
       <script

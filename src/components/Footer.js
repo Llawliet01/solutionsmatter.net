@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import { Globe, Mail } from 'lucide-react';
 import { services } from '@/data/services';
 import { solutions } from '@/data/solutions';
@@ -41,8 +42,13 @@ export default function Footer() {
           {/* Branding Column */}
           <div className="footer-col branding-col">
             <Link href="/" className="footer-logo">
-              <Globe className="footer-logo-icon" />
-              <span className="footer-logo-text">Solutions <span>Matter</span></span>
+              <Image
+                src="/images/logo.webp"
+                alt="Solutions Matter Logo"
+                width={184}
+                height={36}
+                className="footer-logo-image"
+              />
             </Link>
             <p className="footer-tagline">
               Your premium technology partner engineering high-performance custom software, responsive web applications, and automated enterprise operations.
