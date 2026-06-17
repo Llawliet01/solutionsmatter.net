@@ -47,7 +47,7 @@ const getServiceImage = (slug) => {
   }
 };
 
-const AnimatedCounter = ({ target, suffix = '', duration = 1500 }) => {
+const AnimatedCounter = ({ target, suffix = '', duration = 1000 }) => {
   const [count, setCount] = useState(1);
   const [hasStarted, setHasStarted] = useState(false);
   const elementRef = useRef(null);
@@ -75,24 +75,31 @@ const AnimatedCounter = ({ target, suffix = '', duration = 1500 }) => {
   useEffect(() => {
     if (!hasStarted) return;
 
-    let start = 1;
     const end = parseInt(target, 10);
     if (isNaN(end)) return;
-    if (start === end) {
-      setTimeout(() => setCount(end), 0);
+    if (end <= 1) {
+      setCount(end);
       return;
     }
 
-    const stepTime = Math.max(Math.floor(duration / (end - start)), 15);
-    const timer = setInterval(() => {
-      start += 1;
-      setCount(start);
-      if (start >= end) {
-        clearInterval(timer);
-      }
-    }, stepTime);
+    let startTime = null;
+    let animationFrameId;
 
-    return () => clearInterval(timer);
+    const animate = (timestamp) => {
+      if (!startTime) startTime = timestamp;
+      const progress = timestamp - startTime;
+      const progressPercentage = Math.min(progress / duration, 1);
+      
+      const currentCount = Math.floor(progressPercentage * (end - 1) + 1);
+      setCount(currentCount);
+
+      if (progressPercentage < 1) {
+        animationFrameId = requestAnimationFrame(animate);
+      }
+    };
+
+    animationFrameId = requestAnimationFrame(animate);
+    return () => cancelAnimationFrame(animationFrameId);
   }, [hasStarted, target, duration]);
 
   return <span ref={elementRef}>{count}{suffix}</span>;
@@ -498,8 +505,8 @@ export default function Home() {
                 <Image
                   src="/images/logo.webp"
                   alt="Solutions Matter Logo"
-                  width={164}
-                  height={32}
+                  width={205}
+                  height={40}
                   className="achievement-badge-logo"
                 />
               </div>

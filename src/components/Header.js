@@ -132,8 +132,8 @@ export default function Header() {
             <Image
               src="/images/logo.webp"
               alt="Solutions Matter Logo"
-              width={164}
-              height={40}
+              width={205}
+              height={50}
               className="logo-image"
               priority
             />

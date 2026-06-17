@@ -117,7 +117,7 @@ export default async function ServiceDetailPage({ params }) {
   };
 
   return (
-    <div style={{ position: 'relative', overflow: 'clip', width: '100%' }}>
+    <div style={{ position: 'relative', width: '100%' }}>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
       <BackgroundRings count={12} />
       <ServiceHeroScroll />
