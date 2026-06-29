@@ -3,8 +3,8 @@
 import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { 
-  Code2, Laptop, Smartphone, Layout, Cpu, Cloud, BarChart2, Briefcase, Database, RefreshCw, 
+import {
+  Code2, Laptop, Smartphone, Layout, Cpu, Cloud, BarChart2, Briefcase, Database, RefreshCw,
   ArrowRight, ShieldCheck, Zap, Layers, DollarSign, Star, HelpCircle, CheckCircle2, ChevronDown, Plus, Send,
   User, Mail, Globe
 } from 'lucide-react';
@@ -89,7 +89,7 @@ const AnimatedCounter = ({ target, suffix = '', duration = 1000 }) => {
       if (!startTime) startTime = timestamp;
       const progress = timestamp - startTime;
       const progressPercentage = Math.min(progress / duration, 1);
-      
+
       const currentCount = Math.floor(progressPercentage * (end - 1) + 1);
       setCount(currentCount);
 
@@ -236,7 +236,7 @@ export default function Home() {
     }, 4000);
     return () => clearInterval(timer);
   }, []);
-  
+
   // Contact state inside bottom page proposal
   const [formData, setFormData] = useState({
     name: '',
@@ -384,7 +384,7 @@ export default function Home() {
             <p className="hero-split-paragraph">
               We specialize in custom software development and digital transformation, building responsive web applications, mobile platforms, and high-performance databases tailored to your business operations.
             </p>
-            
+
             <div className="hero-split-counters">
               <div className="hero-split-counter-item">
                 <span className="hero-split-counter-num">
@@ -405,11 +405,11 @@ export default function Home() {
               <ArrowRight size={16} />
             </Link>
           </div>
-          
+
           <div className="hero-split-right">
             <div className="hero-split-image-wrapper reveal reveal-image-grow">
-              <Image 
-                src="/images/hero_workspace.webp" 
+              <Image
+                src="/images/hero_workspace.webp"
                 alt="Solutions Matter custom software workspace showing responsive application codes"
                 width={880}
                 height={603}
@@ -473,7 +473,7 @@ export default function Home() {
                 <span className="light-weight reveal reveal-line delay-150">Grow Tech Business</span>
               </span>
             </h2>
-            
+
             <div className="about-indented-content">
               <p>
                 With a portfolio of successful projects spanning various industries our team has consistently demonstrated the ability to transform ideas into high-performing, user-friendly applications.
@@ -491,15 +491,15 @@ export default function Home() {
         <div className="achievement-layout">
           <div className="achievement-left-column">
             <div className="achievement-image-wrapper reveal reveal-image-grow" style={{ position: 'relative' }}>
-              <Image 
-                src="/images/hero_consulting.webp" 
+              <Image
+                src="/images/hero_consulting.webp"
                 alt="Solutions Matter consultants auditing database architectures"
                 width={800}
                 height={548}
                 style={{ objectFit: 'cover', width: '100%', height: '100%' }}
                 className="why-img-fallback"
               />
-              
+
               {/* Center-left overlay badge */}
               <div className="achievement-badge-overlay">
                 <Image
@@ -510,7 +510,7 @@ export default function Home() {
                   className="achievement-badge-logo"
                 />
               </div>
-              
+
               {/* Bottom-left overlay metrics card */}
               <div className="achievement-metrics-overlay">
                 <div className="achievement-metrics-title">360+ Trusted Clients</div>
@@ -574,13 +574,13 @@ export default function Home() {
                 <span className="light-weight reveal reveal-line delay-150" style={{ fontWeight: '400', display: 'block' }}>Advancement Incentives</span>
               </span>
             </h2>
-            
+
             <div className="growth-accordions">
               {growthItems.map((item, idx) => {
                 const isActive = activeGrowthIndex === idx;
                 return (
                   <div key={idx} className="growth-acc-item">
-                    <button 
+                    <button
                       className={`growth-acc-trigger ${isActive ? 'active' : ''}`}
                       onClick={() => toggleGrowth(idx)}
                     >
@@ -607,11 +607,11 @@ export default function Home() {
               })}
             </div>
           </div>
- 
+
           <div className={`growth-right ${activeGrowthIndex !== null ? 'grow-active' : ''}`}>
             <div className="growth-vertical-image-wrapper reveal reveal-image-grow">
-              <Image 
-                src="/images/why_sprints.webp" 
+              <Image
+                src="/images/why_sprints.webp"
                 alt="High-performance custom database engineering solutions"
                 width={720}
                 height={640}
@@ -642,16 +642,16 @@ export default function Home() {
               <span className="light-weight" style={{ display: 'block', marginTop: '8px' }}>that vow Your Success</span>
             </h2>
           </div>
-          
+
           <div className="grid-3">
             {services.slice(0, 3).map((service, index) => (
               <div key={service.slug} className={`card service-card reveal reveal-fade-up ${index === 1 ? 'delay-150' : index === 2 ? 'delay-300' : ''}`}>
                 <div className="service-icon-box">{getServiceIcon(service.slug)}</div>
                 <h3>{service.title}</h3>
                 <p>{service.overview.substring(0, 110)}...</p>
-                
+
                 <div className="service-card-bottom-img">
-                  <Image 
+                  <Image
                     src={getServiceImage(service.slug)}
                     alt={service.title}
                     width={300}
@@ -690,14 +690,14 @@ export default function Home() {
             <span className="badge">Explore Our Recent Case Studies</span>
             <h2>Our Latest Software Projects</h2>
           </div>
-          
+
           <div className="case-studies-carousel-wrapper reveal reveal-fade-up">
             <button className="carousel-nav-btn prev" onClick={prevCaseStudy}>&larr;</button>
-            
+
             <div className="case-studies-carousel-viewport">
-              <div 
+              <div
                 className="case-studies-carousel-track"
-                style={{ 
+                style={{
                   transform: `translateX(-${activeCaseIndex * (100 / caseStudies.length)}%)`,
                   display: 'flex',
                   transition: 'transform 0.6s cubic-bezier(0.4, 0, 0.2, 1)',
@@ -705,8 +705,8 @@ export default function Home() {
                 }}
               >
                 {caseStudies.map((cs) => (
-                  <div 
-                    key={cs.slug} 
+                  <div
+                    key={cs.slug}
                     className="case-study-carousel-slide"
                     style={{ width: `${100 / caseStudies.length}%`, flexShrink: 0, padding: '0 12px' }}
                   >
@@ -715,17 +715,17 @@ export default function Home() {
                         <span className="case-study-card-industry">{cs.industry}</span>
                         <h3 className="case-study-card-title">{cs.title}</h3>
                         <p className="case-study-card-challenge">{cs.challenge.substring(0, 160)}...</p>
-                        
+
                         <Link href={`/company/case-studies/${cs.slug}`} className="btn-plus-readmore" style={{ marginTop: 'auto' }}>
                           <span className="plus-icon">+</span>
                           <span className="readmore-text">Read More</span>
                         </Link>
                       </div>
-                      
+
                       <div className="case-study-card-right">
-                        <Image 
-                          src={getCaseStudyImage(cs.slug)} 
-                          alt={cs.title} 
+                        <Image
+                          src={getCaseStudyImage(cs.slug)}
+                          alt={cs.title}
                           width={600}
                           height={450}
                           style={{ objectFit: 'cover', width: '100%', height: '100%' }}
@@ -736,13 +736,13 @@ export default function Home() {
                 ))}
               </div>
             </div>
-            
+
             <button className="carousel-nav-btn next" onClick={nextCaseStudy}>&rarr;</button>
           </div>
 
           <div className="case-studies-carousel-dots">
             {caseStudies.map((_, idx) => (
-              <button 
+              <button
                 key={idx}
                 className={`carousel-dot ${activeCaseIndex === idx ? 'active' : ''}`}
                 onClick={() => setActiveCaseIndex(idx)}
@@ -762,7 +762,7 @@ export default function Home() {
               <strong>300+ People Say </strong>
               <span className="light-weight" style={{ fontWeight: '400' }}>About Us</span>
             </h2>
-            
+
             <div className="testimonial-card-borderless" style={{ minHeight: '240px', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
               <div className="testimonial-quote-icon" style={{ color: 'var(--primary)', marginBottom: '16px', opacity: 0.8 }}>
                 <svg width="48" height="48" viewBox="0 0 24 24" fill="currentColor">
@@ -782,7 +782,7 @@ export default function Home() {
 
             <div className="testimonial-dots">
               {testimonials.map((_, idx) => (
-                <button 
+                <button
                   key={idx}
                   className={`testimonial-dot ${activeTestimonialIndex === idx ? 'active' : ''}`}
                   onClick={() => setActiveTestimonialIndex(idx)}
@@ -816,11 +816,11 @@ export default function Home() {
         <div className="container proposal-split-grid">
           <div className="proposal-left-card reveal reveal-fade-right">
             <div className="proposal-left-card-img-wrapper">
-              <Image 
-                src="/images/hero_consulting.webp" 
-                alt="Work Inquiry" 
-                fill 
-                style={{ objectFit: 'cover' }} 
+              <Image
+                src="/images/hero_consulting.webp"
+                alt="Work Inquiry"
+                fill
+                style={{ objectFit: 'cover' }}
                 priority
               />
             </div>
@@ -856,64 +856,64 @@ export default function Home() {
                     We are ready to help your next projects, let&apos;s work together
                   </p>
                 </div>
-                
+
                 <form onSubmit={handleFormSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
                   <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' }}>
                     <div style={{ position: 'relative' }}>
-                      <input 
-                        type="text" 
-                        id="name" 
-                        name="name" 
-                        value={formData.name} 
-                        onChange={handleInputChange} 
-                        className="proposal-form-input" 
+                      <input
+                        type="text"
+                        id="name"
+                        name="name"
+                        value={formData.name}
+                        onChange={handleInputChange}
+                        className="proposal-form-input"
                         placeholder="Name"
                         required
                       />
-                      <User 
-                        size={18} 
-                        style={{ 
-                          position: 'absolute', 
-                          right: '16px', 
-                          top: '50%', 
-                          transform: 'translateY(-50%)', 
+                      <User
+                        size={18}
+                        style={{
+                          position: 'absolute',
+                          right: '16px',
+                          top: '50%',
+                          transform: 'translateY(-50%)',
                           color: '#5E6E82',
-                          pointerEvents: 'none' 
-                        }} 
+                          pointerEvents: 'none'
+                        }}
                       />
                     </div>
-                    
+
                     <div style={{ position: 'relative' }}>
-                      <input 
-                        type="email" 
-                        id="email" 
-                        name="email" 
-                        value={formData.email} 
-                        onChange={handleInputChange} 
-                        className="proposal-form-input" 
+                      <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        value={formData.email}
+                        onChange={handleInputChange}
+                        className="proposal-form-input"
                         placeholder="Email"
                         required
                       />
-                      <Mail 
-                        size={18} 
-                        style={{ 
-                          position: 'absolute', 
-                          right: '16px', 
-                          top: '50%', 
-                          transform: 'translateY(-50%)', 
+                      <Mail
+                        size={18}
+                        style={{
+                          position: 'absolute',
+                          right: '16px',
+                          top: '50%',
+                          transform: 'translateY(-50%)',
                           color: '#5E6E82',
-                          pointerEvents: 'none' 
-                        }} 
+                          pointerEvents: 'none'
+                        }}
                       />
                     </div>
                   </div>
 
                   <div style={{ position: 'relative' }}>
-                    <select 
-                      id="position" 
-                      name="position" 
-                      value={formData.position} 
-                      onChange={handleInputChange} 
+                    <select
+                      id="position"
+                      name="position"
+                      value={formData.position}
+                      onChange={handleInputChange}
                       className="proposal-form-select"
                       required
                     >
@@ -923,26 +923,26 @@ export default function Home() {
                       <option value="Mobile App Development">Mobile App Development</option>
                       <option value="Cloud Migration & DevOps">Cloud Migration & DevOps</option>
                     </select>
-                    <ChevronDown 
-                      size={18} 
-                      style={{ 
-                        position: 'absolute', 
-                        right: '16px', 
-                        top: '50%', 
-                        transform: 'translateY(-50%)', 
-                        color: '#5E6E82', 
-                        pointerEvents: 'none' 
-                      }} 
+                    <ChevronDown
+                      size={18}
+                      style={{
+                        position: 'absolute',
+                        right: '16px',
+                        top: '50%',
+                        transform: 'translateY(-50%)',
+                        color: '#5E6E82',
+                        pointerEvents: 'none'
+                      }}
                     />
                   </div>
 
                   <div>
-                    <textarea 
-                      id="message" 
-                      name="message" 
-                      value={formData.message} 
-                      onChange={handleInputChange} 
-                      className="proposal-form-textarea" 
+                    <textarea
+                      id="message"
+                      name="message"
+                      value={formData.message}
+                      onChange={handleInputChange}
+                      className="proposal-form-textarea"
                       rows="4"
                       placeholder="Message"
                     />
@@ -975,18 +975,16 @@ export default function Home() {
               </h2>
             </div>
           </div>
-            
+
           <div className="grid-2 blog-grid-container">
             {featuredBlogPosts.map((post, index) => (
               <div key={post.slug} className={`blog-vertical-card reveal reveal-fade-up ${index === 1 ? 'delay-200' : ''}`}>
                 <div className="blog-vertical-card-content">
-                  <div className="blog-vertical-card-meta">
-                    <span>06 June 2026</span>
-                  </div>
-                  
+
+
                   <h3 className="blog-vertical-card-title">{post.title}</h3>
                   <p className="blog-vertical-card-summary">{post.summary}</p>
-                  
+
                   <Link href={`/insights/blog/${post.slug}`} className="blog-vertical-btn">
                     <span className="plus-icon">+</span>
                     <span className="btn-text">Read More</span>
@@ -994,10 +992,10 @@ export default function Home() {
                 </div>
 
                 <div className="blog-vertical-card-img-wrapper">
-                  <Image 
-                    src={post.banner || post.image || '/images/blog_ai_enterprise.webp'} 
-                    alt={post.title} 
-                    fill 
+                  <Image
+                    src={post.banner || post.image || '/images/blog_ai_enterprise.webp'}
+                    alt={post.title}
+                    fill
                     style={{ objectFit: 'cover' }}
                     className="blog-zoom-img"
                   />

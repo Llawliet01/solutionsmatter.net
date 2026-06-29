@@ -18,7 +18,7 @@ export async function generateMetadata({ params }) {
   const resolvedParams = await params;
   const slug = resolvedParams.slug;
   const post = blogPosts.find(p => p.slug === slug);
-  
+
   if (!post) {
     return {
       title: 'Post Not Found'
@@ -84,7 +84,7 @@ export default async function BlogDetailPage({ params }) {
       {/* Detail Layout */}
       <section className="blog-detail-section">
         <div className="container">
-          
+
           {/* Back Button */}
           <div className="back-btn-wrapper">
             <Link href="/insights/blog" className="back-link">
@@ -94,23 +94,14 @@ export default async function BlogDetailPage({ params }) {
           </div>
 
           <div className="blog-detail-grid">
-            
+
             {/* Main Article Content */}
             <article className="blog-article-content card">
               <span className="category-badge">{post.category.replace('-', ' ')}</span>
               <h1>{post.title}</h1>
 
               <div className="article-meta-bar">
-                <div className="meta-item">
-                  <span className="meta-label">Author</span>
-                  <span className="meta-value">Solutions Matter Tech Team</span>
-                </div>
-                <div className="meta-divider" />
-                <div className="meta-item">
-                  <span className="meta-label">Published</span>
-                  <span className="meta-value">June 2026</span>
-                </div>
-                <div className="meta-divider" />
+
                 <div className="meta-item">
                   <span className="meta-label">Read Time</span>
                   <span className="meta-value">
@@ -118,7 +109,7 @@ export default async function BlogDetailPage({ params }) {
                   </span>
                 </div>
               </div>
-              
+
               <div className="article-banner-image">
                 <Image
                   src={post.banner}
@@ -131,7 +122,7 @@ export default async function BlogDetailPage({ params }) {
               </div>
 
               {/* Rich text body content */}
-              <div 
+              <div
                 className="article-html-body"
                 dangerouslySetInnerHTML={{ __html: post.content }}
               />
@@ -142,7 +133,7 @@ export default async function BlogDetailPage({ params }) {
 
             {/* Sidebar Column */}
             <div className="blog-sidebar-area">
-              
+
               {/* Related Services */}
               <div className="sidebar-card relation-sidebar-card">
                 <h3>Related Services</h3>
@@ -209,7 +200,7 @@ export default async function BlogDetailPage({ params }) {
           </div>
 
           {/* Blog flow redirect trail: Blog -> Related Service */}
-          <PageFlow 
+          <PageFlow
             nextType="Recommended Service"
             nextTitle={post.relatedServices[0].title}
             nextPath={`/services/${post.relatedServices[0].slug}`}

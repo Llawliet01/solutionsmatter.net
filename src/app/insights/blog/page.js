@@ -25,8 +25,8 @@ export default function BlogListingPage() {
   };
 
   const filteredPosts = blogPosts.filter((post) => {
-    const matchesSearch = post.title.toLowerCase().includes(searchQuery.toLowerCase()) || 
-                          post.summary.toLowerCase().includes(searchQuery.toLowerCase());
+    const matchesSearch = post.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      post.summary.toLowerCase().includes(searchQuery.toLowerCase());
     const matchesTab = activeTab === 'all' || post.category === activeTab;
     return matchesSearch && matchesTab;
   });
@@ -34,12 +34,7 @@ export default function BlogListingPage() {
   const featuredPost = blogPosts[0]; // Set first blog as featured
   const latestPosts = filteredPosts.filter(p => p.slug !== featuredPost.slug || activeTab !== 'all' || searchQuery !== '');
 
-  const categories = [
-    { id: 'all', name: 'All Insights' },
-    { id: 'ai-insights', name: 'AI Insights' },
-    { id: 'technology-trends', name: 'Tech Trends' },
-    { id: 'resources', name: 'Resources' }
-  ];
+
 
   return (
     <>
@@ -49,39 +44,13 @@ export default function BlogListingPage() {
       {/* Filter and Listing Section */}
       <section className="section-spacing blog-listing-section">
         <div className="container">
-          
-          {/* Search and Category Filter Bar */}
-          <div className="filters-bar">
-            <div className="category-tabs">
-              {categories.map((cat) => (
-                <button
-                  key={cat.id}
-                  className={`tab-btn ${activeTab === cat.id ? 'active-tab' : ''}`}
-                  onClick={() => setActiveTab(cat.id)}
-                >
-                  {cat.name}
-                </button>
-              ))}
-            </div>
-            
-            <div className="search-box-wrapper">
-              <Search size={18} className="search-icon" />
-              <input
-                type="text"
-                placeholder="Search articles..."
-                value={searchQuery}
-                onChange={handleSearchChange}
-                className="search-input"
-              />
-            </div>
-          </div>
 
           {/* Featured Article Section (Only displayed when no active search or specific tab, or default view) */}
           {activeTab === 'all' && searchQuery === '' && featuredPost && (
             <div className="featured-article-container">
               <h2 className="section-subheader-title">Featured Article</h2>
               <div className="card featured-card">
-                
+
                 {/* Overlapping Floating Image Block */}
                 <div className="featured-img-area">
                   <div className="featured-img-wrapper">
@@ -115,7 +84,7 @@ export default function BlogListingPage() {
             <h2 className="section-subheader-title">
               {searchQuery !== '' || activeTab !== 'all' ? 'Filtered Insights' : 'Latest Articles'}
             </h2>
-            
+
             {filteredPosts.length === 0 ? (
               <div className="no-results-box">
                 <Layers size={40} className="no-res-icon" />
@@ -125,7 +94,7 @@ export default function BlogListingPage() {
               <div className="grid-2">
                 {latestPosts.map((post) => (
                   <div key={post.slug} className="card blog-list-card">
-                    
+
                     {/* Left Column containing floating image and date display */}
                     <div className="blog-card-left-column">
                       <div className="blog-card-img-wrapper">
@@ -137,43 +106,24 @@ export default function BlogListingPage() {
                           className="blog-card-fallback-img"
                         />
                       </div>
-                      <div className="blog-card-date-box">
-                        <span className="date-day">{post.date.day}</span>
-                        <span className="date-month">{post.date.month}</span>
-                      </div>
+
                     </div>
 
                     {/* Right Column containing content details */}
                     <div className="blog-card-content">
                       <div className="blog-card-top-row">
                         <span className="category-badge-pill-small">{post.category.replace('-', ' ')}</span>
-                        
-                        <div className="blog-card-author-badge">
-                          <div className="author-avatar-wrapper">
-                            <Image
-                              src={post.author.avatar}
-                              alt={post.author.name}
-                              width={24}
-                              height={24}
-                              className="author-avatar"
-                            />
-                          </div>
-                          <span className="author-name">{post.author.name}</span>
-                        </div>
+
+
                       </div>
 
                       <h3>{post.title}</h3>
                       <hr className="blog-card-divider" />
                       <p>{post.summary}</p>
-                      
+
                       {/* Social icons row and floating action click arrow */}
                       <div className="blog-card-footer">
-                        <div className="blog-card-social-icons">
-                          <span className="social-icon-btn"><Eye size={16} /></span>
-                          <span className="social-icon-btn"><Heart size={16} /></span>
-                          <span className="social-icon-btn"><Mail size={16} /></span>
-                          <span className="social-icon-btn"><Share2 size={16} /></span>
-                        </div>
+
                         <Link href={`/insights/blog/${post.slug}`} className="blog-card-arrow-action-btn">
                           <ArrowDown size={20} className="arrow-down-icon" />
                         </Link>
